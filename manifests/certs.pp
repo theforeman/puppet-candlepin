@@ -16,6 +16,8 @@ class candlepin::certs (
     $candlepin_ca_password_file = $certs::params::candlepin_ca_password_file,
   ) {
 
+  Exec { logoutput => 'on_failure' }
+
   if $deploy {
     file { $keystore_password_file:
       ensure  => file,
@@ -55,7 +57,6 @@ class candlepin::certs (
     } ~>
     exec { 'generate-ssl-keystore':
       command   => "openssl pkcs12 -export -in ${ca_cert} -inkey ${ca_key} -out ${keystore} -name tomcat -CAfile ${ca_cert} -caname root -password \"file:${keystore_password_file}\"",
-      logoutput => 'on_failure',
       path      => '/bin:/usr/bin',
       creates   => $keystore;
     } ~>
@@ -63,6 +64,13 @@ class candlepin::certs (
     file { "/usr/share/${candlepin::tomcat}/conf/keystore":
       ensure  => link,
       target  => $keystore;
+    } ~>
+    exec { 'add-candlepin-cert-to-nss-db':
+      command     => "certutil -A -d '${::certs::nss_db_dir}' -n 'ca' -t 'TCu,Cu,Tuw' -a -i '${ca_cert}'",
+      path        => '/usr/bin',
+      require     => Exec['create-nss-db'],
+      refreshonly => true,
     }
+
   }
 }
