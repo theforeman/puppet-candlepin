@@ -3,10 +3,17 @@ class candlepin::database {
 
   # Temporary direct use of liquibase to initiall migrate the candlepin database
   # until support is added in cpdb - https://bugzilla.redhat.com/show_bug.cgi?id=1044574
-  include postgresql::server
-  postgresql::db { $candlepin::db_name:
+
+  # Prevents errors if run from /root etc.
+  Postgresql_psql {
+    cwd => '/',
+  }
+
+  include postgresql::client, postgresql::server
+  postgresql::server::db { $candlepin::db_name:
     user     => $candlepin::db_user,
     password => postgresql_password($candlepin::db_user, $candlepin::db_pass),
+    owner    => $candlepin::db_user,
   } ~>
   exec { 'cpdb':
     path        => '/bin:/usr/bin',
@@ -27,5 +34,7 @@ class candlepin::database {
       File['/etc/candlepin/candlepin.conf']
     ],
   }
+
+  Postgresql::Server::Role[$candlepin::db_user] -> Postgresql::Server::Database[$candlepin::db_name]
 
 }
