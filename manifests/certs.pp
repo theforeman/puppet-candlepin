@@ -12,8 +12,7 @@ class candlepin::certs (
     $keystore = '/etc/pki/katello/keystore',
     $keystore_password_file = undef,
     $keystore_password = undef,
-    $candlepin_certs_dir = $certs::params::candlepin_certs_dir,
-    $candlepin_ca_password_file = $certs::params::candlepin_ca_password_file,
+    $candlepin_certs_dir = $certs::params::candlepin_certs_dir
   ) {
 
   Exec { logoutput => 'on_failure' }
@@ -68,7 +67,7 @@ class candlepin::certs (
     exec { 'add-candlepin-cert-to-nss-db':
       command     => "certutil -A -d '${::certs::nss_db_dir}' -n 'ca' -t 'TCu,Cu,Tuw' -a -i '${ca_cert}'",
       path        => '/usr/bin',
-      require     => Exec['create-nss-db'],
+      subscribe   => Exec['create-nss-db'],
       refreshonly => true,
     }
 
