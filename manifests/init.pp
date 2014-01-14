@@ -84,7 +84,7 @@ class candlepin (
 
   class { 'candlepin::install': } ~>
   class { 'candlepin::config': } ~>
-  class { 'candlepin::certs':
+  class { 'certs::candlepin':
     keystore_password_file => $keystore_password_file,
     keystore_password      => $keystore_password,
     } ~>
