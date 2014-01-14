@@ -91,7 +91,7 @@
                clientAuth="want" SSLProtocol="TLS"
                keystoreFile="conf/keystore"
                truststoreFile="conf/keystore"
-               keystorePass="<%= scope.lookupvar("candlepin::keystore_password_real") %>"
+               keystorePass="<%= scope.lookupvar("candlepin::keystore_password") %>"
                keystoreType="PKCS12"
                ciphers="SSL_RSA_WITH_3DES_EDE_CBC_SHA,
                     TLS_RSA_WITH_AES_256_CBC_SHA,

@@ -72,8 +72,9 @@ class candlepin (
   $weburl = "https://${::fqdn}/${candlepin::deployment_url}/distributors?uuid="
   $apiurl = "https://${::fqdn}/${candlepin::deployment_url}/api/distributors/"
 
-  $keystore_password_file = '/etc/katello/keystore_password-file'
-  $keystore_password = find_or_create_password($keystore_password_file)
+  include certs::params
+  $keystore_password_file = $::certs::params::candlepin_keystore_password_file
+  $keystore_password      = $::certs::params::candlepin_keystore_password
 
   if $candlepin::thumbslug_enabled {
     require 'thumbslug::params'
