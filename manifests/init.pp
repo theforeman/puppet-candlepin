@@ -69,13 +69,12 @@ class candlepin (
 
   ) inherits candlepin::params {
 
-  include certs
-  include certs::config
-
-  $keystore_password = $certs::keystore_password
-
   $weburl = "https://${::fqdn}/${candlepin::deployment_url}/distributors?uuid="
   $apiurl = "https://${::fqdn}/${candlepin::deployment_url}/api/distributors/"
+
+  include certs::params
+  $keystore_password_file = $::certs::params::candlepin_keystore_password_file
+  $keystore_password      = $::certs::params::candlepin_keystore_password
 
   if $candlepin::thumbslug_enabled {
     require 'thumbslug::params'
@@ -86,6 +85,10 @@ class candlepin (
 
   class { 'candlepin::install': } ~>
   class { 'candlepin::config': } ~>
+  class { 'certs::candlepin':
+    keystore_password_file => $keystore_password_file,
+    keystore_password      => $keystore_password,
+    } ~>
   class { 'candlepin::database': } ~>
   class { 'candlepin::service': } ->
   Class['candlepin']

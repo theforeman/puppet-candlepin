@@ -1,18 +1,8 @@
 # Configuration for Candlepin
 class candlepin::config {
-  include certs
-
   user { 'tomcat':
     ensure => present,
     groups => $candlepin::user_groups,
-    before => Service[$candlepin::tomcat]
-  }
-
-  file { "/usr/share/${candlepin::tomcat}/conf/keystore":
-    ensure  => link,
-    target  => $certs::keystore,
-    require => File[$certs::keystore],
-    before  => Service[$candlepin::tomcat],
   }
 
   file {
@@ -20,16 +10,14 @@ class candlepin::config {
       ensure  => file,
       content => template('candlepin/etc/candlepin/candlepin.conf.erb'),
       mode    => '0600',
-      owner   => 'tomcat',
-      notify  => Service[$candlepin::tomcat];
+      owner   => 'tomcat';
 
     "/etc/${candlepin::tomcat}/server.xml":
       ensure  => file,
       content => template("candlepin/etc/${candlepin::tomcat}/server.xml.erb"),
       mode    => '0644',
       owner   => 'root',
-      group   => 'root',
-      notify  => Service[$candlepin::tomcat];
+      group   => 'root';
 
     # various tomcat versions had some permission bugs - fix them all
     "/etc/${candlepin::tomcat}":
@@ -65,7 +53,6 @@ class candlepin::config {
       command => "rm -f ${candlepin::log_dir}/cpdb_done; rm -f ${candlepin::log_dir}/cpinit_done; service ${candlepin::tomcat} stop; test 1 -eq 1",
       path    => '/sbin:/bin:/usr/bin',
       before  => Exec['cpdb'],
-      notify  => Postgresql::Dropdb[$candlepin::db_name],
     }
     postgresql::dropdb {$candlepin::db_name:
       logfile     => "${candlepin::log_dir}/drop-postgresql-candlepin-database.log",
