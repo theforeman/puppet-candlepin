@@ -1,0 +1,3 @@
+class candlepin::database::mysql {
+
+}

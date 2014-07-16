@@ -8,6 +8,14 @@
 # $oauth_secret::           The oauth secret for talking to the candlepin API;
 #                           default 'candlepin'
 #
+# $manage_db::              Boolean indicating if a database should be installed and configured.
+#                           Set false if database is hosted on dedicated server.
+#                           default true
+#
+# $db_type::                The type of database Candlepin will be connecting too.
+#                           options ['postgresql','mysql']
+#                           default postgresql
+#
 # $db_name::                The name of the Candlepin database;
 #                           default 'candlepin'
 #
@@ -48,8 +56,24 @@
 #
 # $ca_key_password::        CA key password
 #
+# $version::                Version of Candlepin to install
+#                           default 'installed'
+#
+# $run_init::               Boolean indicating if the init api should be called on Candlepin
+#                           default true
+#
+# $adapter_module::         Candlepin adapter implementations to inject into the java runtime
+#                           default is for Katello
+#
+# $amq_enable::             Boolean indicating if amq should be enabled and configured
+#                           default is true
+#
 class candlepin (
 
+  $manage_db   = $candlepin::params::manage_db,
+  $db_type     = $candlepin::params::db_type,
+  $db_host     = $candlepin::params::db_host,
+  $db_port     = undef,
   $db_name     = $candlepin::params::db_name,
   $db_user     = $candlepin::params::db_user,
   $db_password = $candlepin::params::db_password,
@@ -78,13 +102,32 @@ class candlepin (
   $ca_key = $candlepin::params::ca_key,
   $ca_cert = $candlepin::params::ca_crt,
   $ca_key_password = $candlepin::params::ca_key_password,
-  $qpid_ssl_port = $candlepin::params::qpid_ssl_port
+  $qpid_ssl_port = $candlepin::params::qpid_ssl_port,
 
+  $version = 'installed',
+  $run_init = true,
+  $adapter_module = 'org.candlepin.katello.KatelloModule',
+  $amq_enable = true,
+  $enable_hbm2ddl_validate = true,
   ) inherits candlepin::params {
 
   $weburl = "https://${::fqdn}/${candlepin::deployment_url}/distributors?uuid="
   $apiurl = "https://${::fqdn}/${candlepin::deployment_url}/api/distributors/"
   $amqpurl = "tcp://${::fqdn}:${qpid_ssl_port}?ssl='true'&ssl_cert_alias='amqp-client'"
+
+  $db_props = $candlepin::db_type ? {
+    'postgresql' => ['org.hibernate.dialect.PostgreSQLDialect', 'org.postgresql.Driver', 5432],
+    'mysql' => ['org.hibernate.dialect.MySQLDialect', 'com.mysql.jdbc.Driver', 3306],
+    default => err("Invalid db_type selected: #{$candlepin::db_type}. Valid options are ['mysql','postgresql'].")
+  }
+  $db_dialect = $db_props[0]
+  $db_driver = $db_props[1]
+  if $candlepin::db_port {
+    $db_port_real = $candlepin::db_port
+  }
+  else{
+    $db_port_real = $db_props[2]
+  }
 
   class { 'candlepin::install': } ~>
   class { 'candlepin::config': } ~>

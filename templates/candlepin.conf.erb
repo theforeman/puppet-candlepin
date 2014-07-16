@@ -3,10 +3,12 @@
 # CHANGES WILL LIKELY BE OVERWRITTEN.
 #
 
-jpa.config.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-jpa.config.hibernate.connection.driver_class=org.postgresql.Driver
-jpa.config.hibernate.connection.url=jdbc:postgresql:<%= @db_name %>
+jpa.config.hibernate.dialect=<%= @db_dialect %>
+jpa.config.hibernate.connection.driver_class=<%= @db_driver %>
+jpa.config.hibernate.connection.url=jdbc:<%= @db_type %>://<%= @db_host %>:<%= @db_port_real %>/<%= @db_name %>
+<% if @enable_hbm2ddl_validate -%>
 jpa.config.hibernate.hbm2ddl.auto=validate
+<% end -%>
 jpa.config.hibernate.connection.username=<%= @db_user %>
 jpa.config.hibernate.connection.password=<%= @db_password %>
 candlepin.consumer_system_name_pattern = .+
@@ -16,14 +18,16 @@ candlepin.auth.trusted.enable = false
 candlepin.enable_cert_v3=true
 candlepin.export.prefix.weburl=<%= @weburl %>
 candlepin.export.prefix.apiurl=<%= @apiurl %>
+<% if @amq_enable -%>
 # enable events via AMQP
 candlepin.amqp.enable=true
 candlepin.amqp.connect=<%= @amqpurl %>
 candlepin.amqp.keystore_password=<%= @amqp_keystore_password %>
 candlepin.amqp.truststore_password=<%= @amqp_truststore_password %>
+<%- end -%>
 
 <% if @oauth_key != "" -%>
-module.config.katello=org.candlepin.katello.KatelloModule
+module.config.adapter_module=<%= @adapter_module %>
 candlepin.auth.oauth.enable = true
 candlepin.auth.oauth.consumer.<%= @oauth_key %>.secret = <%= @oauth_secret %>
 candlepin.crl.file = <%= @crl_file %>

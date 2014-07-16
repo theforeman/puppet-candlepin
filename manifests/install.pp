@@ -1,8 +1,8 @@
 # Candlepin installation packages
-class candlepin::install {
+class candlepin::install{
 
   package { ['candlepin', "candlepin-${candlepin::tomcat}"]:
-    ensure => 'installed'
+    ensure => $candlepin::version
   }
 
 }

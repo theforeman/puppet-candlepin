@@ -11,6 +11,9 @@ class candlepin::params {
     }
   }
 
+  $manage_db = true
+  $db_type = 'postgresql'
+  $db_host = 'localhost'
   $db_user = 'candlepin'
   $db_name = 'candlepin'
 
