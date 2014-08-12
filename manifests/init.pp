@@ -118,7 +118,7 @@ class candlepin (
   $db_props = $candlepin::db_type ? {
     'postgresql' => ['org.hibernate.dialect.PostgreSQLDialect', 'org.postgresql.Driver', 5432],
     'mysql' => ['org.hibernate.dialect.MySQLDialect', 'com.mysql.jdbc.Driver', 3306],
-    default => err("Invalid db_type selected: #{$candlepin::db_type}. Valid options are ['mysql','postgresql'].")
+    default => err("Invalid db_type selected: ${candlepin::db_type}. Valid options are ['mysql','postgresql'].")
   }
   $db_dialect = $db_props[0]
   $db_driver = $db_props[1]

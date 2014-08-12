@@ -1,4 +1,4 @@
-# Candlepin Database Setup
+# Candlepin Database Setup using Postgreql
 class candlepin::database::postgresql {
 
   # Prevents errors if run from /root etc.
