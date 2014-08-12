@@ -115,23 +115,9 @@ class candlepin (
   $apiurl = "https://${::fqdn}/${candlepin::deployment_url}/api/distributors/"
   $amqpurl = "tcp://${::fqdn}:${qpid_ssl_port}?ssl='true'&ssl_cert_alias='amqp-client'"
 
-  $db_props = $candlepin::db_type ? {
-    'postgresql' => ['org.hibernate.dialect.PostgreSQLDialect', 'org.postgresql.Driver', 5432],
-    'mysql' => ['org.hibernate.dialect.MySQLDialect', 'com.mysql.jdbc.Driver', 3306],
-    default => err("Invalid db_type selected: ${candlepin::db_type}. Valid options are ['mysql','postgresql'].")
-  }
-  $db_dialect = $db_props[0]
-  $db_driver = $db_props[1]
-  if $candlepin::db_port {
-    $db_port_real = $candlepin::db_port
-  }
-  else{
-    $db_port_real = $db_props[2]
-  }
-
   class { 'candlepin::install': } ~>
-  class { 'candlepin::config': } ~>
   class { 'candlepin::database': } ~>
+  class { 'candlepin::config': } ~>
   class { 'candlepin::service': } ~>
   Class['candlepin']
 
