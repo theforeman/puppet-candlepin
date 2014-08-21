@@ -68,12 +68,17 @@
 # $amq_enable::             Boolean indicating if amq should be enabled and configured
 #                           default is true
 #
+# $enable_hbm2ddl_validate:: Boolean that if true will perform a schema check to ensure compliance
+#                            with the models, otherwise false will disable this check. Disabling
+#                            this feature may be required if modifications are required to the schema.
+#                           default is true
+#
 class candlepin (
 
   $manage_db   = $candlepin::params::manage_db,
   $db_type     = $candlepin::params::db_type,
   $db_host     = $candlepin::params::db_host,
-  $db_port     = undef,
+  $db_port     = $candlepin::params::db_port,
   $db_name     = $candlepin::params::db_name,
   $db_user     = $candlepin::params::db_user,
   $db_password = $candlepin::params::db_password,
@@ -104,11 +109,11 @@ class candlepin (
   $ca_key_password = $candlepin::params::ca_key_password,
   $qpid_ssl_port = $candlepin::params::qpid_ssl_port,
 
-  $version = 'installed',
-  $run_init = true,
-  $adapter_module = 'org.candlepin.katello.KatelloModule',
-  $amq_enable = true,
-  $enable_hbm2ddl_validate = true,
+  $version = $candlepin::params::version,
+  $run_init = $candlepin::params::run_init,
+  $adapter_module = $candlepin::params::adapter_module,
+  $amq_enable = $candlepin::params::amq_enable,
+  $enable_hbm2ddl_validate = $candlepin::params::enable_hbm2ddl_validate,
   ) inherits candlepin::params {
 
   $weburl = "https://${::fqdn}/${candlepin::deployment_url}/distributors?uuid="
