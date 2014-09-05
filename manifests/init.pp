@@ -16,6 +16,13 @@
 #                           options ['postgresql','mysql']
 #                           default postgresql
 #
+# $db_host::                url of database server.
+#                           default localhost
+#
+# $db_port::                port the database listens on. Only needs to be provided if different
+#                           from standard port of the :db_type.
+#                           ex. mysql will default to 3306 and postgresql will default to 5432.
+#
 # $db_name::                The name of the Candlepin database;
 #                           default 'candlepin'
 #
@@ -121,8 +128,21 @@ class candlepin (
   $amqpurl = "tcp://${::fqdn}:${qpid_ssl_port}?ssl='true'&ssl_cert_alias='amqp-client'"
 
   class { 'candlepin::install': } ~>
-  class { 'candlepin::database': } ~>
-  class { 'candlepin::config': } ~>
+  class { 'candlepin::database': }
+
+  $db_dialect = $::candlepin::database::db_dialect
+  $db_driver = $::candlepin::database::db_driver
+
+  if $candlepin::db_port {
+    $db_port_real = $candlepin::db_port
+  }
+  else{
+    $db_port_real = $::candlepin::database::db_default_port
+  }
+
+  class { 'candlepin::config':
+    require => Class['candlepin::database']
+  } ~>
   class { 'candlepin::service': } ~>
   Class['candlepin']
 

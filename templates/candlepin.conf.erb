@@ -3,9 +3,9 @@
 # CHANGES WILL LIKELY BE OVERWRITTEN.
 #
 
-jpa.config.hibernate.dialect=<%= scope.lookupvar('::candlepin::database::db_dialect') %>
-jpa.config.hibernate.connection.driver_class=<%= scope.lookupvar('::candlepin::database::db_driver') %>
-jpa.config.hibernate.connection.url=jdbc:<%= @db_type %>://<%= @db_host %>:<%= scope.lookupvar('::candlepin::database::db_port_real') %>/<%= @db_name %>
+jpa.config.hibernate.dialect=<%= @db_dialect %>
+jpa.config.hibernate.connection.driver_class=<%= @db_driver %>
+jpa.config.hibernate.connection.url=jdbc:<%= @db_type %>://<%= @db_host %>:<%= @db_port_real %>/<%= @db_name %>
 <% if @enable_hbm2ddl_validate -%>
 jpa.config.hibernate.hbm2ddl.auto=validate
 <% end -%>
