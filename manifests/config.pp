@@ -14,13 +14,13 @@ class candlepin::config {
   }
 
   concat{$::candlepin::candlepin_conf_file:
-    mode    => '0600',
-    owner   => 'tomcat',
-    group   => 'tomcat',
+    mode  => '0600',
+    owner => 'tomcat',
+    group => 'tomcat',
   }
 
   concat::fragment {'General Config':
-    target => $::candlepin::candlepin_conf_file,
+    target  => $::candlepin::candlepin_conf_file,
     content => template('candlepin/candlepin.conf.erb'),
   }
 

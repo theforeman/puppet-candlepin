@@ -11,7 +11,7 @@ class candlepin::database::postgresql{
   $db_password = $::candlepin::db_password
 
   concat::fragment{'PostgreSQL Database Configuration':
-    target => $::candlepin::candlepin_conf_file,
+    target  => $::candlepin::candlepin_conf_file,
     content => template('candlepin/candlepin_database.conf.erb'),
   }
 
