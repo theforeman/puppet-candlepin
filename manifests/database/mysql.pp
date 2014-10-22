@@ -10,6 +10,7 @@ class candlepin::database::mysql {
   $db_name = $::candlepin::db_name
   $db_user = $::candlepin::db_user
   $db_password = $::candlepin::db_password
+  $enable_hbm2ddl_validate = $::candlepin::enable_hbm2ddl_validate
 
   concat::fragment{'Mysql Database Configuration':
     target  => $::candlepin::candlepin_conf_file,
