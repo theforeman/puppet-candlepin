@@ -43,7 +43,7 @@ class candlepin::config {
     ensure => directory,
     mode   => '0775',
     owner  => 'tomcat',
-    group  => 'tomcat',
+    group  => 'root',
   }
 
   file { "/var/log/${candlepin::tomcat}":
