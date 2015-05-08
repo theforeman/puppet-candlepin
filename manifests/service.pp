@@ -14,7 +14,7 @@ class candlepin::service{
       # tomcat startup is slow - try multiple times (the initialization service is idempotent)
       command => '/usr/bin/wget --timeout=30 --tries=5 --retry-connrefused -qO- http://localhost:8080/candlepin/admin/init > /var/log/candlepin/cpinit.log 2>&1 && touch /var/lib/candlepin/cpinit_done',
       require => [Package['wget'], Service[$candlepin::tomcat]],
-      creates => '/var/lib/candlepin/cpinit_done'
+      creates => '/var/lib/candlepin/cpinit_done',
     }
   }
 
