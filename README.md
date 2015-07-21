@@ -1,3 +1,5 @@
+[![Puppet Forge](http://img.shields.io/puppetforge/v/katello/candlepin.svg)](https://forge.puppetlabs.com/katello/candlepin)
+[![Build Status](https://travis-ci.org/Katello/puppet-candlepin.svg?branch=master)](https://travis-ci.org/Katello/puppet-candlepin)
 ####Table of Contents
 
 1. [Overview](#overview)
@@ -34,4 +36,3 @@ This module is designed to setup a Candlepin server.
 ##Development
 
 See the CONTRIBUTING guide for steps on how to make a change and get it accepted upstream.
-
