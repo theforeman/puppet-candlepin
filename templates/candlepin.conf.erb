@@ -7,9 +7,6 @@ candlepin.consumer_system_name_pattern = .+
 candlepin.environment_content_filtering=<%= @env_filtering_enabled %>
 candlepin.auth.basic.enable = false
 candlepin.auth.trusted.enable = false
-candlepin.enable_cert_v3=true
-candlepin.export.prefix.weburl=<%= @weburl %>
-candlepin.export.prefix.apiurl=<%= @apiurl %>
 <% if @amq_enable -%>
 # enable events via AMQP
 candlepin.amqp.enable=true
