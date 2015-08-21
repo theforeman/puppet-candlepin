@@ -2,6 +2,7 @@
 class candlepin::database::postgresql{
 
   $db_dialect = 'org.hibernate.dialect.PostgreSQLDialect'
+  $db_quartz_dialect = 'org.quartz.impl.jdbcjobstore.PostgreSQLDelegate'
   $db_driver = 'org.postgresql.Driver'
   $db_type = $::candlepin::db_type
   $db_host = $::candlepin::db_host

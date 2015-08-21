@@ -3,6 +3,7 @@ class candlepin::database::mysql {
 
 
   $db_dialect = 'org.hibernate.dialect.MySQLDialect'
+  $db_quartz_dialect = 'org.quartz.impl.jdbcjobstore.StdJDBCDelegate'
   $db_driver = 'com.mysql.jdbc.Driver'
   $db_type = $::candlepin::db_type
   $db_host = $::candlepin::db_host
