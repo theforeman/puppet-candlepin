@@ -29,6 +29,8 @@ class candlepin::database::postgresql{
     postgresql::server::db { $candlepin::db_name:
       user     => $candlepin::db_user,
       password => postgresql_password($candlepin::db_user, $candlepin::db_password),
+      encoding => 'utf8',
+      locale   => 'en_US.utf8',
     } ~>
     exec { 'cpdb':
       path        => '/bin:/usr/bin',
