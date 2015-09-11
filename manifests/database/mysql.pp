@@ -15,7 +15,7 @@ class candlepin::database::mysql {
 
   concat::fragment{'Mysql Database Configuration':
     target  => $::candlepin::candlepin_conf_file,
-    content => template('candlepin/candlepin_database.conf.erb'),
+    content => template('candlepin/_candlepin_database.conf.erb'),
   }
 
 }
