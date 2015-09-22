@@ -8,7 +8,8 @@ class candlepin::params {
         /^7\./  => 'tomcat',
         default => 'tomcat6'
       }
-    }
+    },
+    default => 'tomcat'
   }
 
   $manage_db = true
@@ -20,8 +21,13 @@ class candlepin::params {
 
   # this comes from keystore
   $db_password = cache_data('candlepin_db_password', random_password(32))
-  $amqp_keystore_password = $::certs::candlepin::keystore_password
-  $amqp_truststore_password = $::certs::candlepin::keystore_password
+  $keystore_password = undef
+  
+  $amq_enable = false
+  $amqp_keystore_password = undef
+  $amqp_truststore_password = undef
+  $amqp_keystore = '/etc/candlepin/certs/amqp/candlepin.jks'
+  $amqp_truststore = '/etc/candlepin/certs/amqp/candlepin.truststore'
 
   # where to store output from cpsetup execution
   $log_dir  = '/var/log/candlepin'
@@ -49,8 +55,11 @@ class candlepin::params {
 
   $version = 'installed'
   $run_init = true
-  $adapter_module = 'org.candlepin.katello.KatelloModule'
-  $amq_enable = true
+  $adapter_module = undef
   $enable_hbm2ddl_validate = true
 
+  $enable_basic_auth = true
+  $enable_trusted_auth = false
+
+  $consumer_system_name_pattern = undef
 }

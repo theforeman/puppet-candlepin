@@ -2,83 +2,89 @@
 #
 # == Parameters:
 #
-# $oauth_key::              The oauth key for talking to the candlepin API;
-#                           default 'candlepin'
+# $oauth_key::                    The oauth key for talking to the candlepin API;
+#                                 default 'candlepin'
 #
-# $oauth_secret::           The oauth secret for talking to the candlepin API;
-#                           default 'candlepin'
+# $oauth_secret::                 The oauth secret for talking to the candlepin API;
+#                                 default 'candlepin'
 #
-# $manage_db::              Boolean indicating if a database should be installed and configured.
-#                           Set false if database is hosted on dedicated server.
-#                           default true
+# $manage_db::                    Boolean indicating if a database should be installed and configured.
+#                                 Set false if database is hosted on dedicated server.
+#                                 default true
 #
-# $db_type::                The type of database Candlepin will be connecting too.
-#                           options ['postgresql','mysql']
-#                           default postgresql
+# $db_type::                      The type of database Candlepin will be connecting too.
+#                                 options ['postgresql','mysql']
+#                                 default postgresql
 #
-# $db_host::                url of database server.
-#                           default localhost
+# $db_host::                      url of database server.
+#                                 default localhost
 #
-# $db_port::                port the database listens on. Only needs to be provided if different
-#                           from standard port of the :db_type.
-#                           ex. mysql will default to 3306 and postgresql will default to 5432.
+# $db_port::                      port the database listens on. Only needs to be provided if different
+#                                 from standard port of the :db_type.
+#                                 ex. mysql will default to 3306 and postgresql will default to 5432.
 #
-# $db_name::                The name of the Candlepin database;
-#                           default 'candlepin'
+# $db_name::                      The name of the Candlepin database;
+#                                 default 'candlepin'
 #
-# $db_user::                The Candlepin database username;
-#                           default 'candlepin'
+# $db_user::                      The Candlepin database username;
+#                                 default 'candlepin'
 #
-# $db_password::            The Candlepin database password;
-#                           default 'candlepin'
+# $db_password::                  The Candlepin database password;
+#                                 default 'candlepin'
 #
-# $tomcat::                 The system tomcat to use, tomcat6 on RHEL6 and tomcat on most Fedoras
+# $tomcat::                       The system tomcat to use, tomcat6 on RHEL6 and tomcat on most Fedoras
 #
-# $crl_file::               The Certificate Revocation File for Candlepin
+# $crl_file::                     The Certificate Revocation File for Candlepin
 #
-# $user_groups::            The user groups for the Candlepin tomcat user
+# $user_groups::                  The user groups for the Candlepin tomcat user
 #
-# $log_dir::                Directory for Candlepin logs;
-#                           default '/var/log/candlepin'
+# $log_dir::                      Directory for Candlepin logs;
+#                                 default '/var/log/candlepin'
 #
-# $deployment_url::         The root URL to deploy the Web and API URLs at
+# $deployment_url::               The root URL to deploy the Web and API URLs at
 #
-# $weburl::                 The Candlepin Web URL which is configurable via the deployment_url
+# $weburl::                       The Candlepin Web URL which is configurable via the deployment_url
 #
-# $apiurl::                 The Candlepin API URL which is configurable via the deployment_url
+# $apiurl::                       The Candlepin API URL which is configurable via the deployment_url
 #
-# $env_filtering_enabled::  default 'true'
+# $env_filtering_enabled::        If subscription filtering is done on a per environment basis
 #
-# $thumbslug_enabled::      If using Thumbslug; default 'false'
+# $thumbslug_enabled::            If using Thumbslug; default 'false'
 #
-# $thumbslug_oauth_key::    The oauth key for talking to Thumbslug
+# $thumbslug_oauth_key::          The oauth key for talking to Thumbslug
 #
-# $thumbslug_oauth_secret:: The oauth secret for talking to Thumbslug
+# $thumbslug_oauth_secret::       The oauth secret for talking to Thumbslug
 #
-# $keystore_password::      Password for keystore being used with Tomcat
+# $keystore_password::            Password for keystore being used with Tomcat
 #
-# $ca_key::                 CA key file to use
+# $ca_key::                       CA key file to use
 #
-# $ca_cert::                CA certificate file to use
+# $ca_cert::                      CA certificate file to use
 #
-# $ca_key_password::        CA key password
+# $ca_key_password::              CA key password
 #
-# $version::                Version of Candlepin to install
-#                           default 'installed'
+# $version::                      Version of Candlepin to install
 #
-# $run_init::               Boolean indicating if the init api should be called on Candlepin
-#                           default true
+# $run_init::                     Boolean indicating if the init api should be called on Candlepin
 #
-# $adapter_module::         Candlepin adapter implementations to inject into the java runtime
-#                           default is for Katello
+# $adapter_module::               Candlepin adapter implementations to inject into the java runtime
 #
-# $amq_enable::             Boolean indicating if amq should be enabled and configured
-#                           default is true
+# $amq_enable::                   Boolean indicating if amq should be enabled and configured
 #
-# $enable_hbm2ddl_validate:: Boolean that if true will perform a schema check to ensure compliance
-#                            with the models, otherwise false will disable this check. Disabling
-#                            this feature may be required if modifications are required to the schema.
-#                           default is true
+# $amqp_keystore::                Location of the amqp keystore to use
+#
+# $amqp_keystore_password::       Password for the amqp keystore
+#
+# $amqp_truststore::              Location of the amqp truststore to use
+#
+# $amqp_truststore_password::     Password for the amqp trusture
+# 
+# $consumer_system_name_pattern:: Regex that consistutes a valid consumer name
+#
+# $enable_hbm2ddl_validate::      Boolean that if true will perform a schema check to ensure compliance
+#                                 with the models, otherwise false will disable this check. Disabling
+#                                 this feature may be required if modifications are required to the schema.
+#                                 default is true
 #
 class candlepin (
 
@@ -109,10 +115,14 @@ class candlepin (
   $thumbslug_oauth_key = $candlepin::params::thumbslug_oauth_key,
   $thumbslug_oauth_secret = $candlepin::params::thumbslug_oauth_secret,
 
-  $keystore_password = undef,
+  $keystore_password = $candlepin::params::keystore_password,
+  $amqp_keystore = $candlepin::params::amqp_keystore,
+  $amqp_keystore_password = $candlepin::params::amqp_keystore_password,
+  $amqp_truststore = $candlepin::params::amqp_truststore,
+  $amqp_truststore_password = $candlepin::params::amqp_truststore_password,
 
   $ca_key = $candlepin::params::ca_key,
-  $ca_cert = $candlepin::params::ca_crt,
+  $ca_cert = $candlepin::params::ca_cert,
   $ca_key_password = $candlepin::params::ca_key_password,
   $qpid_ssl_port = $candlepin::params::qpid_ssl_port,
 
@@ -121,7 +131,24 @@ class candlepin (
   $adapter_module = $candlepin::params::adapter_module,
   $amq_enable = $candlepin::params::amq_enable,
   $enable_hbm2ddl_validate = $candlepin::params::enable_hbm2ddl_validate,
+
+  $enable_basic_auth = $candlepin::params::enable_basic_auth,
+  $enable_trusted_auth = $candlepin::params::enable_trusted_auth,
+  $consumer_system_name_pattern = $candlepin::params::consumer_system_name_pattern,
+
   ) inherits candlepin::params {
+
+  validate_bool($amq_enable)
+
+  if $amq_enable {
+    validate_absolute_path($amqp_keystore)
+    validate_absolute_path($amqp_truststore)
+    validate_string($amqp_keystore_password)
+    validate_string($amqp_truststore_password)
+  }
+
+  validate_absolute_path($ca_key)
+  validate_absolute_path($ca_cert)
 
   $weburl = "https://${::fqdn}/${candlepin::deployment_url}/distributors?uuid="
   $apiurl = "https://${::fqdn}/${candlepin::deployment_url}/api/distributors/"
