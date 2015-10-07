@@ -20,7 +20,7 @@ class candlepin::params {
   $db_port = undef
 
   # this comes from keystore
-  $db_password = cache_data('candlepin_db_password', random_password(32))
+  $db_password = cache_data('foreman_cache_data', 'candlepin_db_password', random_password(32))
   $keystore_password = undef
   
   $amq_enable = false
