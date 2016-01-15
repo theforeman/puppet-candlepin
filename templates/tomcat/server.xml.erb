@@ -88,10 +88,10 @@
                maxThreads="150" scheme="https" secure="true"
                clientAuth="want"
                sslProtocols="TLSv1.2,TLSv1.1,TLSv1"
-               keystoreFile="conf/keystore"
-               truststoreFile="conf/keystore"
-               keystorePass="<%= scope.lookupvar("candlepin::keystore_password") %>"
-               keystoreType="PKCS12"
+               keystoreFile="<%= scope['::candlepin::keystore_file'] %>"
+               truststoreFile="<%= scope['::candlepin::truststore_file'] %>"
+               keystorePass="<%= scope['::candlepin::keystore_password'] %>"
+               keystoreType="<%= scope['::candlepin::keystore_type'] %>"
                ciphers="SSL_RSA_WITH_3DES_EDE_CBC_SHA,
                     TLS_RSA_WITH_AES_256_CBC_SHA,
                     TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,
@@ -100,7 +100,7 @@
                     TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,
                     TLS_ECDH_RSA_WITH_AES_256_CBC_SHA,
                     TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA"
-               truststorePass="<%= scope.lookupvar("candlepin::keystore_password") %>" />
+               truststorePass="<%= scope['candlepin::truststore_password'] %>" />
 
     <!-- Define an AJP 1.3 Connector on port 8009 -->
     <Connector port="8009" protocol="AJP/1.3" redirectPort="<%= scope['::candlepin::ssl_port'] %>" />

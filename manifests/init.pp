@@ -55,7 +55,15 @@
 #
 # $thumbslug_oauth_secret::       The oauth secret for talking to Thumbslug
 #
+# $keystore_file::                Tomcat keystore file to use
+#
 # $keystore_password::            Password for keystore being used with Tomcat
+#
+# $keystore_type::                Keystore type
+#
+# $truststore_file::              Tomcat truststore file to use
+#
+# $truststore_password::          Password for truststore being used with Tomcat
 #
 # $ca_key::                       CA key file to use
 #
@@ -120,7 +128,12 @@ class candlepin (
   $thumbslug_oauth_key = $candlepin::params::thumbslug_oauth_key,
   $thumbslug_oauth_secret = $candlepin::params::thumbslug_oauth_secret,
 
+  $keystore_file = $candlepin::params::keystore_file,
   $keystore_password = $candlepin::params::keystore_password,
+  $keystore_type = $candlepin::params::keystore_type,
+  $truststore_file = $candlepin::params::truststore_file,
+  $truststore_password = $candlepin::params::truststore_password,
+
   $amqp_keystore = $candlepin::params::amqp_keystore,
   $amqp_keystore_password = $candlepin::params::amqp_keystore_password,
   $amqp_truststore = $candlepin::params::amqp_truststore,
@@ -157,6 +170,12 @@ class candlepin (
 
   validate_absolute_path($ca_key)
   validate_absolute_path($ca_cert)
+  if $keystore_password {
+    validate_string($keystore_password)
+  }
+  if $truststore_password {
+    validate_string($truststore_password)
+  }
 
   $weburl = "https://${::fqdn}/${candlepin::deployment_url}/distributors?uuid="
   $apiurl = "https://${::fqdn}/${candlepin::deployment_url}/api/distributors/"
