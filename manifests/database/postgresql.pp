@@ -37,7 +37,7 @@ class candlepin::database::postgresql{
       command     => "liquibase --driver=org.postgresql.Driver \
                             --classpath=/usr/share/java/postgresql-jdbc.jar:/var/lib/${candlepin::tomcat}/webapps/candlepin/WEB-INF/classes/ \
                             --changeLogFile=db/changelog/changelog-create.xml \
-                            --url=jdbc:postgresql:candlepin \
+                            --url=jdbc:postgresql:${candlepin::db_name} \
                             --username=${candlepin::db_user}  \
                             --password=${candlepin::db_password} \
                             migrate \
