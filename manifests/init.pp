@@ -64,6 +64,10 @@
 # $ca_key_password::              CA key password
 #
 # $version::                      Version of Candlepin to install
+#                                 Defaults to installed
+#
+# $wget_version::                 Passed to the wget package.
+#                                 Defaults to installed
 #
 # $run_init::                     Boolean indicating if the init api should be called on Candlepin
 #
@@ -89,7 +93,6 @@
 # $ssl_port::                     Port to deploy SSL enabled Tomcat server on
 #
 class candlepin (
-
   $manage_db   = $candlepin::params::manage_db,
   $db_type     = $candlepin::params::db_type,
   $db_host     = $candlepin::params::db_host,
@@ -129,6 +132,7 @@ class candlepin (
   $qpid_ssl_port = $candlepin::params::qpid_ssl_port,
 
   $version = $candlepin::params::version,
+  $wget_version = $candlepin::params::wget_version,
   $run_init = $candlepin::params::run_init,
   $adapter_module = $candlepin::params::adapter_module,
   $amq_enable = $candlepin::params::amq_enable,

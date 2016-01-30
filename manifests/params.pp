@@ -1,6 +1,5 @@
 # Candlepin params
 class candlepin::params {
-
   $tomcat = $::osfamily ? {
     /^(RedHat|Linux)/ => $::operatingsystem ? {
       'Fedora'  => 'tomcat',
@@ -24,7 +23,7 @@ class candlepin::params {
   # this comes from keystore
   $db_password = cache_data('foreman_cache_data', 'candlepin_db_password', random_password(32))
   $keystore_password = undef
-  
+
   $amq_enable = false
   $amqp_keystore_password = undef
   $amqp_truststore_password = undef
@@ -56,6 +55,7 @@ class candlepin::params {
   $qpid_ssl_port = 5671
 
   $version = 'installed'
+  $wget_version = 'installed'
   $run_init = true
   $adapter_module = undef
   $enable_hbm2ddl_validate = true
