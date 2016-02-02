@@ -17,7 +17,6 @@ describe 'candlepin' do
     it { should contain_class('candlepin::config') }
     it { should contain_class('candlepin::database') }
     it { should contain_class('candlepin::service') }
-    it { should contain_file('/etc/candlepin/candlepin.conf') }
     it { should contain_service('tomcat6').with_ensure('running') }
 
 
@@ -38,7 +37,6 @@ describe 'candlepin' do
     it { should contain_class('candlepin::config') }
     it { should contain_class('candlepin::database') }
     it { should contain_class('candlepin::service') }
-    it { should contain_file('/etc/candlepin/candlepin.conf') }
     it { should contain_service('tomcat').with_ensure('running') }
   end
 

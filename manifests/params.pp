@@ -54,8 +54,8 @@ class candlepin::params {
 
   $qpid_ssl_port = 5671
 
-  $version = 'installed'
-  $wget_version = 'installed'
+  $version = 'present'
+  $wget_version = 'present'
   $run_init = true
   $adapter_module = undef
   $enable_hbm2ddl_validate = true
