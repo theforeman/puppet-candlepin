@@ -64,10 +64,10 @@
 # $ca_key_password::              CA key password
 #
 # $version::                      Version of Candlepin to install
-#                                 Defaults to installed
+#                                 Defaults to present
 #
 # $wget_version::                 Passed to the wget package.
-#                                 Defaults to installed
+#                                 Defaults to present
 #
 # $run_init::                     Boolean indicating if the init api should be called on Candlepin
 #
@@ -82,7 +82,7 @@
 # $amqp_truststore::              Location of the amqp truststore to use
 #
 # $amqp_truststore_password::     Password for the amqp trusture
-# 
+#
 # $consumer_system_name_pattern:: Regex that consistutes a valid consumer name
 #
 # $enable_hbm2ddl_validate::      Boolean that if true will perform a schema check to ensure compliance
