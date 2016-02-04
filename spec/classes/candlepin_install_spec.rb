@@ -18,7 +18,6 @@ describe 'candlepin::install' do
     end
 
     it { should contain_package('candlepin').with('ensure' => 'present') }
-    it { should contain_package('candlepin-tomcat6').with('ensure' => 'present') }
   end
 
   context 'on el7' do
@@ -37,6 +36,5 @@ describe 'candlepin::install' do
     end
 
     it { should contain_package('candlepin').with('ensure' => 'present') }
-    it { should contain_package('candlepin-tomcat').with('ensure' => 'present') }
   end
 end
