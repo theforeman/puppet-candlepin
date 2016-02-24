@@ -49,7 +49,7 @@ class candlepin::database::postgresql{
       before      => Service[$candlepin::tomcat],
       require     => [
         Package['candlepin'],
-        File['/etc/candlepin/candlepin.conf']
+        Concat['/etc/candlepin/candlepin.conf']
       ],
     }
 
