@@ -142,6 +142,7 @@ class candlepin (
   $ca_key = $candlepin::params::ca_key,
   $ca_cert = $candlepin::params::ca_cert,
   $ca_key_password = $candlepin::params::ca_key_password,
+  $qpid_hostname = $candlepin::params::qpid_hostname,
   $qpid_ssl_port = $candlepin::params::qpid_ssl_port,
 
   $version = $candlepin::params::version,
@@ -179,7 +180,7 @@ class candlepin (
 
   $weburl = "https://${::fqdn}/${candlepin::deployment_url}/distributors?uuid="
   $apiurl = "https://${::fqdn}/${candlepin::deployment_url}/api/distributors/"
-  $amqpurl = "tcp://${::fqdn}:${qpid_ssl_port}?ssl='true'&ssl_cert_alias='amqp-client'"
+  $amqpurl = "tcp://${qpid_hostname}:${qpid_ssl_port}?ssl='true'&ssl_cert_alias='amqp-client'"
 
   $candlepin_conf_file = '/etc/candlepin/candlepin.conf'
 

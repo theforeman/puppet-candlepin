@@ -51,7 +51,7 @@ describe 'candlepin::config' do
           it "should setup the amqp config" do
             should contain_concat__fragment('General Config').
               with_content(/^candlepin.amqp.enable=true$/).
-              with_content(/^candlepin.amqp.connect=tcp:\/\/foo.example.com:5671\?ssl='true'&ssl_cert_alias='amqp-client'$/).
+              with_content(/^candlepin.amqp.connect=tcp:\/\/localhost:5671\?ssl='true'&ssl_cert_alias='amqp-client'$/).
               with_content(/^candlepin.amqp.keystore_password=password$/).
               with_content(/^candlepin.amqp.keystore=\/etc\/candlepin\/certs\/amqp\/candlepin.jks$/).
               with_content(/^candlepin.amqp.truststore_password=password$/).
@@ -74,7 +74,7 @@ describe 'candlepin::config' do
           it "should setup the amqp config" do
             should contain_concat__fragment('General Config').
               with_content(/^candlepin.amqp.enable=true$/).
-              with_content(/^candlepin.amqp.connect=tcp:\/\/foo.example.com:5671\?ssl='true'&ssl_cert_alias='amqp-client'$/).
+              with_content(/^candlepin.amqp.connect=tcp:\/\/localhost:5671\?ssl='true'&ssl_cert_alias='amqp-client'$/).
               with_content(/^candlepin.amqp.keystore_password=password$/).
               with_content(/^candlepin.amqp.keystore=\/etc\/pki\/my.jks$/).
               with_content(/^candlepin.amqp.truststore_password=password$/).
