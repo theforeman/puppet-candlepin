@@ -22,12 +22,12 @@ class candlepin::params {
 
   # this comes from keystore
   $db_password = cache_data('foreman_cache_data', 'candlepin_db_password', random_password(32))
-
   $keystore_file = 'conf/keystore'
   $keystore_password = undef
   $keystore_type = 'PKCS12'
   $truststore_file = 'conf/keystore'
   $truststore_password = undef
+  $extra_ciphers = []
 
   $amq_enable = false
   $amqp_keystore_password = undef

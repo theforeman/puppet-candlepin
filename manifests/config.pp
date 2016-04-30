@@ -1,6 +1,5 @@
 # Configuration for Candlepin
 class candlepin::config {
-
   user { 'tomcat':
     ensure => present,
     groups => $candlepin::user_groups,
@@ -11,7 +10,7 @@ class candlepin::config {
     content => template('candlepin/candlepin.conf.erb'),
   }
 
-  concat{ $::candlepin::candlepin_conf_file:
+  concat { $::candlepin::candlepin_conf_file:
     mode  => '0600',
     owner => 'tomcat',
     group => 'tomcat',
@@ -24,5 +23,4 @@ class candlepin::config {
     owner   => 'root',
     group   => 'root',
   }
-
 }

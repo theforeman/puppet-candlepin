@@ -71,6 +71,8 @@
 #
 # $ca_key_password::              CA key password
 #
+# $extra_ciphers::                Extra allowed ciphers for ssl connection. Array or string
+#
 # $version::                      Version of Candlepin to install
 #                                 Defaults to present
 #
@@ -133,6 +135,7 @@ class candlepin (
   $keystore_type = $candlepin::params::keystore_type,
   $truststore_file = $candlepin::params::truststore_file,
   $truststore_password = $candlepin::params::truststore_password,
+  $extra_ciphers = $candlepin::params::extra_ciphers,
 
   $amqp_keystore = $candlepin::params::amqp_keystore,
   $amqp_keystore_password = $candlepin::params::amqp_keystore_password,

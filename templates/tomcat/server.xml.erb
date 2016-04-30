@@ -92,7 +92,9 @@
                truststoreFile="<%= scope['::candlepin::truststore_file'] %>"
                keystorePass="<%= scope['::candlepin::keystore_password'] %>"
                keystoreType="<%= scope['::candlepin::keystore_type'] %>"
-               ciphers="SSL_RSA_WITH_3DES_EDE_CBC_SHA,
+               ciphers="
+                    <%= [Array(scope['::candlepin::extra_ciphers']), " "].join(",") %>
+                    SSL_RSA_WITH_3DES_EDE_CBC_SHA,
                     TLS_RSA_WITH_AES_256_CBC_SHA,
                     TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,
                     TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA,
