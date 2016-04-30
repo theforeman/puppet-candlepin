@@ -1,19 +1,11 @@
 # Candlepin params
 class candlepin::params {
-  $tomcat = $::osfamily ? {
-    /^(RedHat|Linux)/ => $::operatingsystem ? {
-      'Fedora'  => 'tomcat',
-      default   => $::operatingsystemrelease ? {
-        /^7\./  => 'tomcat',
-        default => 'tomcat6'
-      }
-    },
-    default => 'tomcat'
-  }
+  $tomcat = 'tomcat'
 
   $ssl_port = 8443
 
   $manage_db = true
+  $init_db = true
   $db_type = 'postgresql'
   $db_host = 'localhost'
   $db_user = 'candlepin'
@@ -22,12 +14,20 @@ class candlepin::params {
 
   # this comes from keystore
   $db_password = cache_data('foreman_cache_data', 'candlepin_db_password', random_password(32))
-
   $keystore_file = 'conf/keystore'
   $keystore_password = undef
   $keystore_type = 'PKCS12'
   $truststore_file = 'conf/keystore'
   $truststore_password = undef
+  $ciphers = [
+    'SSL_RSA_WITH_3DES_EDE_CBC_SHA',
+    'TLS_RSA_WITH_AES_256_CBC_SHA',
+    'TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA',
+    'TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA',
+    'TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA',
+    'TLS_ECDH_RSA_WITH_AES_128_CBC_SHA',
+    'TLS_ECDH_RSA_WITH_AES_256_CBC_SHA',
+    'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA']
 
   $amq_enable = false
   $amqp_keystore_password = undef
@@ -57,6 +57,7 @@ class candlepin::params {
 
   $deployment_url = 'candlepin'
 
+  $qpid_hostname = 'localhost'
   $qpid_ssl_port = 5671
 
   $version = 'present'
@@ -69,4 +70,6 @@ class candlepin::params {
   $enable_trusted_auth = false
 
   $consumer_system_name_pattern = undef
+
+  $candlepin_conf_file = '/etc/candlepin/candlepin.conf'
 }
