@@ -2,7 +2,7 @@
 ## Module: '<%= scope.to_hash['module_name'] %>'
 
 <% unless [nil, :undefined, :undef].include?(scope['candlepin::consumer_system_name_pattern']) -%>
-candlepin.consumer_system_name_pattern=<%= @consumer_system_name_pattern %>
+candlepin.consumer_system_name_pattern=<%= scope['candlepin::consumer_system_name_pattern'] %>
 <%- end -%>
 candlepin.environment_content_filtering=<%= scope['candlepin::env_filtering_enabled'] %>
 candlepin.auth.basic.enable=<%= scope['candlepin::enable_basic_auth'] %>
