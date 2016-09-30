@@ -1,107 +1,101 @@
 require 'spec_helper'
 
 describe 'candlepin::database' do
+ on_supported_os.each do |os, facts|
+   context "on #{os}" do
+     let(:facts) { facts }
+     let(:db_user) { 'testuser' }
+     let(:db_password) { 'testpassword' }
 
-  let(:db_user) { 'testuser' }
-  let(:db_password) { 'testpassword' }
+      describe 'with mysql' do
+        describe 'default' do
+          let :pre_condition do
+            "class {'candlepin':
+              db_type => 'mysql',
+              db_user => #{db_user},
+              db_password => #{db_password},
+            }"
+          end
 
-  let :facts do
-    {
-      :concat_basedir         => '/tmp',
-      :operatingsystem        => 'RedHat',
-      :operatingsystemrelease => '6.4',
-      :osfamily               => 'RedHat',
-    }
-  end
+          it {should contain_class('candlepin::database::mysql') }
+          it {should_not contain_class('candlepin::database::postgresql') }
 
-  describe 'with mysql' do
-    describe 'default' do
-      let :pre_condition do
-        "class {'candlepin':
-          db_type => 'mysql',
-          db_user => #{db_user},
-          db_password => #{db_password},
-        }"
+          it do
+            should contain_concat__fragment('Mysql Database Configuration').
+              with_content(/jpa.config.hibernate.dialect=org.hibernate.dialect.MySQLDialect/).
+              with_content(/jpa.config.hibernate.connection.driver_class=com.mysql.jdbc.Driver/).
+              with_content(/jpa.config.hibernate.connection.url=jdbc:mysql:\/\/localhost:3306\/candlepin/).
+              with_content(/jpa.config.hibernate.connection.username=#{db_user}/).
+              with_content(/jpa.config.hibernate.connection.password=#{db_password}/).
+              with_content(/jpa.config.hibernate.hbm2ddl.auto=validate/)
+          end
+        end
+
+        describe 'and enable_hbm2ddl_validate = false' do
+          let :pre_condition do
+            "class {'candlepin':
+              db_type => 'mysql',
+              enable_hbm2ddl_validate => false,
+            }"
+          end
+
+          it do
+            should contain_concat__fragment('Mysql Database Configuration').
+              without_content(/jpa.config.hibernate.hbm2ddl.auto=validate/)
+          end
+        end
       end
 
-      it {should contain_class('candlepin::database::mysql') }
-      it {should_not contain_class('candlepin::database::postgresql') }
+      describe 'with postgres' do
+        describe 'default' do
+          let :pre_condition do
+            "class {'candlepin':
+              db_user => #{db_user},
+              db_password => #{db_password},
+            }"
+          end
 
-      it do
-        should contain_concat__fragment('Mysql Database Configuration').
-          with_content(/jpa.config.hibernate.dialect=org.hibernate.dialect.MySQLDialect/).
-          with_content(/jpa.config.hibernate.connection.driver_class=com.mysql.jdbc.Driver/).
-          with_content(/jpa.config.hibernate.connection.url=jdbc:mysql:\/\/localhost:3306\/candlepin/).
-          with_content(/jpa.config.hibernate.connection.username=#{db_user}/).
-          with_content(/jpa.config.hibernate.connection.password=#{db_password}/).
-          with_content(/jpa.config.hibernate.hbm2ddl.auto=validate/)
-      end
-    end
+          it {should contain_class('candlepin::database::postgresql') }
+          it {should_not contain_class('candlepin::database::mysql') }
 
-    describe 'and enable_hbm2ddl_validate = false' do
-      let :pre_condition do
-        "class {'candlepin':
-          db_type => 'mysql',
-          enable_hbm2ddl_validate => false,
-        }"
-      end
+          it do
+            should contain_concat__fragment('PostgreSQL Database Configuration').
+              with_content(/jpa.config.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect/).
+              with_content(/jpa.config.hibernate.connection.driver_class=org.postgresql.Driver/).
+              with_content(/jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/localhost:5432\/candlepin/).
+              with_content(/jpa.config.hibernate.connection.username=#{db_user}/).
+              with_content(/jpa.config.hibernate.connection.password=#{db_password}/).
+              with_content(/jpa.config.hibernate.hbm2ddl.auto=validate/)
+          end
 
-      it do
-        should contain_concat__fragment('Mysql Database Configuration').
-          without_content(/jpa.config.hibernate.hbm2ddl.auto=validate/)
-      end
-    end
-  end
+          describe 'and enable_hbm2ddl_validate = false' do
+            let :pre_condition do
+              "class {'candlepin':
+                enable_hbm2ddl_validate => false,
+              }"
+            end
 
-  describe 'with postgres' do
-    describe 'default' do
-      let :pre_condition do
-        "class {'candlepin':
-          db_user => #{db_user},
-          db_password => #{db_password},
-        }"
-      end
-
-      it {should contain_class('candlepin::database::postgresql') }
-      it {should_not contain_class('candlepin::database::mysql') }
-
-      it do
-        should contain_concat__fragment('PostgreSQL Database Configuration').
-          with_content(/jpa.config.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect/).
-          with_content(/jpa.config.hibernate.connection.driver_class=org.postgresql.Driver/).
-          with_content(/jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/localhost:5432\/candlepin/).
-          with_content(/jpa.config.hibernate.connection.username=#{db_user}/).
-          with_content(/jpa.config.hibernate.connection.password=#{db_password}/).
-          with_content(/jpa.config.hibernate.hbm2ddl.auto=validate/)
+            it do
+              should contain_concat__fragment('PostgreSQL Database Configuration').
+                without_content(/jpa.config.hibernate.hbm2ddl.auto=validate/)
+            end
+          end
+        end
       end
 
-      describe 'and enable_hbm2ddl_validate = false' do
+      describe 'with fake database' do
         let :pre_condition do
           "class {'candlepin':
-            enable_hbm2ddl_validate => false,
+            db_type => 'fakedatabase'
           }"
         end
 
         it do
-          should contain_concat__fragment('PostgreSQL Database Configuration').
-            without_content(/jpa.config.hibernate.hbm2ddl.auto=validate/)
+          expect {
+            to raise_error("Invalid db_type selected: fakedatabase. Valid options are ['mysql','postgresql'].")
+          }
         end
       end
     end
   end
-
-  describe 'with fake database' do
-    let :pre_condition do
-      "class {'candlepin':
-        db_type => 'fakedatabase'
-      }"
-    end
-
-    it do
-      expect {
-        to raise_error("Invalid db_type selected: fakedatabase. Valid options are ['mysql','postgresql'].")
-      }
-    end
-  end
-
 end
