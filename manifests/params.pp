@@ -57,6 +57,7 @@ class candlepin::params {
 
   $deployment_url = 'candlepin'
 
+  $qpid_hostname = 'localhost'
   $qpid_ssl_port = 5671
 
   $version = 'present'
