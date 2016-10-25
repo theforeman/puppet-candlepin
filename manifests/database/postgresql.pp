@@ -10,6 +10,8 @@ class candlepin::database::postgresql(
   $db_type                 = $::candlepin::db_type,
   $db_host                 = $::candlepin::db_host,
   $db_port                 = pick($::candlepin::db_port, 5432),
+  $db_ssl                  = $::candlepin::db_ssl
+  $db_ssl_verify           = $::candlepin::db_ssl_verify
   $db_name                 = $::candlepin::db_name,
   $db_user                 = $::candlepin::db_user,
   $db_password             = $::candlepin::db_password,

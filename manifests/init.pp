@@ -24,6 +24,13 @@
 #                                 from standard port of the :db_type.
 #                                 type:Optional[Integer[0, 65535]]
 #
+# $db_ssl::                       Boolean indicating if the connection to the database should be over
+#                                 an SSL connection.
+#                                 type:Boolean
+#
+# $db_ssl_verify::                Boolean indicating if the SSL connection to the database should be verified
+#                                 type:Boolean
+#
 # $db_name::                      The name of the Candlepin database
 #                                 type:String
 #
@@ -137,6 +144,8 @@ class candlepin (
   $db_type                      = $::candlepin::params::db_type,
   $db_host                      = $::candlepin::params::db_host,
   $db_port                      = $::candlepin::params::db_port,
+  $db_ssl                       = $::candlepin::params::db_ssl,
+  $db_ssl_verify                = $::candlepin::params::db_ssl_verify,
   $db_name                      = $::candlepin::params::db_name,
   $db_user                      = $::candlepin::params::db_user,
   $db_password                  = $::candlepin::params::db_password,
@@ -210,6 +219,9 @@ class candlepin (
   if $truststore_password {
     validate_string($truststore_password)
   }
+
+  validate_bool($db_ssl)
+  validate_bool($db_ssl_verify)
 
   $weburl = "https://${::fqdn}/${candlepin::deployment_url}/distributors?uuid="
   $apiurl = "https://${::fqdn}/${candlepin::deployment_url}/api/distributors/"
