@@ -71,7 +71,7 @@
 #
 # $ca_key_password::              CA key password
 #
-# $ciphers::                      Allowed ciphers for ssl connection. Array or strings
+# $ciphers::                      Allowed ciphers for ssl connection. Array of strings
 #
 # $version::                      Version of Candlepin to install
 #                                 Defaults to present
@@ -162,6 +162,7 @@ class candlepin (
 
   ) inherits candlepin::params {
 
+  validate_array($ciphers)
   validate_bool($amq_enable)
 
   if $amq_enable {
