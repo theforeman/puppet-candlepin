@@ -93,15 +93,7 @@
                keystorePass="<%= scope['::candlepin::keystore_password'] %>"
                keystoreType="<%= scope['::candlepin::keystore_type'] %>"
                ciphers="
-                    <%= [Array(scope['::candlepin::extra_ciphers']), " "].join(",") %>
-                    SSL_RSA_WITH_3DES_EDE_CBC_SHA,
-                    TLS_RSA_WITH_AES_256_CBC_SHA,
-                    TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,
-                    TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA,
-                    TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA,
-                    TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,
-                    TLS_ECDH_RSA_WITH_AES_256_CBC_SHA,
-                    TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA"
+                    <%= [Array(scope['::candlepin::extra_ciphers']), " "].join(",                    \n") %>"
                truststorePass="<%= scope['candlepin::truststore_password'] %>" />
 
     <!-- Define an AJP 1.3 Connector on port 8009 -->
