@@ -32,7 +32,7 @@
 # $db_password::                  The Candlepin database password;
 #                                 default 'candlepin'
 #
-# $tomcat::                       The system tomcat to use, tomcat6 on RHEL6 and tomcat on most Fedoras
+# $tomcat::                       The system tomcat to use
 #
 # $crl_file::                     The Certificate Revocation File for Candlepin
 #
