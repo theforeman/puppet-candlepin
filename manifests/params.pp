@@ -1,15 +1,6 @@
 # Candlepin params
 class candlepin::params {
-  $tomcat = $::osfamily ? {
-    /^(RedHat|Linux)/ => $::operatingsystem ? {
-      'Fedora'  => 'tomcat',
-      default   => $::operatingsystemrelease ? {
-        /^7\./  => 'tomcat',
-        default => 'tomcat6'
-      }
-    },
-    default => 'tomcat'
-  }
+  $tomcat = 'tomcat'
 
   $ssl_port = 8443
 

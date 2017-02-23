@@ -1,6 +1,6 @@
 {
   "name": "katello-candlepin",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Katello",
   "summary": "Configure and install Candlepin entitlement server.",
   "license": "GPL-3.0+",
@@ -14,7 +14,7 @@
     },
     {
       "name": "puppet/extlib",
-      "version_requirement": ">= 0.10.4 < 1.0.0"
+      "version_requirement": ">= 0.10.4 < 2.0.0"
     },
     {
       "name": "puppetlabs-postgresql",

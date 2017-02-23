@@ -4,7 +4,6 @@ describe 'candlepin::config' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) { facts }
-      let(:tomcat_name) { os.include?('-6-') ? 'tomcat6' : 'tomcat' }
 
       describe 'without parameters' do
         let :pre_condition do
@@ -92,7 +91,7 @@ describe 'candlepin::config' do
         end
 
         it "should setup the tomcat config file" do
-          should contain_file("/etc/#{tomcat_name}/server.xml").
+          should contain_file("/etc/tomcat/server.xml").
             with_content(/^    <Connector port="9070" protocol="HTTP\/1.1" SSLEnabled="true"/).
             with({})
         end

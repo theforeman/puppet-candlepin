@@ -6,7 +6,6 @@ class candlepin::service{
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
-    require    => [Service[$candlepin::db_type]],
   }
 
   if $candlepin::run_init == true {
