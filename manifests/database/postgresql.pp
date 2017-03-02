@@ -35,7 +35,7 @@ class candlepin::database::postgresql{
     }
     Postgresql::Server::Role[$db_user] -> Postgresql::Server::Database[$db_name]
   }
-  
+
   exec { 'cpdb':
     path        => '/bin:/usr/bin',
     command     => "liquibase --driver=org.postgresql.Driver \
