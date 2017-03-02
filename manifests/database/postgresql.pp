@@ -49,7 +49,6 @@ class candlepin::database::postgresql{
                           >> ${candlepin::log_dir}/cpdb.log \
                           2>&1 && touch /var/lib/candlepin/cpdb_done",
     creates     => "${candlepin::log_dir}/cpdb_done",
-    refreshonly => true,
     before      => Service[$candlepin::tomcat],
     require     => [
       Package['candlepin'],
