@@ -29,7 +29,7 @@ end
 
 require 'kafo_module_lint/tasks'
 KafoModuleLint::RakeTask.new do |config|
-  config.pattern = []
+  config.pattern = ["manifests/init.pp"]
 end
 
 task :default => [:validate, :lint, :spec]

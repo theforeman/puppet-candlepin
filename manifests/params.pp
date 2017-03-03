@@ -61,4 +61,6 @@ class candlepin::params {
   $enable_trusted_auth = false
 
   $consumer_system_name_pattern = undef
+
+  $candlepin_conf_file = '/etc/candlepin/candlepin.conf'
 }
