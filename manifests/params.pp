@@ -5,6 +5,7 @@ class candlepin::params {
   $ssl_port = 8443
 
   $manage_db = true
+  $init_db = true
   $db_type = 'postgresql'
   $db_host = 'localhost'
   $db_user = 'candlepin'
