@@ -8,7 +8,10 @@
 # $oauth_secret::                 The OAuth secret for talking to the candlepin API
 #                                 type:String
 #
-# $manage_db::                    Whether a database should be installed and configured.
+# $manage_db::                    Whether a database should be installed, this includes db creation and user
+#                                 type:Boolean
+#
+# $init_db::                      Whether a database should be initialised.
 #                                 type:Boolean
 #
 # $db_type::                      The type of database Candlepin will be connecting too.
@@ -129,64 +132,65 @@
 #                                 type:Stdlib::Absolutepath
 #
 class candlepin (
-  $manage_db                    = $candlepin::params::manage_db,
-  $db_type                      = $candlepin::params::db_type,
-  $db_host                      = $candlepin::params::db_host,
-  $db_port                      = $candlepin::params::db_port,
-  $db_name                      = $candlepin::params::db_name,
-  $db_user                      = $candlepin::params::db_user,
-  $db_password                  = $candlepin::params::db_password,
+  $manage_db                    = $::candlepin::params::manage_db,
+  $init_db                      = $::candlepin::params::init_db,
+  $db_type                      = $::candlepin::params::db_type,
+  $db_host                      = $::candlepin::params::db_host,
+  $db_port                      = $::candlepin::params::db_port,
+  $db_name                      = $::candlepin::params::db_name,
+  $db_user                      = $::candlepin::params::db_user,
+  $db_password                  = $::candlepin::params::db_password,
 
-  $tomcat                       = $candlepin::params::tomcat,
+  $tomcat                       = $::candlepin::params::tomcat,
 
-  $crl_file                     = $candlepin::params::crl_file,
+  $crl_file                     = $::candlepin::params::crl_file,
 
-  $user_groups                  = $candlepin::params::user_groups,
+  $user_groups                  = $::candlepin::params::user_groups,
 
-  $log_dir                      = $candlepin::params::log_dir,
+  $log_dir                      = $::candlepin::params::log_dir,
 
-  $oauth_key                    = $candlepin::params::oauth_key,
-  $oauth_secret                 = $candlepin::params::oauth_secret,
+  $oauth_key                    = $::candlepin::params::oauth_key,
+  $oauth_secret                 = $::candlepin::params::oauth_secret,
 
-  $deployment_url               = $candlepin::params::deployment_url,
+  $deployment_url               = $::candlepin::params::deployment_url,
 
-  $env_filtering_enabled        = $candlepin::params::env_filtering_enabled,
+  $env_filtering_enabled        = $::candlepin::params::env_filtering_enabled,
 
-  $thumbslug_enabled            = $candlepin::params::thumbslug_enabled,
-  $thumbslug_oauth_key          = $candlepin::params::thumbslug_oauth_key,
-  $thumbslug_oauth_secret       = $candlepin::params::thumbslug_oauth_secret,
+  $thumbslug_enabled            = $::candlepin::params::thumbslug_enabled,
+  $thumbslug_oauth_key          = $::candlepin::params::thumbslug_oauth_key,
+  $thumbslug_oauth_secret       = $::candlepin::params::thumbslug_oauth_secret,
 
-  $keystore_file                = $candlepin::params::keystore_file,
-  $keystore_password            = $candlepin::params::keystore_password,
-  $keystore_type                = $candlepin::params::keystore_type,
-  $truststore_file              = $candlepin::params::truststore_file,
-  $truststore_password          = $candlepin::params::truststore_password,
+  $keystore_file                = $::candlepin::params::keystore_file,
+  $keystore_password            = $::candlepin::params::keystore_password,
+  $keystore_type                = $::candlepin::params::keystore_type,
+  $truststore_file              = $::candlepin::params::truststore_file,
+  $truststore_password          = $::candlepin::params::truststore_password,
 
-  $amqp_keystore                = $candlepin::params::amqp_keystore,
-  $amqp_keystore_password       = $candlepin::params::amqp_keystore_password,
-  $amqp_truststore              = $candlepin::params::amqp_truststore,
-  $amqp_truststore_password     = $candlepin::params::amqp_truststore_password,
+  $amqp_keystore                = $::candlepin::params::amqp_keystore,
+  $amqp_keystore_password       = $::candlepin::params::amqp_keystore_password,
+  $amqp_truststore              = $::candlepin::params::amqp_truststore,
+  $amqp_truststore_password     = $::candlepin::params::amqp_truststore_password,
 
-  $ca_key                       = $candlepin::params::ca_key,
-  $ca_cert                      = $candlepin::params::ca_cert,
-  $ca_key_password              = $candlepin::params::ca_key_password,
-  $qpid_hostname                = $candlepin::params::qpid_hostname,
-  $qpid_ssl_port                = $candlepin::params::qpid_ssl_port,
+  $ca_key                       = $::candlepin::params::ca_key,
+  $ca_cert                      = $::candlepin::params::ca_cert,
+  $ca_key_password              = $::candlepin::params::ca_key_password,
+  $qpid_hostname                = $::candlepin::params::qpid_hostname,
+  $qpid_ssl_port                = $::candlepin::params::qpid_ssl_port,
 
-  $version                      = $candlepin::params::version,
-  $wget_version                 = $candlepin::params::wget_version,
-  $run_init                     = $candlepin::params::run_init,
-  $adapter_module               = $candlepin::params::adapter_module,
-  $amq_enable                   = $candlepin::params::amq_enable,
-  $enable_hbm2ddl_validate      = $candlepin::params::enable_hbm2ddl_validate,
+  $version                      = $::candlepin::params::version,
+  $wget_version                 = $::candlepin::params::wget_version,
+  $run_init                     = $::candlepin::params::run_init,
+  $adapter_module               = $::candlepin::params::adapter_module,
+  $amq_enable                   = $::candlepin::params::amq_enable,
+  $enable_hbm2ddl_validate      = $::candlepin::params::enable_hbm2ddl_validate,
 
-  $enable_basic_auth            = $candlepin::params::enable_basic_auth,
-  $enable_trusted_auth          = $candlepin::params::enable_trusted_auth,
-  $consumer_system_name_pattern = $candlepin::params::consumer_system_name_pattern,
+  $enable_basic_auth            = $::candlepin::params::enable_basic_auth,
+  $enable_trusted_auth          = $::candlepin::params::enable_trusted_auth,
+  $consumer_system_name_pattern = $::candlepin::params::consumer_system_name_pattern,
 
-  $ssl_port                     = $candlepin::params::ssl_port,
+  $ssl_port                     = $::candlepin::params::ssl_port,
 
-  $candlepin_conf_file          = $candlepin::params::candlepin_conf_file,
+  $candlepin_conf_file          = $::candlepin::params::candlepin_conf_file,
   ) inherits candlepin::params {
 
   validate_bool($amq_enable)
