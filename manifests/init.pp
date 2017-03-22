@@ -90,6 +90,9 @@
 # $ca_key_password::              CA key password
 #                                 type:String
 #
+# $ciphers::                      Allowed ciphers for ssl connection. Array or strings
+#                                 type:Array
+#
 # $version::                      Version of Candlepin to install
 #                                 type:String
 #
@@ -176,6 +179,7 @@ class candlepin (
   $ca_key_password              = $::candlepin::params::ca_key_password,
   $qpid_hostname                = $::candlepin::params::qpid_hostname,
   $qpid_ssl_port                = $::candlepin::params::qpid_ssl_port,
+  $ciphers                      = $::candlepin::params::ciphers,
 
   $version                      = $::candlepin::params::version,
   $wget_version                 = $::candlepin::params::wget_version,
