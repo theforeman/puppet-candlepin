@@ -90,7 +90,7 @@
 # $ca_key_password::              CA key password
 #                                 type:String
 #
-# $ciphers::                      Allowed ciphers for ssl connection. Array or strings
+# $ciphers::                      Allowed ciphers for ssl connection. Array of strings
 #                                 type:Array
 #
 # $version::                      Version of Candlepin to install
