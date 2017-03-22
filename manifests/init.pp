@@ -90,6 +90,9 @@
 # $ca_key_password::              CA key password
 #                                 type:String
 #
+# $ciphers::                      Allowed ciphers for ssl connection. Array of strings
+#                                 type:Array
+#
 # $version::                      Version of Candlepin to install
 #                                 type:String
 #
@@ -165,6 +168,7 @@ class candlepin (
   $keystore_type                = $::candlepin::params::keystore_type,
   $truststore_file              = $::candlepin::params::truststore_file,
   $truststore_password          = $::candlepin::params::truststore_password,
+  $ciphers = $candlepin::params::ciphers,
 
   $amqp_keystore                = $::candlepin::params::amqp_keystore,
   $amqp_keystore_password       = $::candlepin::params::amqp_keystore_password,
@@ -193,6 +197,7 @@ class candlepin (
   $candlepin_conf_file          = $::candlepin::params::candlepin_conf_file,
   ) inherits candlepin::params {
 
+  validate_array($ciphers)
   validate_bool($amq_enable)
 
   if $amq_enable {
