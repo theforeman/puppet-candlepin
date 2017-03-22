@@ -1,19 +1,11 @@
 # Candlepin params
 class candlepin::params {
-  $tomcat = $::osfamily ? {
-    /^(RedHat|Linux)/ => $::operatingsystem ? {
-      'Fedora'  => 'tomcat',
-      default   => $::operatingsystemrelease ? {
-        /^7\./  => 'tomcat',
-        default => 'tomcat6'
-      }
-    },
-    default => 'tomcat'
-  }
+  $tomcat = 'tomcat'
 
   $ssl_port = 8443
 
   $manage_db = true
+  $init_db = true
   $db_type = 'postgresql'
   $db_host = 'localhost'
   $db_user = 'candlepin'
@@ -65,6 +57,7 @@ class candlepin::params {
 
   $deployment_url = 'candlepin'
 
+  $qpid_hostname = 'localhost'
   $qpid_ssl_port = 5671
 
   $version = 'present'
@@ -77,4 +70,6 @@ class candlepin::params {
   $enable_trusted_auth = false
 
   $consumer_system_name_pattern = undef
+
+  $candlepin_conf_file = '/etc/candlepin/candlepin.conf'
 }
