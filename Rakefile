@@ -24,7 +24,7 @@ PuppetSyntax.exclude_paths << 'spec/static_fixtures/test_module/**/*.pp' if Pupp
 
 require 'puppet-lint-param-docs/tasks'
 PuppetLintParamDocs.define_selective do |config|
-  config.pattern = []
+  config.pattern = ["manifests/init.pp"]
 end
 
 require 'kafo_module_lint/tasks'
