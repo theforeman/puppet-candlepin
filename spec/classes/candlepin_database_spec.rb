@@ -57,6 +57,9 @@ describe 'candlepin::database' do
 
           it {should contain_class('candlepin::database::postgresql') }
           it {should_not contain_class('candlepin::database::mysql') }
+          it {should contain_exec('cpdb').that_comes_before('Service[tomcat]') }
+          it {should contain_exec('cpdb').that_comes_before('Exec[cpinit]') }
+          it {should contain_postgresql__server__role("#{db_user}").that_comes_before('Postgresql::Server::Database[candlepin]') }
 
           it do
             should contain_concat__fragment('PostgreSQL Database Configuration').
