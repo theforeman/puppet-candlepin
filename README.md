@@ -1,6 +1,6 @@
 [![Puppet Forge](http://img.shields.io/puppetforge/v/katello/candlepin.svg)](https://forge.puppetlabs.com/katello/candlepin)
 [![Build Status](https://travis-ci.org/Katello/puppet-candlepin.svg?branch=master)](https://travis-ci.org/Katello/puppet-candlepin)
-####Table of Contents
+#### Table of Contents
 
 1. [Overview](#overview)
 2. [Setup - The basics of getting started with candlepin](#setup)
@@ -12,27 +12,28 @@
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
 
-##Overview
+## Overview
 
 This module is designed to setup a Candlepin server.
 
-##Setup
+## Setup
 
-###What candlepin affects
+### What candlepin affects
 
 * Installs and configures a Candlepin server
 
-###Beginning with candlepin
+### Beginning with candlepin
 
-##Usage
+## Usage
 
-##Reference
+Currently we are not aware of use outside of [puppet-katello](https://github.com/Katello/puppet-katello).
 
-##Limitations
+## Reference
 
-* EL6 (RHEL 6 / CentOS 6)
+## Limitations
+
 * EL7 (RHEL 7 / CentOS 7)
 
-##Development
+## Development
 
 See the CONTRIBUTING guide for steps on how to make a change and get it accepted upstream.
