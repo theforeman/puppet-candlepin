@@ -96,6 +96,12 @@
 # $qpid_ssl_port::                The qpid server's SSL port
 #                                 type:Integer
 #
+# $qpid_ssl_cert::                Client certificate to talk to qpid server
+#                                 type:Stdlib::Absolutepath
+#
+# $qpid_ssl_key::                 Client key to talk to qpid server
+#                                 type:Stdlib::Absolutepath
+#
 # $ciphers::                      Allowed ciphers for ssl connection. Array of strings
 #                                 type:Array[String]
 #
@@ -192,6 +198,8 @@ class candlepin (
   $ca_key_password              = $::candlepin::params::ca_key_password,
   $qpid_hostname                = $::candlepin::params::qpid_hostname,
   $qpid_ssl_port                = $::candlepin::params::qpid_ssl_port,
+  $qpid_ssl_cert                = $::candlepin::params::qpid_ssl_cert,
+  $qpid_ssl_key                 = $::candlepin::params::qpid_ssl_key,
   $ciphers                      = $::candlepin::params::ciphers,
 
   $version                      = $::candlepin::params::version,
@@ -217,6 +225,8 @@ class candlepin (
     validate_absolute_path($amqp_truststore)
     validate_string($amqp_keystore_password)
     validate_string($amqp_truststore_password)
+    validate_absolute_path($qpid_ssl_cert)
+    validate_absolute_path($qpid_ssl_key)
   }
 
   validate_absolute_path($ca_key)
@@ -235,6 +245,7 @@ class candlepin (
   class { '::candlepin::install': } ~>
   class { '::candlepin::config':  } ~>
   class { '::candlepin::database': } ~>
+  class { '::candlepin::qpid': } ~>
   class { '::candlepin::service': } ~>
   Class['candlepin']
 

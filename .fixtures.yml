@@ -4,5 +4,6 @@ fixtures:
     extlib:     'git://github.com/voxpupuli/puppet-extlib'
     concat:     'git://github.com/puppetlabs/puppetlabs-concat'
     postgresql: 'git://github.com/puppetlabs/puppetlabs-postgresql.git'
+    qpid:       'git://github.com/katello/puppet-qpid.git'
   symlinks:
     candlepin: "#{source_dir}"
