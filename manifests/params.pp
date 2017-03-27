@@ -51,6 +51,8 @@ class candlepin::params {
 
   $qpid_hostname = 'localhost'
   $qpid_ssl_port = 5671
+  $qpid_ssl_cert = undef
+  $qpid_ssl_key = undef
 
   $ciphers = [
     'SSL_RSA_WITH_3DES_EDE_CBC_SHA',

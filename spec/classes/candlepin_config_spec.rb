@@ -44,6 +44,8 @@ describe 'candlepin::config' do
               amq_enable => true,
               amqp_truststore_password => 'password',
               amqp_keystore_password => 'password',
+              qpid_ssl_cert => '/path/to/ssl/cert',
+              qpid_ssl_key => '/path/to/ssl/key',
             }"
           end
 
@@ -67,6 +69,8 @@ describe 'candlepin::config' do
               amqp_keystore_password   => 'password',
               amqp_keystore            => '/etc/pki/my.jks',
               amqp_truststore          => '/etc/pki/my.truststore',
+              qpid_ssl_cert            => '/path/to/ssl/cert',
+              qpid_ssl_key             => '/path/to/ssl/key',
             }"
           end
 
