@@ -60,7 +60,8 @@ class candlepin::params {
     'TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA',
     'TLS_ECDH_RSA_WITH_AES_128_CBC_SHA',
     'TLS_ECDH_RSA_WITH_AES_256_CBC_SHA',
-    'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA']
+    'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA',
+    ]
 
   $version = 'present'
   $wget_version = 'present'
