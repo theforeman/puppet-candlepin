@@ -153,6 +153,20 @@
 # $candlepin_conf_file::          Configuration file location for candlepin
 #                                 type:Stdlib::Absolutepath
 #
+# $manage_repo::                  Whether to manage the yum repository
+#                                 type:Boolean
+#
+# $repo::                         Which yum repository to install. For example
+#                                 latest or 3.3. Note that the versions are
+#                                 Katello releases.
+#                                 type:String
+#
+# $repo_gpgcheck::                Whether to check the GPG signatures
+#                                 type:Boolean
+#
+# $repo_gpgkey::                  The GPG key to use
+#                                 type:String
+#
 class candlepin (
   $manage_db                    = $::candlepin::params::manage_db,
   $init_db                      = $::candlepin::params::init_db,
@@ -216,6 +230,11 @@ class candlepin (
   $ssl_port                     = $::candlepin::params::ssl_port,
 
   $candlepin_conf_file          = $::candlepin::params::candlepin_conf_file,
+
+  $manage_repo                  = $::candlepin::params::manage_repo,
+  $repo                         = $::candlepin::params::repo,
+  $repo_gpgcheck                = $::candlepin::params::repo_gpgcheck,
+  $repo_gpgkey                  = $::candlepin::params::repo_gpgkey,
 ) inherits candlepin::params {
 
   validate_bool($amq_enable)
@@ -242,6 +261,7 @@ class candlepin (
   $apiurl = "https://${::fqdn}/${candlepin::deployment_url}/api/distributors/"
   $amqpurl = "tcp://${qpid_hostname}:${qpid_ssl_port}?ssl='true'&ssl_cert_alias='amqp-client'"
 
+  class { '::candlepin::repo': } ->
   class { '::candlepin::install': } ~>
   class { '::candlepin::config':  } ~>
   class { '::candlepin::database': } ~>
