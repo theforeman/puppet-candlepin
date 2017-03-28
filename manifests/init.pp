@@ -33,6 +33,9 @@
 # $db_password::                  The Candlepin database password
 #                                 type:String
 #
+# $db_extraparams::               Extra parameters for the database connection (ex: ?sslmode=require to enable ssl on postgresql)
+#                                 type:String
+#
 # $tomcat::                       The system tomcat to use, tomcat6 on RHEL6 and tomcat on most Fedoras
 #                                 type:Enum['tomcat', 'tomcat6']
 #
@@ -153,6 +156,7 @@ class candlepin (
   $db_name                      = $::candlepin::params::db_name,
   $db_user                      = $::candlepin::params::db_user,
   $db_password                  = $::candlepin::params::db_password,
+  $db_extraparams               = $::candlepin::params::db_extraparams,
 
   $tomcat                       = $::candlepin::params::tomcat,
 
