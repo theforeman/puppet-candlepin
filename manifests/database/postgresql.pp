@@ -29,8 +29,6 @@ class candlepin::database::postgresql(
       cwd => '/',
     }
 
-    # Temporary direct use of liquibase to initiall migrate the candlepin database
-    # until support is added in cpdb - https://bugzilla.redhat.com/show_bug.cgi?id=1044574
     include ::postgresql::client, ::postgresql::server
     postgresql::server::db { $db_name:
       user     => $db_user,
@@ -41,21 +39,24 @@ class candlepin::database::postgresql(
   }
 
   if $init_db {
+    # Temporary direct use of liquibase to initially migrate the candlepin database
+    # until support is added in cpdb - https://bugzilla.redhat.com/show_bug.cgi?id=1044574
     exec { 'cpdb':
-      path        => '/bin:/usr/bin',
-      command     => "liquibase --driver=org.postgresql.Driver \
+      path      => '/bin:/usr/bin',
+      command   => "liquibase --driver=org.postgresql.Driver \
                             --classpath=/usr/share/java/postgresql-jdbc.jar:/var/lib/${tomcat}/webapps/candlepin/WEB-INF/classes/ \
                             --changeLogFile=db/changelog/changelog-create.xml \
-                            --url=jdbc:postgresql:${db_host}:${db_port}/${db_name} \
+                            --url=jdbc:postgresql://${db_host}:${db_port}/${db_name} \
                             --username=${db_user}  \
                             --password=${db_password} \
                             migrate \
                             -Dcommunity=False \
                             >> ${log_dir}/cpdb.log \
                             2>&1 && touch /var/lib/candlepin/cpdb_done",
-      creates     => '/var/lib/candlepin/cpdb_done',
-      refreshonly => true,
-      require     => [
+      creates   => '/var/lib/candlepin/cpdb_done',
+      before    => Service[$tomcat],
+      subscribe => Package['candlepin'],
+      require   => [
         Package['candlepin'],
         Concat['/etc/candlepin/candlepin.conf']
       ],

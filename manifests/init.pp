@@ -90,6 +90,12 @@
 # $ca_key_password::              CA key password
 #                                 type:String
 #
+# $qpid_hostname::                The qpid server's hostname
+#                                 type:String
+#
+# $qpid_ssl_port::                The qpid server's SSL port
+#                                 type:Integer
+#
 # $ciphers::                      Allowed ciphers for ssl connection. Array of strings
 #                                 type:Array[String]
 #
@@ -119,6 +125,13 @@
 #
 # $amqp_truststore_password::     Password for the amqp trusture
 #                                 type:String
+#
+#
+# $enable_basic_auth::            Whether to enable HTTP basic auth
+#                                 type:Boolean
+#
+# $enable_trusted_auth::          Whether to enable trusted auth
+#                                 type:Boolean
 #
 # $consumer_system_name_pattern:: Regex that consistutes a valid consumer name
 #                                 type:String
@@ -195,7 +208,7 @@ class candlepin (
   $ssl_port                     = $::candlepin::params::ssl_port,
 
   $candlepin_conf_file          = $::candlepin::params::candlepin_conf_file,
-  ) inherits candlepin::params {
+) inherits candlepin::params {
 
   validate_bool($amq_enable)
 
