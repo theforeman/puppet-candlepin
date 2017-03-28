@@ -96,6 +96,9 @@
 # $qpid_ssl_port::                The qpid server's SSL port
 #                                 type:Integer
 #
+# $ciphers::                      Allowed ciphers for ssl connection. Array of strings
+#                                 type:Array[String]
+#
 # $version::                      Version of Candlepin to install
 #                                 type:String
 #
@@ -189,6 +192,7 @@ class candlepin (
   $ca_key_password              = $::candlepin::params::ca_key_password,
   $qpid_hostname                = $::candlepin::params::qpid_hostname,
   $qpid_ssl_port                = $::candlepin::params::qpid_ssl_port,
+  $ciphers                      = $::candlepin::params::ciphers,
 
   $version                      = $::candlepin::params::version,
   $wget_version                 = $::candlepin::params::wget_version,
