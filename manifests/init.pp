@@ -91,7 +91,7 @@
 #                                 type:String
 #
 # $ciphers::                      Allowed ciphers for ssl connection. Array of strings
-#                                 type:Array
+#                                 type:Array[String]
 #
 # $version::                      Version of Candlepin to install
 #                                 type:String
