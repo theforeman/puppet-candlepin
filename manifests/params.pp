@@ -11,6 +11,8 @@ class candlepin::params {
   $db_user = 'candlepin'
   $db_name = 'candlepin'
   $db_port = undef
+  $db_ssl  = false
+  $db_ssl_verify = true
 
   # this comes from keystore
   $db_password = cache_data('foreman_cache_data', 'candlepin_db_password', random_password(32))
