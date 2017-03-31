@@ -13,6 +13,7 @@ class candlepin::database::postgresql(
   $db_name                 = $::candlepin::db_name,
   $db_user                 = $::candlepin::db_user,
   $db_password             = $::candlepin::db_password,
+  $db_extraparams          = $::candlepin::db_extraparams,
   $enable_hbm2ddl_validate = $::candlepin::enable_hbm2ddl_validate,
   $tomcat                  = $::candlepin::tomcat,
   $log_dir                 = $::candlepin::log_dir,
@@ -46,7 +47,7 @@ class candlepin::database::postgresql(
       command   => "liquibase --driver=org.postgresql.Driver \
                             --classpath=/usr/share/java/postgresql-jdbc.jar:/var/lib/${tomcat}/webapps/candlepin/WEB-INF/classes/ \
                             --changeLogFile=db/changelog/changelog-create.xml \
-                            --url=jdbc:postgresql://${db_host}:${db_port}/${db_name} \
+                            --url=jdbc:postgresql://${db_host}:${db_port}/${db_name}${db_extraparams} \
                             --username=${db_user}  \
                             --password=${db_password} \
                             migrate \
