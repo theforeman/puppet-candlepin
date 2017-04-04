@@ -79,4 +79,10 @@ class candlepin::params {
   $consumer_system_name_pattern = undef
 
   $candlepin_conf_file = '/etc/candlepin/candlepin.conf'
+
+  $manage_repo = false
+  $repo = 'latest'
+  $repo_yumcode = "el${::operatingsystemmajrelease}"
+  $repo_gpgcheck = false
+  $repo_gpgkey = undef
 }
