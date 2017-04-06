@@ -3,11 +3,11 @@ require 'spec_helper'
 describe 'candlepin::repo' do
   context 'with manage_repo => false' do let :params do
       {
-        'manage_repo' => false,
-        'repo'        => 'latest',
-        'dist'        => 'el7',
-        'gpgcheck'    => false,
-        'gpgkey'      => '',
+        'manage_repo'  => false,
+        'repo_version' => 'latest',
+        'dist'         => 'el7',
+        'gpgcheck'     => false,
+        'gpgkey'       => '',
       }
     end
 
@@ -17,11 +17,11 @@ describe 'candlepin::repo' do
   context 'with manage_repo => true' do
     let :params do
       {
-        'manage_repo' => true,
-        'repo'        => 'latest',
-        'dist'        => 'el7',
-        'gpgcheck'    => false,
-        'gpgkey'      => '',
+        'manage_repo'  => true,
+        'repo_version' => 'latest',
+        'dist'         => 'el7',
+        'gpgcheck'     => false,
+        'gpgkey'       => '',
       }
     end
 
