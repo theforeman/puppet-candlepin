@@ -163,7 +163,7 @@
 # $manage_repo::                  Whether to manage the yum repository
 #                                 type:Boolean
 #
-# $repo::                         Which yum repository to install. For example
+# $repo_version::                 Which yum repository to install. For example
 #                                 latest or 3.3. Note that the versions are
 #                                 Katello releases.
 #                                 type:String
@@ -241,7 +241,7 @@ class candlepin (
   $candlepin_conf_file          = $::candlepin::params::candlepin_conf_file,
 
   $manage_repo                  = $::candlepin::params::manage_repo,
-  $repo                         = $::candlepin::params::repo,
+  $repo_version                 = $::candlepin::params::repo_version,
   $repo_gpgcheck                = $::candlepin::params::repo_gpgcheck,
   $repo_gpgkey                  = $::candlepin::params::repo_gpgkey,
 ) inherits candlepin::params {
