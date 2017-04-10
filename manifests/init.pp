@@ -172,7 +172,7 @@
 #                                 type:Boolean
 #
 # $repo_gpgkey::                  The GPG key to use
-#                                 type:String
+#                                 type:Optional[String]
 #
 class candlepin (
   $manage_db                    = $::candlepin::params::manage_db,
