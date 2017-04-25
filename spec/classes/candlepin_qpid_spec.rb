@@ -10,7 +10,9 @@ describe 'candlepin::config' do
           "class {'candlepin':
             qpid_ssl_cert => '/path/to/ssl/cert',
             qpid_ssl_key => '/path/to/ssl/key',
-            amq_enable => true
+            amq_enable => true,
+            amqp_truststore_password => 'password',
+            amqp_keystore_password => 'password',
           }"
         end
 
