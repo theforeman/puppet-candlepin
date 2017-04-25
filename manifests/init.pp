@@ -186,7 +186,7 @@ class candlepin (
   class { '::candlepin::repo': } ->
   class { '::candlepin::install': } ~>
   class { '::candlepin::config':  } ~>
-  class { '::candlepin::database': } ~>
+  class { "::candlepin::database::${::candlepin::db_type}": } ~>
   class { '::candlepin::qpid': } ~>
   class { '::candlepin::service': } ~>
   Class['candlepin']

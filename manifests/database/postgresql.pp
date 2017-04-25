@@ -44,8 +44,8 @@ class candlepin::database::postgresql(
     # Temporary direct use of liquibase to initially migrate the candlepin database
     # until support is added in cpdb - https://bugzilla.redhat.com/show_bug.cgi?id=1044574
     exec { 'cpdb':
-      path      => '/bin:/usr/bin',
-      command   => "liquibase --driver=org.postgresql.Driver \
+      path    => '/bin:/usr/bin',
+      command => "liquibase --driver=org.postgresql.Driver \
                             --classpath=/usr/share/java/postgresql-jdbc.jar:/var/lib/${tomcat}/webapps/candlepin/WEB-INF/classes/ \
                             --changeLogFile=db/changelog/changelog-create.xml \
                             --url=jdbc:postgresql://${db_host}:${db_port}/${db_name} \
@@ -55,13 +55,9 @@ class candlepin::database::postgresql(
                             -Dcommunity=False \
                             >> ${log_dir}/cpdb.log \
                             2>&1 && touch /var/lib/candlepin/cpdb_done",
-      creates   => '/var/lib/candlepin/cpdb_done',
-      before    => Service[$tomcat],
-      subscribe => Package['candlepin'],
-      require   => [
-        Package['candlepin'],
-        Concat['/etc/candlepin/candlepin.conf']
-      ],
+      creates => '/var/lib/candlepin/cpdb_done',
+      before  => Service[$tomcat],
+      require => Concat['/etc/candlepin/candlepin.conf'],
     }
     # if both manage_db and init_db enforce order of resources
     if $manage_db {

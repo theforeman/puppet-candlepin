@@ -9,7 +9,7 @@ describe 'candlepin' do
       it { should contain_class('candlepin::repo') }
       it { should contain_class('candlepin::install') }
       it { should contain_class('candlepin::config') }
-      it { should contain_class('candlepin::database') }
+      it { should contain_class('candlepin::database::postgresql') }
       it { should contain_class('candlepin::service') }
       it { should contain_service('tomcat').with_ensure('running') }
     end
