@@ -16,7 +16,6 @@ class candlepin::database::postgresql(
   $db_user                 = $::candlepin::db_user,
   $db_password             = $::candlepin::db_password,
   $enable_hbm2ddl_validate = $::candlepin::enable_hbm2ddl_validate,
-  $tomcat                  = $::candlepin::tomcat,
   $log_dir                 = $::candlepin::log_dir,
 
 ) {
@@ -46,7 +45,7 @@ class candlepin::database::postgresql(
     exec { 'cpdb':
       path    => '/bin:/usr/bin',
       command => "liquibase --driver=org.postgresql.Driver \
-                            --classpath=/usr/share/java/postgresql-jdbc.jar:/var/lib/${tomcat}/webapps/candlepin/WEB-INF/classes/ \
+                            --classpath=/usr/share/java/postgresql-jdbc.jar:/var/lib/tomcat/webapps/candlepin/WEB-INF/classes/ \
                             --changeLogFile=db/changelog/changelog-create.xml \
                             --url=jdbc:postgresql://${db_host}:${db_port}/${db_name} \
                             --username=${db_user}  \
@@ -56,7 +55,7 @@ class candlepin::database::postgresql(
                             >> ${log_dir}/cpdb.log \
                             2>&1 && touch /var/lib/candlepin/cpdb_done",
       creates => '/var/lib/candlepin/cpdb_done',
-      before  => Service[$tomcat],
+      before  => Service['tomcat'],
       require => Concat['/etc/candlepin/candlepin.conf'],
     }
     # if both manage_db and init_db enforce order of resources

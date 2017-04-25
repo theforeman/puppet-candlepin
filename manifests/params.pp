@@ -1,7 +1,5 @@
 # Candlepin params
 class candlepin::params {
-  $tomcat = 'tomcat'
-
   $ssl_port = 8443
 
   $manage_db = true

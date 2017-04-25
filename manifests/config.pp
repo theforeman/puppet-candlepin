@@ -17,9 +17,9 @@ class candlepin::config {
     group => 'tomcat',
   }
 
-  file { "/etc/${candlepin::tomcat}/server.xml":
+  file { '/etc/tomcat/server.xml':
     ensure  => file,
-    content => template("candlepin/${candlepin::tomcat}/server.xml.erb"),
+    content => template('candlepin/tomcat/server.xml.erb'),
     mode    => '0644',
     owner   => 'root',
     group   => 'root',

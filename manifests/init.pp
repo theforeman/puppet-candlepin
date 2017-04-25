@@ -28,8 +28,6 @@
 #
 # $db_password::                  The Candlepin database password
 #
-# $tomcat::                       The system tomcat to use, tomcat6 on RHEL6 and tomcat on most Fedoras
-#
 # $crl_file::                     The Certificate Revocation File for Candlepin
 #
 # $user_groups::                  The user groups for the Candlepin tomcat user
@@ -130,7 +128,6 @@ class candlepin (
   String $db_name = $::candlepin::params::db_name,
   String $db_user = $::candlepin::params::db_user,
   String $db_password = $::candlepin::params::db_password,
-  Enum['tomcat', 'tomcat6'] $tomcat = $::candlepin::params::tomcat,
   Stdlib::Absolutepath $crl_file = $::candlepin::params::crl_file,
   Array $user_groups = $::candlepin::params::user_groups,
   Stdlib::Absolutepath $log_dir = $::candlepin::params::log_dir,
