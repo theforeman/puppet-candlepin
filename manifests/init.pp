@@ -129,7 +129,7 @@ class candlepin (
   String $db_user = $::candlepin::params::db_user,
   String $db_password = $::candlepin::params::db_password,
   Stdlib::Absolutepath $crl_file = $::candlepin::params::crl_file,
-  Array $user_groups = $::candlepin::params::user_groups,
+  Variant[Array[String], String] $user_groups = $::candlepin::params::user_groups,
   Stdlib::Absolutepath $log_dir = $::candlepin::params::log_dir,
   String $oauth_key = $::candlepin::params::oauth_key,
   String $oauth_secret = $::candlepin::params::oauth_secret,
