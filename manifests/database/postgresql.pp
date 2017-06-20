@@ -40,20 +40,27 @@ class candlepin::database::postgresql(
   }
 
   if $init_db {
-    # Temporary direct use of liquibase to initially migrate the candlepin database
-    # until support is added in cpdb - https://bugzilla.redhat.com/show_bug.cgi?id=1044574
+    $ssl_verify_options = $db_ssl_verify ? {
+      false => '&sslfactory=org.postgresql.ssl.NonValidatingFactory',
+      default => ''
+    }
+
+    $ssl_options = $db_ssl ? {
+      true  => "?ssl=true${ssl_verify_options}",
+      default => ''
+    }
+
     exec { 'cpdb':
-      path    => '/bin:/usr/bin',
-      command => "liquibase --driver=org.postgresql.Driver \
-                            --classpath=/usr/share/java/postgresql-jdbc.jar:/var/lib/tomcat/webapps/candlepin/WEB-INF/classes/ \
-                            --changeLogFile=db/changelog/changelog-create.xml \
-                            --url=jdbc:postgresql://${db_host}:${db_port}/${db_name} \
-                            --username=${db_user}  \
-                            --password=${db_password} \
-                            migrate \
-                            -Dcommunity=False \
-                            >> ${log_dir}/cpdb.log \
-                            2>&1 && touch /var/lib/candlepin/cpdb_done",
+      path    => '/usr/share/candlepin:/bin',
+      command => "cpdb --create \
+                       --schema-only \
+                       --dbhost=${db_host} \
+                       --dbport=${db_port} \
+                       --database=${db_name}${ssl_options} \
+                       --user=${db_user}  \
+                       --password=${db_password} \
+                       >> ${log_dir}/cpdb.log \
+                       2>&1 && touch /var/lib/candlepin/cpdb_done",
       creates => '/var/lib/candlepin/cpdb_done',
       before  => Service['tomcat'],
       require => Concat['/etc/candlepin/candlepin.conf'],
