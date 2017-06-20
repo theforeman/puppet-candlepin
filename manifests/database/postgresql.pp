@@ -46,18 +46,18 @@ class candlepin::database::postgresql(
     }
 
     $ssl_options = $db_ssl ? {
-      true  => 'ssl=true' + $ssl_verify_options,
+      true  => "?ssl=true${ssl_verify_options}",
       default => ''
     }
 
     exec { 'cpdb':
-      path    => '/usr/share/candlepin',
+      path    => '/usr/share/candlepin:/bin',
       command => "cpdb --create \
                        --schema-only \
                        --dbhost=${db_host} \
                        --dbport=${db_port} \
                        --database=${db_name}${ssl_options} \
-                       --username=${db_user}  \
+                       --user=${db_user}  \
                        --password=${db_password} \
                        >> ${log_dir}/cpdb.log \
                        2>&1 && touch /var/lib/candlepin/cpdb_done",
