@@ -180,12 +180,13 @@ class candlepin (
   $apiurl = "https://${::fqdn}/${candlepin::deployment_url}/api/distributors/"
   $amqpurl = "tcp://${qpid_hostname}:${qpid_ssl_port}?ssl='true'&ssl_cert_alias='amqp-client'"
 
+  contain ::candlepin::service
+
   class { '::candlepin::repo': } ->
   class { '::candlepin::install': } ~>
   class { '::candlepin::config':  } ~>
   class { "::candlepin::database::${::candlepin::db_type}": } ~>
   class { '::candlepin::qpid': } ~>
-  class { '::candlepin::service': } ~>
-  Class['candlepin']
+  Class['candlepin::service']
 
 }
