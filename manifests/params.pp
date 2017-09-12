@@ -47,8 +47,6 @@ class candlepin::params {
   $env_filtering_enabled = true
   $thumbslug_enabled = false
 
-  $deployment_url = 'candlepin'
-
   $qpid_hostname = 'localhost'
   $qpid_ssl_port = 5671
   $qpid_ssl_cert = undef

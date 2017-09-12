@@ -34,12 +34,6 @@
 #
 # $log_dir::                      Directory for Candlepin logs
 #
-# $deployment_url::               The root URL to deploy the Web and API URLs at
-#
-# $weburl::                       The Candlepin Web URL which is configurable via the deployment_url
-#
-# $apiurl::                       The Candlepin API URL which is configurable via the deployment_url
-#
 # $env_filtering_enabled::        If subscription filtering is done on a per environment basis
 #
 # $thumbslug_enabled::            If using Thumbslug
@@ -133,7 +127,6 @@ class candlepin (
   Stdlib::Absolutepath $log_dir = $::candlepin::params::log_dir,
   String $oauth_key = $::candlepin::params::oauth_key,
   String $oauth_secret = $::candlepin::params::oauth_secret,
-  String $deployment_url = $::candlepin::params::deployment_url,
   Boolean $env_filtering_enabled = $::candlepin::params::env_filtering_enabled,
   Boolean $thumbslug_enabled = $::candlepin::params::thumbslug_enabled,
   String $thumbslug_oauth_key = $::candlepin::params::thumbslug_oauth_key,
@@ -176,8 +169,6 @@ class candlepin (
     assert_type(String, $amqp_truststore_password)
   }
 
-  $weburl = "https://${::fqdn}/${candlepin::deployment_url}/distributors?uuid="
-  $apiurl = "https://${::fqdn}/${candlepin::deployment_url}/api/distributors/"
   $amqpurl = "tcp://${qpid_hostname}:${qpid_ssl_port}?ssl='true'&ssl_cert_alias='amqp-client'"
 
   contain ::candlepin::service
