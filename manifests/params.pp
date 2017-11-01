@@ -81,4 +81,14 @@ class candlepin::params {
   $repo_yumcode = "el${::operatingsystemmajrelease}"
   $repo_gpgcheck = false
   $repo_gpgkey = undef
+
+  # tomcat.conf paramaters
+  $tomcat_base = '/var/lib/tomcats/'
+  $java_home = '/usr/lib/jvm/jre'
+  $catalina_home = '/usr/share/tomcat'
+  $catalina_tmpdir = '/var/cache/tomcat/temp'
+  $java_opts = '-Xms1024m -Xmx4096m'
+  $lang = undef
+  $security_manager = false
+  $shutdown_wait = undef
 }

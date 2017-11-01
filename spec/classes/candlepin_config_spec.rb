@@ -24,6 +24,25 @@ describe 'candlepin::config' do
         end
       end
 
+      describe 'tomcat.conf' do
+        let :pre_condition do
+          "class {'candlepin':}"
+        end
+        it { should contain_file('/etc/tomcat/tomcat.conf') }
+
+          it 'should contain settings' do
+            verify_exact_contents(catalogue, '/etc/tomcat/tomcat.conf', [
+              'TOMCAT_CFG_LOADED="1"',
+              'TOMCATS_BASE="/var/lib/tomcats/"',
+              'JAVA_HOME="/usr/lib/jvm/jre"',
+              'CATALINA_HOME="/usr/share/tomcat"',
+              'CATALINA_TMPDIR="/var/cache/tomcat/temp"',
+              'JAVA_OPTS="-Xms1024m -Xmx4096m"',
+              'SECURITY_MANAGER="0"',
+            ])
+          end
+        end
+
       describe 'with custom adapter module' do
         let :pre_condition do
           "class {'candlepin':
