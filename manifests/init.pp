@@ -111,6 +111,24 @@
 #
 # $repo_gpgkey::                  The GPG key to use
 #
+# === Advanced parameters:
+#
+# $tomcat_base::                  In new-style instances, if CATALINA_BASE isn't specified, it will be constructed by joining TOMCATS_BASE and NAME.
+#
+# $java_home::                    Where your java installation lives
+#
+# $catalina_home::                Where your tomcat installation lives
+#
+# $catalina_tmpdir::              System-wide tmp
+#
+# $java_opts::                    Java Parameters
+#
+# $lang::                         Tomcat locale setting
+#
+# $security_manager::             Run tomcat under the Java Security Manager
+#
+# $shutdown_wait::                Time to wait in seconds, before killing process
+#
 class candlepin (
   Boolean $manage_db = $::candlepin::params::manage_db,
   Boolean $init_db = $::candlepin::params::init_db,
@@ -163,6 +181,14 @@ class candlepin (
   String $repo_version = $::candlepin::params::repo_version,
   Boolean $repo_gpgcheck = $::candlepin::params::repo_gpgcheck,
   Optional[String] $repo_gpgkey = $::candlepin::params::repo_gpgkey,
+  Stdlib::Absolutepath $tomcat_base = $::candlepin::params::tomcat_base,
+  Stdlib::Absolutepath $java_home = $::candlepin::params::java_home,
+  Stdlib::Absolutepath $catalina_home = $::candlepin::params::catalina_home,
+  Stdlib::Absolutepath $catalina_tmpdir = $::candlepin::params::catalina_tmpdir,
+  String $java_opts = $::candlepin::params::java_opts,
+  Optional[String] $lang = $::candlepin::params::lang,
+  Boolean $security_manager = $::candlepin::params::security_manager,
+  Optional[Integer[0]] $shutdown_wait = $::candlepin::params::shutdown_wait,
 ) inherits candlepin::params {
   if $amq_enable {
     assert_type(String, $amqp_keystore_password)

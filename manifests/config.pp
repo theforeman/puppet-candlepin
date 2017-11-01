@@ -25,4 +25,11 @@ class candlepin::config {
     group   => 'root',
   }
 
+  file { '/etc/tomcat/tomcat.conf':
+    ensure  => file,
+    content => template('candlepin/tomcat/tomcat.conf.erb'),
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'tomcat',
+  }
 }
