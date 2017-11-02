@@ -96,7 +96,7 @@ describe 'candlepin::config' do
 
         it "should setup the tomcat config file" do
           should contain_file("/etc/tomcat/server.xml").
-            with_content(/^    <Connector port="9070" protocol="HTTP\/1.1" SSLEnabled="true"/).
+            with_content(/^    <Connector port="9070" address="127.0.0.1" protocol="HTTP\/1.1" SSLEnabled="true"/).
             with({})
         end
       end

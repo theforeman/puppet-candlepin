@@ -32,6 +32,8 @@ class candlepin::params {
 
   $crl_file = '/var/lib/candlepin/candlepin-crl.crl'
 
+  $address = '127.0.0.1'
+
   $oauth_key = 'candlepin'
   $oauth_secret = 'candlepin'
 
