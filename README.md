@@ -1,5 +1,5 @@
 [![Puppet Forge](http://img.shields.io/puppetforge/v/katello/candlepin.svg)](https://forge.puppetlabs.com/katello/candlepin)
-[![Build Status](https://travis-ci.org/Katello/puppet-candlepin.svg?branch=master)](https://travis-ci.org/Katello/puppet-candlepin)
+[![Build Status](https://travis-ci.org/theforeman/puppet-candlepin.svg?branch=master)](https://travis-ci.org/theforeman/puppet-candlepin)
 #### Table of Contents
 
 1. [Overview](#overview)
@@ -26,7 +26,7 @@ This module is designed to setup a Candlepin server.
 
 ## Usage
 
-Currently we are not aware of use outside of [puppet-katello](https://github.com/Katello/puppet-katello).
+Currently we are not aware of use outside of [puppet-katello](https://github.com/theforeman/puppet-katello).
 
 ## Reference
 
