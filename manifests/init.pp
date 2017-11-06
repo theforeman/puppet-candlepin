@@ -111,6 +111,8 @@
 #
 # $repo_gpgkey::                  The GPG key to use
 #
+# $address::                      Address to listen on for server.xml
+#
 class candlepin (
   Boolean $manage_db = $::candlepin::params::manage_db,
   Boolean $init_db = $::candlepin::params::init_db,
@@ -163,6 +165,7 @@ class candlepin (
   String $repo_version = $::candlepin::params::repo_version,
   Boolean $repo_gpgcheck = $::candlepin::params::repo_gpgcheck,
   Optional[String] $repo_gpgkey = $::candlepin::params::repo_gpgkey,
+  String $address = $::candlepin::params::address,
 ) inherits candlepin::params {
   if $amq_enable {
     assert_type(String, $amqp_keystore_password)
