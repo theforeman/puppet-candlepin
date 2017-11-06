@@ -1,9 +1,9 @@
 fixtures:
   repositories:
-    stdlib:     'git://github.com/puppetlabs/puppetlabs-stdlib.git'
-    extlib:     'git://github.com/voxpupuli/puppet-extlib'
-    concat:     'git://github.com/puppetlabs/puppetlabs-concat'
-    postgresql: 'git://github.com/puppetlabs/puppetlabs-postgresql.git'
-    qpid:       'git://github.com/katello/puppet-qpid.git'
+    stdlib:     'https://github.com/puppetlabs/puppetlabs-stdlib.git'
+    extlib:     'https://github.com/voxpupuli/puppet-extlib'
+    concat:     'https://github.com/puppetlabs/puppetlabs-concat'
+    postgresql: 'https://github.com/puppetlabs/puppetlabs-postgresql.git'
+    qpid:       'https://github.com/theforeman/puppet-qpid.git'
   symlinks:
     candlepin: "#{source_dir}"
