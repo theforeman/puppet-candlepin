@@ -1,5 +1,18 @@
 # Change Log
 
+## [5.0.0](https://github.com/theforeman/puppet-candlepin/tree/5.0.0) (2018-01-25)
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/4.0.1...5.0.0)
+
+**Breaking changes:**
+
+- Remove unused variables [\#82](https://github.com/theforeman/puppet-candlepin/pull/82) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Update Github URLs [\#89](https://github.com/theforeman/puppet-candlepin/pull/89) ([ekohl](https://github.com/ekohl))
+- Fixes \#18146 - add mem/params to tomcat.conf [\#86](https://github.com/theforeman/puppet-candlepin/pull/86) ([chris1984](https://github.com/chris1984))
+- Update changelogs and major version bump [\#85](https://github.com/theforeman/puppet-candlepin/pull/85) ([ekohl](https://github.com/ekohl))
+
 ## [4.0.1](https://github.com/theforeman/puppet-candlepin/tree/4.0.1)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/4.0.0...4.0.1)
