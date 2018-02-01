@@ -68,6 +68,8 @@
 #
 # $ciphers::                      Allowed ciphers for ssl connection. Array of strings
 #
+# $tls_versions::                 Allowed versions of TLS, for example 1.1, 1.2, etc
+#
 # $version::                      Version of Candlepin to install
 #
 # $wget_version::                 Version of wget to install
@@ -166,6 +168,7 @@ class candlepin (
   Optional[Stdlib::Absolutepath] $qpid_ssl_cert = $::candlepin::params::qpid_ssl_cert,
   Optional[Stdlib::Absolutepath] $qpid_ssl_key = $::candlepin::params::qpid_ssl_key,
   Array[String] $ciphers = $::candlepin::params::ciphers,
+  Array[String] $tls_versions = $::candlepin::params::tls_versions,
   String $version = $::candlepin::params::version,
   String $wget_version = $::candlepin::params::wget_version,
   Boolean $run_init = $::candlepin::params::run_init,
