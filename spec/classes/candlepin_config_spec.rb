@@ -119,6 +119,20 @@ describe 'candlepin::config' do
             with({})
         end
       end
+
+      describe 'with tls_versions' do
+        let :pre_condition do
+          "class {'candlepin':
+            tls_versions => ['1.2', '1.3'],
+          }"
+        end
+
+        it "should setup the tomcat config file" do
+          should contain_file("/etc/tomcat/server.xml").
+            with_content(/sslProtocols="TLSv1.2,TLSv1.3"/).
+            with({})
+        end
+      end
     end
   end
 end

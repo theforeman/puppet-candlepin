@@ -87,7 +87,7 @@
     <Connector port="<%= scope['::candlepin::ssl_port'] %>" protocol="HTTP/1.1" SSLEnabled="true"
                maxThreads="150" scheme="https" secure="true"
                clientAuth="want"
-               sslProtocols="TLSv1.2,TLSv1.1,TLSv1"
+               sslProtocols="<%= scope['::candlepin::tls_versions'].map { |version| "TLSv#{version}"}.join(",") %>"
                keystoreFile="<%= scope['::candlepin::keystore_file'] %>"
                truststoreFile="<%= scope['::candlepin::truststore_file'] %>"
                keystorePass="<%= scope['::candlepin::keystore_password'] %>"

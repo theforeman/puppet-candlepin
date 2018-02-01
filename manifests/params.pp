@@ -63,6 +63,11 @@ class candlepin::params {
     'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA',
   ]
 
+  $tls_versions = [
+    '1.1',
+    '1.2',
+  ]
+
   $version = 'present'
   $wget_version = 'present'
   $run_init = true
