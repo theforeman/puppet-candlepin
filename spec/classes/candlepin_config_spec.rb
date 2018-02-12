@@ -130,6 +130,7 @@ describe 'candlepin::config' do
         it "should setup the tomcat config file" do
           should contain_file("/etc/tomcat/server.xml").
             with_content(/sslProtocols="TLSv1.2,TLSv1.3"/).
+            with_content(/sslEnabledProtocols="TLSv1.2,TLSv1.3"/).
             with({})
         end
       end
