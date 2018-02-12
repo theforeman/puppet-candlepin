@@ -88,6 +88,7 @@
                maxThreads="150" scheme="https" secure="true"
                clientAuth="want"
                sslProtocols="<%= scope['::candlepin::tls_versions'].map { |version| "TLSv#{version}"}.join(",") %>"
+               sslEnabledProtocols="<%= scope['::candlepin::tls_versions'].map { |version| "TLSv#{version}"}.join(",") %>"
                keystoreFile="<%= scope['::candlepin::keystore_file'] %>"
                truststoreFile="<%= scope['::candlepin::truststore_file'] %>"
                keystorePass="<%= scope['::candlepin::keystore_password'] %>"
