@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.0.2](https://github.com/katello/puppet-candlepin/tree/4.0.2)
+
+[Full Changelog](https://github.com/katello/puppet-candlepin/compare/4.0.1...4.0.2)
+
+- Allow qpid 4.x [\#94](https://github.com/theforeman/puppet-candlepin/pull/94) ([ekohl](https://github.com/ekohl))
+
 ## [4.0.1](https://github.com/katello/puppet-candlepin/tree/4.0.1)
 
 [Full Changelog](https://github.com/katello/puppet-candlepin/compare/4.0.0...4.0.1)
