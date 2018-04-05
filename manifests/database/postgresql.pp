@@ -56,9 +56,9 @@ class candlepin::database::postgresql(
                        --schema-only \
                        --dbhost=${db_host} \
                        --dbport=${db_port} \
-                       --database=${db_name}${ssl_options} \
-                       --user=${db_user}  \
-                       --password=${db_password} \
+                       --database='${db_name}${ssl_options}' \
+                       --user='${db_user}'  \
+                       --password='${db_password}' \
                        >> ${log_dir}/cpdb.log \
                        2>&1 && touch /var/lib/candlepin/cpdb_done",
       creates => '/var/lib/candlepin/cpdb_done',
