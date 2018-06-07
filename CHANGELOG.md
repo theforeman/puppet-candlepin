@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.1.1](https://github.com/theforeman/puppet-candlepin/tree/5.1.1) (2018-06-07)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/5.1.0...5.1.1)
+
+**Fixed bugs:**
+
+- Refs [\#23025](https://projects.theforeman.org/issues/23025) escape db connection string [\#101](https://github.com/theforeman/puppet-candlepin/pull/101) ([alda519](https://github.com/alda519))
+
 ## [5.1.0](https://github.com/theforeman/puppet-candlepin/tree/5.1.0) (2018-02-28)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/5.0.0...5.1.0)
