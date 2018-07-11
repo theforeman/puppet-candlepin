@@ -1,6 +1,6 @@
 # Changelog
 
-## [5.1.1](https://github.com/theforeman/puppet-candlepin/tree/5.1.1) (2018-06-07)
+## [5.1.1](https://github.com/theforeman/puppet-candlepin/tree/5.1.1) (2018-07-11)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/5.1.0...5.1.1)
 
