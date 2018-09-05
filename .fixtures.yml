@@ -5,5 +5,3 @@ fixtures:
     concat:     'https://github.com/puppetlabs/puppetlabs-concat'
     postgresql: 'https://github.com/puppetlabs/puppetlabs-postgresql.git'
     qpid:       'https://github.com/theforeman/puppet-qpid.git'
-  symlinks:
-    candlepin: "#{source_dir}"
