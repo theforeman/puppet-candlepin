@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.2.0](https://github.com/theforeman/puppet-candlepin/tree/5.2.0) (2018-10-08)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/5.1.1...5.2.0)
+
+**Implemented enhancements:**
+
+- Allow stdlib/concat 5.x [\#109](https://github.com/theforeman/puppet-candlepin/pull/109) ([ekohl](https://github.com/ekohl))
+- Add debug logging placeholder to candlepin.conf [\#107](https://github.com/theforeman/puppet-candlepin/pull/107) ([kahowell](https://github.com/kahowell))
+
 ## [5.1.1](https://github.com/theforeman/puppet-candlepin/tree/5.1.1) (2018-07-11)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/5.1.0...5.1.1)
@@ -10,7 +19,7 @@
 
 ## [5.1.0](https://github.com/theforeman/puppet-candlepin/tree/5.1.0) (2018-02-28)
 
-[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/5.0.0...5.1.0)
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/4.0.2...5.1.0)
 
 **Implemented enhancements:**
 
@@ -18,10 +27,9 @@
 - Fixes [\#22567](https://projects.theforeman.org/issues/22567) - add sslEnabledProtocols parameter to server.xml.erb [\#97](https://github.com/theforeman/puppet-candlepin/pull/97) ([sideangleside](https://github.com/sideangleside))
 - refs [\#21350](https://projects.theforeman.org/issues/21350) - allow only enabling specific tls versions [\#96](https://github.com/theforeman/puppet-candlepin/pull/96) ([stbenjam](https://github.com/stbenjam))
 
-# Change Log
-
 ## [5.0.0](https://github.com/theforeman/puppet-candlepin/tree/5.0.0) (2018-01-25)
-[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/4.0.1...5.0.0)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/4.0.2...5.0.0)
 
 **Breaking changes:**
 
@@ -33,15 +41,22 @@
 - Fixes [\#18146](https://projects.theforeman.org/issues/18146) - add mem/params to tomcat.conf [\#86](https://github.com/theforeman/puppet-candlepin/pull/86) ([chris1984](https://github.com/chris1984))
 - Update changelogs and major version bump [\#85](https://github.com/theforeman/puppet-candlepin/pull/85) ([ekohl](https://github.com/ekohl))
 
-## [4.0.1](https://github.com/theforeman/puppet-candlepin/tree/4.0.1)
+## [4.0.2](https://github.com/theforeman/puppet-candlepin/tree/4.0.2) (2018-02-13)
 
-[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/4.0.0...4.0.1)
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/4.0.1...4.0.2)
 
 **Merged pull requests:**
+
+- Allow qpid 4.x [\#98](https://github.com/theforeman/puppet-candlepin/pull/98) ([ekohl](https://github.com/ekohl))
+
+## [4.0.1](https://github.com/theforeman/puppet-candlepin/tree/4.0.1) (2017-10-18)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/4.0.0...4.0.1)
 
 - Allow extlib 2.0 [\#83](https://github.com/theforeman/puppet-candlepin/pull/83) ([ekohl](https://github.com/ekohl))
 
 ## [4.0.0](https://github.com/theforeman/puppet-candlepin/tree/4.0.0) (2017-08-15)
+
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/3.0.0...4.0.0)
 
 **Merged pull requests:**
@@ -56,6 +71,7 @@
 - Repo GPG keys are optional [\#74](https://github.com/theforeman/puppet-candlepin/pull/74) ([ekohl](https://github.com/ekohl))
 
 ## [3.0.0](https://github.com/theforeman/puppet-candlepin/tree/3.0.0) (2017-04-07)
+
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/2.0.1...3.0.0)
 
 **Merged pull requests:**
@@ -75,6 +91,7 @@
 - Add support for non-validated SSL on database connections. [\#54](https://github.com/theforeman/puppet-candlepin/pull/54) ([gregswift](https://github.com/gregswift))
 
 ## [2.0.1](https://github.com/theforeman/puppet-candlepin/tree/2.0.1) (2017-01-24)
+
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/2.0.0...2.0.1)
 
 **Closed issues:**
@@ -86,6 +103,7 @@
 - Update module [\#59](https://github.com/theforeman/puppet-candlepin/pull/59) ([ekohl](https://github.com/ekohl))
 
 ## [2.0.0](https://github.com/theforeman/puppet-candlepin/tree/2.0.0) (2016-11-22)
+
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/1.1.0...2.0.0)
 
 **Merged pull requests:**
@@ -98,6 +116,7 @@
 - fixes [\#11737](https://projects.theforeman.org/issues/11737) - qpid hostname configurable and 'localhost' by default [\#44](https://github.com/theforeman/puppet-candlepin/pull/44) ([stbenjam](https://github.com/stbenjam))
 
 ## [1.1.0](https://github.com/theforeman/puppet-candlepin/tree/1.1.0) (2016-09-12)
+
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/1.0.1...1.1.0)
 
 **Merged pull requests:**
@@ -110,6 +129,7 @@
 - Modulesync [\#43](https://github.com/theforeman/puppet-candlepin/pull/43) ([stbenjam](https://github.com/stbenjam))
 
 ## [1.0.1](https://github.com/theforeman/puppet-candlepin/tree/1.0.1) (2016-02-24)
+
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/1.0.0...1.0.1)
 
 **Merged pull requests:**
@@ -117,6 +137,7 @@
 - Require the concat and not file resource properly [\#42](https://github.com/theforeman/puppet-candlepin/pull/42) ([ehelms](https://github.com/ehelms))
 
 ## [1.0.0](https://github.com/theforeman/puppet-candlepin/tree/1.0.0) (2016-02-05)
+
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/0.2.1...1.0.0)
 
 **Merged pull requests:**
@@ -130,6 +151,7 @@
 - fix db name [\#33](https://github.com/theforeman/puppet-candlepin/pull/33) ([cristifalcas](https://github.com/cristifalcas))
 
 ## [0.2.1](https://github.com/theforeman/puppet-candlepin/tree/0.2.1) (2015-11-20)
+
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/0.2.0...0.2.1)
 
 **Merged pull requests:**
@@ -138,6 +160,7 @@
 - Allow changing deployment port [\#29](https://github.com/theforeman/puppet-candlepin/pull/29) ([ehelms](https://github.com/ehelms))
 
 ## [0.2.0](https://github.com/theforeman/puppet-candlepin/tree/0.2.0) (2015-10-12)
+
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/0.1.0...0.2.0)
 
 **Merged pull requests:**
@@ -149,6 +172,9 @@
 - Add forge and travis badges to README [\#24](https://github.com/theforeman/puppet-candlepin/pull/24) ([stbenjam](https://github.com/stbenjam))
 
 ## [0.1.0](https://github.com/theforeman/puppet-candlepin/tree/0.1.0) (2015-07-20)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/832bafa66c9fdc8d632908613695691e90f78583...0.1.0)
+
 **Merged pull requests:**
 
 - Fixes [\#11160](https://projects.theforeman.org/issues/11160) : Increase the number of times the scripts attempts to c… [\#23](https://github.com/theforeman/puppet-candlepin/pull/23) ([bkearney](https://github.com/bkearney))
@@ -174,4 +200,4 @@
 
 
 
-\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
+\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
