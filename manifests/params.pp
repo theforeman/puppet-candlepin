@@ -68,7 +68,7 @@ class candlepin::params {
 
   $version = 'present'
   $wget_version = 'present'
-  $run_init = true
+  $run_init = false
   $adapter_module = undef
   $enable_hbm2ddl_validate = true
 
