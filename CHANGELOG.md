@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.2.1](https://github.com/theforeman/puppet-candlepin/tree/5.2.1) (2018-10-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/5.2.0...5.2.1)
+
+**Fixed bugs:**
+
+- Fixes [\#25062](https://projects.theforeman.org/issues/25062): set hibernate logging to ERROR [\#112](https://github.com/theforeman/puppet-candlepin/pull/112) ([akofink](https://github.com/akofink))
+
 ## [5.2.0](https://github.com/theforeman/puppet-candlepin/tree/5.2.0) (2018-10-08)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/5.1.1...5.2.0)
