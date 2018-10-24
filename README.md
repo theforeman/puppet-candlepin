@@ -1,34 +1,28 @@
-[![Puppet Forge](http://img.shields.io/puppetforge/v/katello/candlepin.svg)](https://forge.puppetlabs.com/katello/candlepin)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/katello/candlepin.svg)](https://forge.puppetlabs.com/katello/candlepin)
 [![Build Status](https://travis-ci.org/theforeman/puppet-candlepin.svg?branch=master)](https://travis-ci.org/theforeman/puppet-candlepin)
+
 #### Table of Contents
 
 1. [Overview](#overview)
 2. [Setup - The basics of getting started with candlepin](#setup)
     * [What candlepin affects](#what-candlepin-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with candlepin](#beginning-with-candlepin)
-3. [Usage - Configuration options and additional functionality](#usage)
-4. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Development - Guide for contributing to the module](#development)
+3. [Limitations - OS compatibility, etc.](#limitations)
+4. [Development - Guide for contributing to the module](#development)
 
 ## Overview
 
 This module is designed to setup a Candlepin server.
 
+Currently we are not aware of use outside of [puppet-katello](https://github.com/theforeman/puppet-katello).
+
 ## Setup
 
 ### What candlepin affects
 
-* Installs and configures a Candlepin server
-
-### Beginning with candlepin
+* Installs and configures a Candlepin server including Tomcat
 
 ## Usage
 
-Currently we are not aware of use outside of [puppet-katello](https://github.com/theforeman/puppet-katello).
-
-## Reference
 
 ## Limitations
 
