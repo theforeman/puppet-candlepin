@@ -1,4 +1,6 @@
-# Candlepin Database Setup using Postgreql
+# Candlepin Database Setup using Postgresql
+#
+# @api private
 class candlepin::database::postgresql(
 
   $candlepin_conf_file     = $::candlepin::candlepin_conf_file,

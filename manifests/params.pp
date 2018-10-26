@@ -1,4 +1,6 @@
 # Candlepin params
+#
+# @api private
 class candlepin::params {
   $ssl_port = 8443
 

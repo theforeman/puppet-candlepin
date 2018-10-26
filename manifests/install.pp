@@ -1,4 +1,6 @@
 # Candlepin installation packages
+#
+# @api private
 class candlepin::install {
   assert_private()
 

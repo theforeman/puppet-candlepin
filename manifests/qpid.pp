@@ -1,4 +1,6 @@
 # Qpid setup for Candlepin
+#
+# @api private
 class candlepin::qpid {
   assert_private()
 

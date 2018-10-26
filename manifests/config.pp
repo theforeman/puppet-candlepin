@@ -1,4 +1,6 @@
 # Configuration for Candlepin
+#
+# @api private
 class candlepin::config {
   assert_private()
 
