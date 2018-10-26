@@ -12,6 +12,8 @@ class candlepin::database::mysql(
   $db_password = $::candlepin::db_password,
   $enable_hbm2ddl_validate = $::candlepin::enable_hbm2ddl_validate,
 ) {
+  assert_private()
+
   concat::fragment{'Mysql Database Configuration':
     target  => $candlepin_conf_file,
     content => template('candlepin/_candlepin_database.conf.erb'),

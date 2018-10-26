@@ -1,5 +1,7 @@
 # Candlepin installation packages
 class candlepin::install {
+  assert_private()
+
   package { ['candlepin']:
     ensure => $candlepin::version,
   }

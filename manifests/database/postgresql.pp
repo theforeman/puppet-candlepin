@@ -19,6 +19,8 @@ class candlepin::database::postgresql(
   $log_dir                 = $::candlepin::log_dir,
 
 ) {
+  assert_private()
+
   concat::fragment{'PostgreSQL Database Configuration':
     target  => $candlepin_conf_file,
     content => template('candlepin/_candlepin_database.conf.erb'),

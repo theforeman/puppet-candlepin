@@ -1,5 +1,6 @@
 # Qpid setup for Candlepin
 class candlepin::qpid {
+  assert_private()
 
   if $::candlepin::amq_enable {
     qpid::config::exchange { 'event':

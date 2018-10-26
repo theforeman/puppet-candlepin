@@ -1,5 +1,6 @@
 # Configuration for Candlepin
 class candlepin::config {
+  assert_private()
 
   user { 'tomcat':
     ensure => present,
