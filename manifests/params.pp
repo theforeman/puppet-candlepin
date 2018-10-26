@@ -35,9 +35,6 @@ class candlepin::params {
   $oauth_key = 'candlepin'
   $oauth_secret = 'candlepin'
 
-  $thumbslug_oauth_key = 'thumbslug'
-  $thumbslug_oauth_secret = 'thumbslug'
-
   $ca_key = '/etc/candlepin/certs/candlepin-ca.key'
   $ca_cert = '/etc/candlepin/certs/candlepin-ca.crt'
   $ca_key_password = undef
@@ -45,7 +42,6 @@ class candlepin::params {
   $user_groups = []
 
   $env_filtering_enabled = true
-  $thumbslug_enabled = false
 
   $qpid_hostname = 'localhost'
   $qpid_ssl_port = 5671
