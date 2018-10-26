@@ -1,4 +1,6 @@
 # Candlepin Service and Initialization
+#
+# @api private
 class candlepin::service {
   assert_private()
 

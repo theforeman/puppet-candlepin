@@ -1,3 +1,6 @@
+# Manage the yum repository
+#
+# @api private
 class candlepin::repo (
   $manage_repo  = $::candlepin::manage_repo,
   $repo_version = $::candlepin::repo_version,

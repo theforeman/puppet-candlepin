@@ -1,4 +1,6 @@
 # Candlepin Database Setup using Mysql
+#
+# @api private
 class candlepin::database::mysql(
   $candlepin_conf_file = $::candlepin::candlepin_conf_file,
   $db_dialect = 'org.hibernate.dialect.MySQLDialect',

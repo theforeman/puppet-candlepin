@@ -1,129 +1,180 @@
-# Install and Configure candlepin
+# Manage a Candlepin server
 #
-# == Parameters:
+# @param oauth_key
+#   The OAuth key for talking to the candlepin API
 #
-# $oauth_key::                    The OAuth key for talking to the candlepin API
+# @param oauth_secret
+#   The OAuth secret for talking to the candlepin API
 #
-# $oauth_secret::                 The OAuth secret for talking to the candlepin API
+# @param manage_db
+#   Whether a database should be installed, this includes db creation and user
 #
-# $manage_db::                    Whether a database should be installed, this includes db creation and user
+# @param init_db
+#   Whether a database should be initialised.
 #
-# $init_db::                      Whether a database should be initialised.
+# @param db_type
+#   The type of database Candlepin will be connecting too.
 #
-# $db_type::                      The type of database Candlepin will be connecting too.
+# @param db_host
+#   Hostname of database server.
 #
-# $db_host::                      Hostname of database server.
+# @param db_port
+#   Port the database listens on. Only needs to be provided if different from
+#   standard port of the :db_type.
 #
-# $db_port::                      Port the database listens on. Only needs to be provided if different
-#                                 from standard port of the :db_type.
+# @param db_ssl
+#   Boolean indicating if the connection to the database should be over an SSL
+#   connection.
 #
-# $db_ssl::                       Boolean indicating if the connection to the database should be over
-#                                 an SSL connection.
+# @param db_ssl_verify
+#   Boolean indicating if the SSL connection to the database should be verified
 #
-# $db_ssl_verify::                Boolean indicating if the SSL connection to the database should be verified
+# @param db_name
+#   The name of the Candlepin database
 #
-# $db_name::                      The name of the Candlepin database
+# @param db_user
+#   The Candlepin database username
 #
-# $db_user::                      The Candlepin database username
+# @param db_password
+#   The Candlepin database password
 #
-# $db_password::                  The Candlepin database password
+# @param crl_file
+#   The Certificate Revocation File for Candlepin
 #
-# $crl_file::                     The Certificate Revocation File for Candlepin
+# @param user_groups
+#   The user groups for the Candlepin tomcat user
 #
-# $user_groups::                  The user groups for the Candlepin tomcat user
+# @param log_dir
+#   Directory for Candlepin logs
 #
-# $log_dir::                      Directory for Candlepin logs
+# @param env_filtering_enabled
+#   If subscription filtering is done on a per environment basis
 #
-# $env_filtering_enabled::        If subscription filtering is done on a per environment basis
+# @param keystore_file
+#   Tomcat keystore file to use
 #
-# $keystore_file::                Tomcat keystore file to use
+# @param keystore_password
+#   Password for keystore being used with Tomcat
 #
-# $keystore_password::            Password for keystore being used with Tomcat
+# @param keystore_type
+#   Keystore type
 #
-# $keystore_type::                Keystore type
+# @param truststore_file
+#   Tomcat truststore file to use
 #
-# $truststore_file::              Tomcat truststore file to use
+# @param truststore_password
+#   Password for truststore being used with Tomcat
 #
-# $truststore_password::          Password for truststore being used with Tomcat
+# @param ca_key
+#   CA key file to use
 #
-# $ca_key::                       CA key file to use
+# @param ca_cert
+#   CA certificate file to use
 #
-# $ca_cert::                      CA certificate file to use
+# @param ca_key_password
+#   CA key password
 #
-# $ca_key_password::              CA key password
+# @param qpid_hostname
+#   The qpid server's hostname
 #
-# $qpid_hostname::                The qpid server's hostname
+# @param qpid_ssl_port
+#   The qpid server's SSL port
 #
-# $qpid_ssl_port::                The qpid server's SSL port
+# @param qpid_ssl_cert
+#   Client certificate to talk to qpid server
 #
-# $qpid_ssl_cert::                Client certificate to talk to qpid server
+# @param qpid_ssl_key
+#   Client key to talk to qpid server
 #
-# $qpid_ssl_key::                 Client key to talk to qpid server
+# @param ciphers
+#   Allowed ciphers for ssl connection
 #
-# $ciphers::                      Allowed ciphers for ssl connection. Array of strings
+# @param tls_versions
+#   Allowed versions of TLS, for example 1.1, 1.2, etc
 #
-# $tls_versions::                 Allowed versions of TLS, for example 1.1, 1.2, etc
+# @param version
+#   Version of Candlepin to install
 #
-# $version::                      Version of Candlepin to install
+# @param wget_version
+#   Version of wget to install
 #
-# $wget_version::                 Version of wget to install
+# @param run_init
+#   If the init api should be called on Candlepin
 #
-# $run_init::                     If the init api should be called on Candlepin
+# @param adapter_module
+#   Candlepin adapter implementations to inject into the java runtime
 #
-# $adapter_module::               Candlepin adapter implementations to inject into the java runtime
+# @param amq_enable
+#   If amq should be enabled and configured
 #
-# $amq_enable::                   If amq should be enabled and configured
+# @param amqp_keystore
+#   Location of the amqp keystore to use
 #
-# $amqp_keystore::                Location of the amqp keystore to use
+# @param amqp_keystore_password
+#   Password for the amqp keystore
 #
-# $amqp_keystore_password::       Password for the amqp keystore
+# @param amqp_truststore
+#   Location of the amqp truststore to use
 #
-# $amqp_truststore::              Location of the amqp truststore to use
+# @param amqp_truststore_password
+#   Password for the amqp trusture
 #
-# $amqp_truststore_password::     Password for the amqp trusture
+# @param enable_basic_auth
+#   Whether to enable HTTP basic auth
 #
+# @param enable_trusted_auth
+#   Whether to enable trusted auth
 #
-# $enable_basic_auth::            Whether to enable HTTP basic auth
+# @param consumer_system_name_pattern
+#   Regex that consistutes a valid consumer name
 #
-# $enable_trusted_auth::          Whether to enable trusted auth
+# @param enable_hbm2ddl_validate
+#   If true will perform a schema check to ensure compliance with the models.
+#   Disabling this feature may be required if modifications are required to schema
 #
-# $consumer_system_name_pattern:: Regex that consistutes a valid consumer name
+# @param ssl_port
+#   Port to deploy SSL enabled Tomcat server on
 #
-# $enable_hbm2ddl_validate::      If true will perform a schema check to ensure compliance with the models.
-#                                 Disabling this feature may be required if modifications are required to
-#                                 the schema.
+# @param candlepin_conf_file
+#   Configuration file location for candlepin
 #
-# $ssl_port::                     Port to deploy SSL enabled Tomcat server on
+# @param manage_repo
+#   Whether to manage the yum repository
 #
-# $candlepin_conf_file::          Configuration file location for candlepin
+# @param repo_version
+#   Which yum repository to install. For example latest or 3.3. Note that the
+#   versions are Katello releases.
 #
-# $manage_repo::                  Whether to manage the yum repository
+# @param repo_gpgcheck
+#   Whether to check the GPG signatures
 #
-# $repo_version::                 Which yum repository to install. For example
-#                                 latest or 3.3. Note that the versions are
-#                                 Katello releases.
+# @param repo_gpgkey
+#   The GPG key to use
 #
-# $repo_gpgcheck::                Whether to check the GPG signatures
+# @param tomcat_base
+#   In new-style instances, if CATALINA_BASE isn't specified, it will be
+#   constructed by joining TOMCATS_BASE and NAME.
 #
-# $repo_gpgkey::                  The GPG key to use
+# @param java_home
+#   Where your java installation lives
 #
-# === Advanced parameters:
+# @param catalina_home
+#   Where your tomcat installation lives
 #
-# $tomcat_base::                  In new-style instances, if CATALINA_BASE isn't specified, it will be constructed by joining TOMCATS_BASE and NAME.
+# @param catalina_tmpdir
+#   System-wide tmp
 #
-# $java_home::                    Where your java installation lives
+# @param java_opts
+#   Java Parameters
 #
-# $catalina_home::                Where your tomcat installation lives
+# @param lang
+#   Tomcat locale setting
 #
-# $catalina_tmpdir::              System-wide tmp
+# @param security_manager
+#   Run tomcat under the Java Security Manager
 #
-# $java_opts::                    Java Parameters
-#
-# $lang::                         Tomcat locale setting
-#
-# $security_manager::             Run tomcat under the Java Security Manager
-#
-# $shutdown_wait::                Time to wait in seconds, before killing process
+# @param shutdown_wait
+#   Time to wait in seconds, before killing process
 #
 class candlepin (
   Boolean $manage_db = $::candlepin::params::manage_db,
