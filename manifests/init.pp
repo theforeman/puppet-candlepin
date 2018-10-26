@@ -36,12 +36,6 @@
 #
 # $env_filtering_enabled::        If subscription filtering is done on a per environment basis
 #
-# $thumbslug_enabled::            If using Thumbslug
-#
-# $thumbslug_oauth_key::          The OAuth key for talking to Thumbslug
-#
-# $thumbslug_oauth_secret::       The OAuth secret for talking to Thumbslug
-#
 # $keystore_file::                Tomcat keystore file to use
 #
 # $keystore_password::            Password for keystore being used with Tomcat
@@ -148,9 +142,6 @@ class candlepin (
   String $oauth_key = $::candlepin::params::oauth_key,
   String $oauth_secret = $::candlepin::params::oauth_secret,
   Boolean $env_filtering_enabled = $::candlepin::params::env_filtering_enabled,
-  Boolean $thumbslug_enabled = $::candlepin::params::thumbslug_enabled,
-  String $thumbslug_oauth_key = $::candlepin::params::thumbslug_oauth_key,
-  String $thumbslug_oauth_secret = $::candlepin::params::thumbslug_oauth_secret,
   String $keystore_file = $::candlepin::params::keystore_file,
   Optional[String] $keystore_password = $::candlepin::params::keystore_password,
   String $keystore_type = $::candlepin::params::keystore_type,
