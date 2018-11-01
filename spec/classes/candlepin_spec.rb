@@ -19,7 +19,7 @@ describe 'candlepin' do
         # install
         it { is_expected.to contain_class('candlepin::install') }
         it { is_expected.to contain_package('candlepin').with_ensure('present') }
-        it { is_expected.to contain_package('wget').with_ensure('present') }
+        it { is_expected.not_to contain_package('wget') }
 
         # config
         it { is_expected.to contain_class('candlepin::config') }
@@ -53,7 +53,7 @@ describe 'candlepin' do
         # database
         it { is_expected.not_to contain_class('candlepin::database::mysql') }
         it { is_expected.to contain_class('candlepin::database::postgresql') }
-        it { is_expected.to contain_exec('cpdb').that_subscribes_to('Package[candlepin]').that_comes_before(['Exec[cpinit]', 'Service[tomcat]']) }
+        it { is_expected.to contain_exec('cpdb').that_subscribes_to('Package[candlepin]').that_comes_before('Service[tomcat]') }
         it { is_expected.to contain_postgresql__server__db('candlepin') }
         it { is_expected.to contain_postgresql__server__role('candlepin').that_comes_before('Postgresql::Server::Database[candlepin]') }
 
@@ -82,7 +82,7 @@ describe 'candlepin' do
         # service
         it { is_expected.to contain_class('candlepin::service') }
         it { is_expected.to contain_service('tomcat') }
-        it { is_expected.to contain_exec('cpinit') }
+        it { is_expected.not_to contain_exec('cpinit') }
         it { is_expected.to contain_service('tomcat').with_ensure('running') }
       end
 
@@ -254,12 +254,16 @@ describe 'candlepin' do
 
       context 'with run_init false' do
         let :params do
-          {run_init: false}
+          {run_init: true}
         end
 
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_service('tomcat') }
-        it { is_expected.not_to contain_exec('cpinit') }
+        it do
+          is_expected.to contain_exec('cpinit')
+            .that_requires(['Package[wget]', 'Service[tomcat]'])
+            .that_subscribes_to(['Concat[/etc/candlepin/candlepin.conf]', 'File[/etc/tomcat/server.xml]'])
+        end
       end
 
       describe 'notify' do
@@ -279,7 +283,7 @@ describe 'candlepin' do
 
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_exec('notification').that_notifies('Service[tomcat]') }
-        it { is_expected.to contain_exec('dependency').that_requires(['Service[tomcat]', 'Exec[cpinit]']) }
+        it { is_expected.to contain_exec('dependency').that_requires('Service[tomcat]') }
       end
     end
   end
