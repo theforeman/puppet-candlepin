@@ -23,6 +23,6 @@ exec { 'Create CA certficates':
   creates => '/etc/candlepin/certs/candlepin-ca.crt',
   notify  => Service['tomcat'],
 } ->
-class { '::candlepin':
+class { 'candlepin':
   manage_repo => true,
 }

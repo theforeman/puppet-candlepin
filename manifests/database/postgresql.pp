@@ -3,22 +3,22 @@
 # @api private
 class candlepin::database::postgresql(
 
-  $candlepin_conf_file     = $::candlepin::candlepin_conf_file,
+  $candlepin_conf_file     = $candlepin::candlepin_conf_file,
   $db_dialect              = 'org.hibernate.dialect.PostgreSQLDialect',
   $db_quartz_dialect       = 'org.quartz.impl.jdbcjobstore.PostgreSQLDelegate',
   $db_driver               = 'org.postgresql.Driver',
-  $manage_db               = $::candlepin::manage_db,
-  $init_db                 = $::candlepin::init_db,
-  $db_type                 = $::candlepin::db_type,
-  $db_host                 = $::candlepin::db_host,
-  $db_port                 = pick($::candlepin::db_port, 5432),
-  $db_ssl                  = $::candlepin::db_ssl,
-  $db_ssl_verify           = $::candlepin::db_ssl_verify,
-  $db_name                 = $::candlepin::db_name,
-  $db_user                 = $::candlepin::db_user,
-  $db_password             = $::candlepin::db_password,
-  $enable_hbm2ddl_validate = $::candlepin::enable_hbm2ddl_validate,
-  $log_dir                 = $::candlepin::log_dir,
+  $manage_db               = $candlepin::manage_db,
+  $init_db                 = $candlepin::init_db,
+  $db_type                 = $candlepin::db_type,
+  $db_host                 = $candlepin::db_host,
+  $db_port                 = pick($candlepin::db_port, 5432),
+  $db_ssl                  = $candlepin::db_ssl,
+  $db_ssl_verify           = $candlepin::db_ssl_verify,
+  $db_name                 = $candlepin::db_name,
+  $db_user                 = $candlepin::db_user,
+  $db_password             = $candlepin::db_password,
+  $enable_hbm2ddl_validate = $candlepin::enable_hbm2ddl_validate,
+  $log_dir                 = $candlepin::log_dir,
 
 ) {
   assert_private()
@@ -34,7 +34,7 @@ class candlepin::database::postgresql(
       cwd => '/',
     }
 
-    include ::postgresql::client, ::postgresql::server
+    include postgresql::client, postgresql::server
     postgresql::server::db { $db_name:
       user     => $db_user,
       password => postgresql_password($db_user, $db_password),

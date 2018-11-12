@@ -11,7 +11,7 @@ class candlepin::service {
     hasrestart => true,
   }
 
-  if $::candlepin::run_init {
+  if $candlepin::run_init {
     exec { 'cpinit':
       # tomcat startup is slow - try multiple times (the initialization service is idempotent)
       command => '/usr/bin/wget --no-proxy --timeout=30 --tries=40 --wait=20 --retry-connrefused -qO- http://localhost:8080/candlepin/admin/init > /var/log/candlepin/cpinit.log 2>&1 && touch /var/lib/candlepin/cpinit_done',
