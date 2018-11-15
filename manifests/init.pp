@@ -176,6 +176,15 @@
 # @param shutdown_wait
 #   Time to wait in seconds, before killing process
 #
+# @param container
+#   Run Candlepin as a systemd service via a container
+#
+# @param container_version
+#   Version of Candlepin container to run when running as a container
+#
+# @param container_image
+#   Candlepin container image to use (default: quay.io/foreman/candlepin)
+#
 class candlepin (
   Boolean $manage_db = $candlepin::params::manage_db,
   Boolean $init_db = $candlepin::params::init_db,
@@ -234,10 +243,19 @@ class candlepin (
   Optional[String] $lang = $candlepin::params::lang,
   Boolean $security_manager = $candlepin::params::security_manager,
   Optional[Integer[0]] $shutdown_wait = $candlepin::params::shutdown_wait,
+  Boolean $container = $candlepin::params::container,
+  String $container_version = $candlepin::params::container_version,
+  String $container_image = $candlepin::params::container_image,
 ) inherits candlepin::params {
   if $amq_enable {
     assert_type(String, $amqp_keystore_password)
     assert_type(String, $amqp_truststore_password)
+  }
+
+  if $candlepin::container {
+    $service_name = 'candlepin'
+  } else {
+    $service_name = 'tomcat'
   }
 
   $amqpurl = "tcp://${qpid_hostname}:${qpid_ssl_port}?ssl='true'&ssl_cert_alias='amqp-client'"

@@ -266,6 +266,25 @@ describe 'candlepin' do
         end
       end
 
+      context 'with container true' do
+        let :params do
+          {container: true}
+        end
+
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_service('candlepin') }
+        it { is_expected.to contain_package('podman').with_ensure('present') }
+        it { is_expected.to contain_systemd__unit_file('candlepin.service') }
+        it do
+          is_expected.to contain_file("/etc/sysconfig/candlepin").
+            with_content(/POSTGRES_SERVICE_HOST/).
+            with_content(/POSTGRES_PORT/).
+            with_content(/POSTGRES_DB/).
+            with_content(/POSTGRES_USER/).
+            with_content(/POSTGRES_PASSWORD/)
+        end
+      end
+
       describe 'notify' do
         let :pre_condition do
           <<-EOS

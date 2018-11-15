@@ -4,6 +4,10 @@
 class candlepin::params {
   $ssl_port = 8443
 
+  $container = false
+  $container_version = 'latest'
+  $container_image = 'quay.io/foreman/candlepin'
+
   $manage_db = true
   $init_db = true
   $db_type = 'postgresql'

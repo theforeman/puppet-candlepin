@@ -66,7 +66,7 @@ class candlepin::database::postgresql(
                        >> ${log_dir}/cpdb.log \
                        2>&1 && touch /var/lib/candlepin/cpdb_done",
       creates => '/var/lib/candlepin/cpdb_done',
-      before  => Service['tomcat'],
+      before  => Service[$candlepin::service_name],
       require => Concat['/etc/candlepin/candlepin.conf'],
     }
     # if both manage_db and init_db enforce order of resources

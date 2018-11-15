@@ -1,0 +1,18 @@
+[Unit]
+Description=Candlepin
+Wants=syslog.service
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+TimeoutSec=300
+ExecStartPre=-/usr/bin/podman rm "candlepin-1"
+ExecStart=/usr/bin/podman run --name candlepin-1 --env-file /etc/sysconfig/candlepin --net host -v /etc/candlepin:/etc/candlepin:z -v /etc/tomcat:/etc/tomcat:z -p <%= scope['candlepin::ssl_port'] %> <%= scope['candlepin::container_image'] %>:<%= scope['candlepin::container_version'] %>
+ExecReload=-/usr/bin/podman stop "candlepin-1"
+ExecReload=-/usr/bin/podman rm "candlepin-1"
+ExecStop=-/usr/bin/podman stop "candlepin-1"
+EnvironmentFile=-/etc/sysconfig/candlepin
+
+[Install]
+WantedBy=multi-user.target
