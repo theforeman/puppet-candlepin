@@ -20,6 +20,16 @@ class candlepin::config {
     group => 'tomcat',
   }
 
+  file { '/etc/candlepin/certs/candlepin-ca.crt':
+    ensure => file,
+    source => $candlepin::ca_cert,
+  }
+
+  file { '/etc/candlepin/certs/candlepin-ca.key':
+    ensure => file,
+    source => $candlepin::ca_key,
+  }
+
   file { '/etc/tomcat/server.xml':
     ensure  => file,
     content => template('candlepin/tomcat/server.xml.erb'),
