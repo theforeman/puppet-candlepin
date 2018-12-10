@@ -8,6 +8,12 @@ class candlepin::install {
     ensure => $candlepin::version,
   }
 
+  if $facts['selinux'] {
+    package { ['candlepin-selinux']:
+      ensure => $candlepin::version,
+    }
+  }
+
   if $candlepin::run_init {
     ensure_packages(['wget'], { ensure => $candlepin::wget_version, })
   }
