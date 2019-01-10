@@ -15,7 +15,7 @@ class candlepin::params {
   $db_ssl_verify = true
 
   # this comes from keystore
-  $db_password = cache_data('foreman_cache_data', 'candlepin_db_password', random_password(32))
+  $db_password = extlib::cache_data('foreman_cache_data', 'candlepin_db_password', extlib::random_password(32))
 
   $keystore_file = 'conf/keystore'
   $keystore_password = undef
