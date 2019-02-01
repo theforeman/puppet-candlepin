@@ -22,4 +22,7 @@ class candlepin::service {
     }
   }
 
+  if $candlepin::amq_enable {
+    Qpid::Config::Bind <| tag == 'qpid' |> -> Service <| tag == 'tomcat' |>
+  }
 }
