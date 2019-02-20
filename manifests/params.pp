@@ -17,10 +17,10 @@ class candlepin::params {
   # this comes from keystore
   $db_password = extlib::cache_data('foreman_cache_data', 'candlepin_db_password', extlib::random_password(32))
 
-  $keystore_file = 'conf/keystore'
+  $keystore_file = '/etc/candlepin/certs/keystore'
   $keystore_password = undef
   $keystore_type = 'PKCS12'
-  $truststore_file = 'conf/keystore'
+  $truststore_file = '/etc/candlepin/certs/keystore'
   $truststore_password = undef
 
   $amq_enable = false
