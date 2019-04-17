@@ -1,5 +1,19 @@
 # Changelog
 
+## [7.0.0](https://github.com/theforeman/puppet-candlepin/tree/7.0.0) (2019-04-17)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/6.0.0...7.0.0)
+
+**Breaking changes:**
+
+- Drop Puppet 4 [\#132](https://github.com/theforeman/puppet-candlepin/pull/132) ([ekohl](https://github.com/ekohl))
+- Configure tomcat to use keystore from /etc/candlepin [\#131](https://github.com/theforeman/puppet-candlepin/pull/131) ([ehelms](https://github.com/ehelms))
+- Drop unused JasperListener [\#130](https://github.com/theforeman/puppet-candlepin/pull/130) ([ehelms](https://github.com/ehelms))
+
+**Merged pull requests:**
+
+- Allow katello/qpid 5.x [\#133](https://github.com/theforeman/puppet-candlepin/pull/133) ([ekohl](https://github.com/ekohl))
+
 ## [6.0.0](https://github.com/theforeman/puppet-candlepin/tree/6.0.0) (2019-01-14)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/5.2.1...6.0.0)
