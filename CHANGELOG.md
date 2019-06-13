@@ -1,5 +1,14 @@
 # Changelog
 
+## [7.0.1](https://github.com/theforeman/puppet-candlepin/tree/7.0.1) (2019-06-13)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/7.0.0...7.0.1)
+
+**Merged pull requests:**
+
+- Allow latest stdlib, extlib, concat and qpid versions [\#137](https://github.com/theforeman/puppet-candlepin/pull/137) ([ekohl](https://github.com/ekohl))
+- Allow puppetlabs-postgresql 7.x [\#135](https://github.com/theforeman/puppet-candlepin/pull/135) ([ekohl](https://github.com/ekohl))
+
 ## [7.0.0](https://github.com/theforeman/puppet-candlepin/tree/7.0.0) (2019-04-17)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/6.0.0...7.0.0)
