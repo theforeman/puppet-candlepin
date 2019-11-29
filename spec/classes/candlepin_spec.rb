@@ -53,7 +53,16 @@ describe 'candlepin' do
         # database
         it { is_expected.not_to contain_class('candlepin::database::mysql') }
         it { is_expected.to contain_class('candlepin::database::postgresql') }
-        it { is_expected.to contain_exec('cpdb').that_subscribes_to('Package[candlepin]').that_comes_before('Service[tomcat]') }
+        it 'migrates the database' do
+          is_expected.to contain_exec('cpdb create')
+            .that_subscribes_to(['Package[candlepin]', 'Concat[/etc/candlepin/candlepin.conf]'])
+            .that_requires('Postgresql::Server::Db[candlepin]')
+            .that_notifies('Service[tomcat]')
+          is_expected.to contain_exec('cpdb update')
+            .that_subscribes_to(['Package[candlepin]', 'Concat[/etc/candlepin/candlepin.conf]'])
+            .that_requires('Exec[cpdb create]')
+            .that_notifies('Service[tomcat]')
+        end
         it { is_expected.to contain_postgresql__server__db('candlepin') }
         it { is_expected.to contain_postgresql__server__role('candlepin').that_comes_before('Postgresql::Server::Database[candlepin]') }
 
