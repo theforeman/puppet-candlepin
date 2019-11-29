@@ -54,7 +54,7 @@ class candlepin::database::postgresql(
       default => ''
     }
 
-    exec { 'cpdb':
+    exec { 'cpdb create':
       path    => '/usr/share/candlepin:/bin',
       command => "cpdb --create \
                        --schema-only \
@@ -66,12 +66,25 @@ class candlepin::database::postgresql(
                        >> ${log_dir}/cpdb.log \
                        2>&1 && touch /var/lib/candlepin/cpdb_done",
       creates => '/var/lib/candlepin/cpdb_done',
-      before  => Service['tomcat'],
       require => Concat['/etc/candlepin/candlepin.conf'],
+    } ->
+
+    exec { 'cpdb update':
+      path    => '/usr/share/candlepin:/bin',
+      command => "cpdb --update \
+                       --dbhost=${db_host} \
+                       --dbport=${db_port} \
+                       --database='${db_name}${ssl_options}' \
+                       --user='${db_user}'  \
+                       --password='${db_password}' \
+                       >> ${log_dir}/cpdb.log \
+                       2>&1 && touch /var/lib/candlepin/cpdb_update_done",
+      creates => '/var/lib/candlepin/cpdb_update_done',
     }
+
     # if both manage_db and init_db enforce order of resources
     if $manage_db {
-      Postgresql::Server::Db[$db_name] -> Exec['cpdb']
+      Postgresql::Server::Db[$db_name] -> Exec['cpdb create']
     }
   }
 }
