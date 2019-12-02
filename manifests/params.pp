@@ -80,7 +80,7 @@ class candlepin::params {
   $candlepin_conf_file = '/etc/candlepin/candlepin.conf'
 
   $manage_repo = false
-  $repo_version = 'latest'
+  $repo_version = 'nightly'
   $repo_yumcode = "el${::operatingsystemmajrelease}"
   $repo_gpgcheck = false
   $repo_gpgkey = undef
