@@ -34,6 +34,9 @@ candlepin.crl.file=<%= scope['candlepin::crl_file'] %>
 candlepin.ca_key_password=<%= scope['candlepin::ca_key_password'] %>
 <%- end -%>
 
+# Quartz schedule notation for how often to run the ExpiredPoolsJob
+pinsetter.org.candlepin.pinsetter.tasks.ExpiredPoolsJob.schedule=<%= scope['candlepin::expired_pools_schedule'] %>
+
 # Required for https://hibernate.atlassian.net/browse/HHH-12927
 log4j.logger.org.hibernate.internal.SessionImpl=ERROR
 

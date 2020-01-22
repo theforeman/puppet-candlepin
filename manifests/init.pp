@@ -176,6 +176,9 @@
 # @param shutdown_wait
 #   Time to wait in seconds, before killing process
 #
+# @param expired_pools_schedule
+#   Quartz schedule notation for how often to run the ExpiredPoolsJob
+
 class candlepin (
   Boolean $manage_db = $candlepin::params::manage_db,
   Boolean $init_db = $candlepin::params::init_db,
@@ -234,6 +237,7 @@ class candlepin (
   Optional[String] $lang = $candlepin::params::lang,
   Boolean $security_manager = $candlepin::params::security_manager,
   Optional[Integer[0]] $shutdown_wait = $candlepin::params::shutdown_wait,
+  String $expired_pools_schedule = $candlepin::params::expired_pools_schedule,
 ) inherits candlepin::params {
   if $amq_enable {
     assert_type(String, $amqp_keystore_password)

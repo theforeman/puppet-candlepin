@@ -41,6 +41,9 @@ class candlepin::params {
   $ca_cert = '/etc/candlepin/certs/candlepin-ca.crt'
   $ca_key_password = undef
 
+  # default to run every 24 hours
+  $expired_pools_schedule = '0 0 0 * * ?'
+
   $user_groups = []
 
   $env_filtering_enabled = true
