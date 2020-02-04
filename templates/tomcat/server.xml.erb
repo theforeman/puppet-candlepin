@@ -72,7 +72,10 @@
          connector should be using the OpenSSL style configuration
          described in the APR documentation -->
 
-    <Connector port="<%= scope['::candlepin::ssl_port'] %>" protocol="HTTP/1.1" SSLEnabled="true"
+    <Connector port="<%= scope['::candlepin::ssl_port'] %>"
+               address="<%= scope['::candlepin::host'] %>"
+               protocol="HTTP/1.1"
+               SSLEnabled="true"
                maxThreads="150" scheme="https" secure="true"
                clientAuth="want"
                sslProtocols="<%= scope['::candlepin::tls_versions'].map { |version| "TLSv#{version}"}.join(",") %>"

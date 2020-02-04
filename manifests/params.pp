@@ -3,6 +3,7 @@
 # @api private
 class candlepin::params {
   $ssl_port = 8443
+  $host = 'localhost'
 
   $manage_db = true
   $init_db = true
