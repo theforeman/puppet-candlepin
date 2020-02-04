@@ -135,6 +135,9 @@
 # @param ssl_port
 #   Port to deploy SSL enabled Tomcat server on
 #
+# @param host
+#   Host to deploy Tomcat server on; defaults to localhost
+#
 # @param candlepin_conf_file
 #   Configuration file location for candlepin
 #
@@ -226,6 +229,7 @@ class candlepin (
   Boolean $enable_trusted_auth = $candlepin::params::enable_trusted_auth,
   Optional[String] $consumer_system_name_pattern = $candlepin::params::consumer_system_name_pattern,
   Integer[0, 65535] $ssl_port = $candlepin::params::ssl_port,
+  Stdlib::Host $host = $candlepin::params::host,
   Stdlib::Absolutepath $candlepin_conf_file = $candlepin::params::candlepin_conf_file,
   Boolean $manage_repo = $candlepin::params::manage_repo,
   String $repo_version = $candlepin::params::repo_version,

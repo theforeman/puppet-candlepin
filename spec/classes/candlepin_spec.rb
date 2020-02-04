@@ -189,7 +189,10 @@ describe 'candlepin' do
         it { is_expected.to compile.with_all_deps }
         it do
           is_expected.to contain_file("/etc/tomcat/server.xml").
-            with_content(/^    <Connector port="9070" protocol="HTTP\/1.1" SSLEnabled="true"/)
+            with_content(/^    <Connector port="9070"/).
+            with_content(/^               address="localhost"/).
+            with_content(/^               protocol="HTTP\/1.1"/).
+            with_content(/^               SSLEnabled="true"/)
         end
       end
 
