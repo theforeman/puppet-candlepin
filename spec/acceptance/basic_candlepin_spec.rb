@@ -1,5 +1,7 @@
 require 'spec_helper_acceptance'
 
+#TODO: Add Artemis listening test https://projects.theforeman.org/issues/29561
+
 describe 'candlepin works' do
   include_examples 'the example', 'basic_candlepin.pp'
 

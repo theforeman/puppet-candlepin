@@ -24,12 +24,6 @@ class candlepin::params {
   $truststore_file = '/etc/candlepin/certs/keystore'
   $truststore_password = undef
 
-  $amq_enable = false
-  $amqp_keystore_password = undef
-  $amqp_truststore_password = undef
-  $amqp_keystore = '/etc/candlepin/certs/amqp/candlepin.jks'
-  $amqp_truststore = '/etc/candlepin/certs/amqp/candlepin.truststore'
-
   # where to store output from cpsetup execution
   $log_dir  = '/var/log/candlepin'
 
@@ -51,11 +45,6 @@ class candlepin::params {
   $user_groups = []
 
   $env_filtering_enabled = true
-
-  $qpid_hostname = 'localhost'
-  $qpid_ssl_port = 5671
-  $qpid_ssl_cert = undef
-  $qpid_ssl_key = undef
 
   $ciphers = [
     'SSL_RSA_WITH_3DES_EDE_CBC_SHA',
@@ -101,4 +90,9 @@ class candlepin::params {
   $lang = undef
   $security_manager = false
   $shutdown_wait = undef
+
+  $artemis_port = 61613
+  $artemis_host = $host
+  $artemis_client_dn = 'CN=ActiveMQ Artemis Client, OU=Artemis, O=ActiveMQ, L=AMQ, ST=AMQ, C=AMQ'
+  $broker_config_file = '/etc/candlepin/broker.xml'
 }

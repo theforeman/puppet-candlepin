@@ -8,15 +8,7 @@ candlepin.environment_content_filtering=<%= scope['candlepin::env_filtering_enab
 candlepin.auth.basic.enable=<%= scope['candlepin::enable_basic_auth'] %>
 candlepin.auth.trusted.enable=<%= scope['candlepin::enable_trusted_auth'] %>
 
-<% if scope['candlepin::amq_enable'] -%>
-# enable events via AMQP
-candlepin.amqp.enable=true
-candlepin.amqp.connect=<%= scope['candlepin::amqpurl'] %>
-candlepin.amqp.keystore=<%= scope['candlepin::amqp_keystore'] %>
-candlepin.amqp.keystore_password=<%= scope['candlepin::amqp_keystore_password'] %>
-candlepin.amqp.truststore_password=<%= scope['candlepin::amqp_truststore_password'] %>
-candlepin.amqp.truststore=<%= scope['candlepin::amqp_truststore'] %>
-<%- end -%>
+candlepin.audit.hornetq.config_path=<%= scope['candlepin::broker_config_file'] %>
 
 <% if scope['candlepin::oauth_key'] != "" -%>
 candlepin.auth.oauth.enable=true
