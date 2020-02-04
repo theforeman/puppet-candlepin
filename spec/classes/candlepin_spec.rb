@@ -36,6 +36,7 @@ describe 'candlepin' do
             'log4j.logger.org.hibernate.internal.SessionImpl=ERROR',
             'pinsetter.org.candlepin.pinsetter.tasks.ExpiredPoolsJob.schedule=0 0 0 * * ?',
             'pinsetter.org.candlepin.pinsetter.tasks.CertificateRevocationListTask.schedule=0 0 0 1 1 ?',
+            'candlepin.audit.hornetq.config_path=/etc/candlepin/broker.xml',
           ])
         end
         it { is_expected.to contain_file('/etc/tomcat/tomcat.conf') }
@@ -50,6 +51,18 @@ describe 'candlepin' do
             'JAVA_OPTS="-Xms1024m -Xmx4096m"',
             'SECURITY_MANAGER="0"',
           ])
+        end
+
+        it { is_expected.to contain_file('/usr/share/tomcat/conf/login.config') }
+        it { is_expected.to contain_file('/usr/share/tomcat/conf/cert-users.properties') }
+        it { is_expected.to contain_file('/usr/share/tomcat/conf/cert-roles.properties') }
+        it { is_expected.to contain_file('/usr/share/tomcat/conf/conf.d/jaas.conf') }
+
+        it { is_expected.to contain_file('/etc/candlepin/broker.xml') }
+
+        it do
+          is_expected.to contain_file('/etc/candlepin/broker.xml').
+            with_content(/^            <acceptor name="stomp">tcp:\/\/localhost:61613\?protocols=STOMP;useEpoll=false;sslEnabled=true;trustStorePath=\/etc\/candlepin\/certs\/keystore;trustStorePassword=;keyStorePath=\/etc\/candlepin\/certs\/keystore;keyStorePassword=;needClientAuth=true<\/acceptor>/)
         end
 
         # database
@@ -124,60 +137,6 @@ describe 'candlepin' do
         it do
           is_expected.to contain_concat__fragment('General Config').
             with_content(/^module.config.adapter_module=my.custom.adapter_module$/)
-        end
-      end
-
-      context 'with amqp enabled' do
-        let :params do
-          {
-            amq_enable: true,
-            amqp_truststore_password: 'password',
-            amqp_keystore_password: 'password',
-            qpid_ssl_cert: '/path/to/ssl/cert',
-            qpid_ssl_key: '/path/to/ssl/key',
-          }
-        end
-
-        describe 'with default parameters' do
-          it { is_expected.to compile.with_all_deps }
-          it do
-            is_expected.to contain_concat__fragment('General Config').
-              with_content(/^candlepin.amqp.enable=true$/).
-              with_content(/^candlepin.amqp.connect=tcp:\/\/localhost:5671\?ssl='true'&ssl_cert_alias='amqp-client'$/).
-              with_content(/^candlepin.amqp.keystore_password=password$/).
-              with_content(/^candlepin.amqp.keystore=\/etc\/candlepin\/certs\/amqp\/candlepin.jks$/).
-              with_content(/^candlepin.amqp.truststore_password=password$/).
-              with_content(/^candlepin.amqp.truststore=\/etc\/candlepin\/certs\/amqp\/candlepin.truststore$/)
-          end
-
-          it do
-            is_expected.to contain_qpid__config__exchange('event')
-              .with_exchange('event')
-              .with_hostname('localhost')
-              .with_port(5671)
-              .with_ssl_cert('/path/to/ssl/cert')
-              .with_ssl_key('/path/to/ssl/key')
-          end
-        end
-
-        describe 'specifying truststore and keystore locations' do
-          let :params do
-            super().merge(
-              amqp_keystore: '/etc/pki/my.jks',
-              amqp_truststore: '/etc/pki/my.truststore',
-            )
-          end
-
-          it { is_expected.to compile.with_all_deps }
-          it do
-            is_expected.to contain_concat__fragment('General Config').
-              with_content(/^candlepin.amqp.enable=true$/).
-              with_content(/^candlepin.amqp.connect=tcp:\/\/localhost:5671\?ssl='true'&ssl_cert_alias='amqp-client'$/).
-              with_content(/^candlepin.amqp.keystore_password=password$/).
-              with_content(/^candlepin.amqp.keystore=\/etc\/pki\/my.jks$/).
-              with_content(/^candlepin.amqp.truststore_password=password$/).
-              with_content(/^candlepin.amqp.truststore=\/etc\/pki\/my.truststore$/)
-          end
         end
       end
 

@@ -74,18 +74,6 @@
 # @param ca_key_password
 #   CA key password
 #
-# @param qpid_hostname
-#   The qpid server's hostname
-#
-# @param qpid_ssl_port
-#   The qpid server's SSL port
-#
-# @param qpid_ssl_cert
-#   Client certificate to talk to qpid server
-#
-# @param qpid_ssl_key
-#   Client key to talk to qpid server
-#
 # @param ciphers
 #   Allowed ciphers for ssl connection
 #
@@ -103,21 +91,6 @@
 #
 # @param adapter_module
 #   Candlepin adapter implementations to inject into the java runtime
-#
-# @param amq_enable
-#   If amq should be enabled and configured
-#
-# @param amqp_keystore
-#   Location of the amqp keystore to use
-#
-# @param amqp_keystore_password
-#   Password for the amqp keystore
-#
-# @param amqp_truststore
-#   Location of the amqp truststore to use
-#
-# @param amqp_truststore_password
-#   Password for the amqp trusture
 #
 # @param enable_basic_auth
 #   Whether to enable HTTP basic auth
@@ -184,6 +157,15 @@
 #
 # @param certificate_revocation_list_task_schedule
 #   Quartz schedule notation for how often to run CRL generation
+#
+# @param artemis_port
+#   Port to expose Artemis on
+#
+# @param artemis_host
+#   Host address to have Artemis listen on; defaults to localhost
+#
+# @param artemis_client_dn
+#   Full DN for the client certificate used to talk to Artemis
 class candlepin (
   Boolean $manage_db = $candlepin::params::manage_db,
   Boolean $init_db = $candlepin::params::init_db,
@@ -206,24 +188,15 @@ class candlepin (
   String $keystore_type = $candlepin::params::keystore_type,
   String $truststore_file = $candlepin::params::truststore_file,
   Optional[String] $truststore_password = $candlepin::params::truststore_password,
-  Stdlib::Absolutepath $amqp_keystore = $candlepin::params::amqp_keystore,
-  Optional[String] $amqp_keystore_password = $candlepin::params::amqp_keystore_password,
-  Stdlib::Absolutepath $amqp_truststore = $candlepin::params::amqp_truststore,
-  Optional[String] $amqp_truststore_password = $candlepin::params::amqp_truststore_password,
   Stdlib::Absolutepath $ca_key = $candlepin::params::ca_key,
   Stdlib::Absolutepath $ca_cert = $candlepin::params::ca_cert,
   Optional[String] $ca_key_password = $candlepin::params::ca_key_password,
-  String $qpid_hostname = $candlepin::params::qpid_hostname,
-  Integer[0,65535] $qpid_ssl_port = $candlepin::params::qpid_ssl_port,
-  Optional[Stdlib::Absolutepath] $qpid_ssl_cert = $candlepin::params::qpid_ssl_cert,
-  Optional[Stdlib::Absolutepath] $qpid_ssl_key = $candlepin::params::qpid_ssl_key,
   Array[String] $ciphers = $candlepin::params::ciphers,
   Array[String] $tls_versions = $candlepin::params::tls_versions,
   String $version = $candlepin::params::version,
   String $wget_version = $candlepin::params::wget_version,
   Boolean $run_init = $candlepin::params::run_init,
   Optional[String] $adapter_module = $candlepin::params::adapter_module,
-  Boolean $amq_enable = $candlepin::params::amq_enable,
   Boolean $enable_hbm2ddl_validate = $candlepin::params::enable_hbm2ddl_validate,
   Boolean $enable_basic_auth = $candlepin::params::enable_basic_auth,
   Boolean $enable_trusted_auth = $candlepin::params::enable_trusted_auth,
@@ -244,21 +217,18 @@ class candlepin (
   Boolean $security_manager = $candlepin::params::security_manager,
   Optional[Integer[0]] $shutdown_wait = $candlepin::params::shutdown_wait,
   String $expired_pools_schedule = $candlepin::params::expired_pools_schedule,
+  Stdlib::Host $artemis_host = $candlepin::params::host,
+  Stdlib::Port $artemis_port = $candlepin::params::artemis_port,
+  String $artemis_client_dn = $candlepin::params::artemis_client_dn,
 ) inherits candlepin::params {
-  if $amq_enable {
-    assert_type(String, $amqp_keystore_password)
-    assert_type(String, $amqp_truststore_password)
-  }
-
-  $amqpurl = "tcp://${qpid_hostname}:${qpid_ssl_port}?ssl='true'&ssl_cert_alias='amqp-client'"
 
   contain candlepin::service
 
   class { 'candlepin::repo': } ->
   class { 'candlepin::install': } ~>
   class { 'candlepin::config':  } ~>
+  class { 'candlepin::artemis':  } ~>
   class { "candlepin::database::${candlepin::db_type}": } ~>
-  class { 'candlepin::qpid': } ~>
   Class['candlepin::service']
 
 }
