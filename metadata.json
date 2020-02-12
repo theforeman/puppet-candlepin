@@ -1,6 +1,6 @@
 {
   "name": "katello-candlepin",
-  "version": "7.0.1",
+  "version": "8.0.0",
   "author": "katello",
   "summary": "Configure and install Candlepin entitlement server.",
   "license": "GPL-3.0+",
