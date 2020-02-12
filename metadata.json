@@ -1,7 +1,7 @@
 {
   "name": "katello-candlepin",
   "version": "7.0.1",
-  "author": "Katello",
+  "author": "katello",
   "summary": "Configure and install Candlepin entitlement server.",
   "license": "GPL-3.0+",
   "source": "https://github.com/theforeman/puppet-candlepin.git",
