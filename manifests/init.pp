@@ -178,7 +178,9 @@
 #
 # @param expired_pools_schedule
 #   Quartz schedule notation for how often to run the ExpiredPoolsJob
-
+#
+# @param certificate_revocation_list_task_schedule
+#   Quartz schedule notation for how often to run CRL generation
 class candlepin (
   Boolean $manage_db = $candlepin::params::manage_db,
   Boolean $init_db = $candlepin::params::init_db,

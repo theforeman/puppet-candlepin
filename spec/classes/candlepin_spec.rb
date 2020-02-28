@@ -35,6 +35,7 @@ describe 'candlepin' do
             'candlepin.crl.file=/var/lib/candlepin/candlepin-crl.crl',
             'log4j.logger.org.hibernate.internal.SessionImpl=ERROR',
             'pinsetter.org.candlepin.pinsetter.tasks.ExpiredPoolsJob.schedule=0 0 0 * * ?',
+            'pinsetter.org.candlepin.pinsetter.tasks.CertificateRevocationListTask.schedule=0 0 0 1 1 ?',
           ])
         end
         it { is_expected.to contain_file('/etc/tomcat/tomcat.conf') }

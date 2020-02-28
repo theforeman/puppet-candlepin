@@ -44,6 +44,9 @@ class candlepin::params {
   # default to run every 24 hours
   $expired_pools_schedule = '0 0 0 * * ?'
 
+  # default to disabling the task
+  $certificate_revocation_list_task_schedule='0 0 0 1 1 ?'
+
   $user_groups = []
 
   $env_filtering_enabled = true
