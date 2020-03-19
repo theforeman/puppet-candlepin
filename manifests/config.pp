@@ -18,6 +18,10 @@ class candlepin::config {
     mode  => '0600',
     owner => 'tomcat',
     group => 'tomcat',
+  } ~> exec { "restorecon -vF ${candlepin::candlepin_conf_file}":
+    path        => '/usr/bin:/usr/sbin:/bin:/sbin',
+    command     => "restorecon -vF ${candlepin::candlepin_conf_file}",
+    refreshonly => true,
   }
 
   file { '/etc/tomcat/server.xml':
