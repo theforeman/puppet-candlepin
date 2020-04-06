@@ -22,7 +22,7 @@ RSpec.configure do |c|
   c.before :suite do
     # Install module and dependencies
     hosts.each do |host|
-      if fact_on(host, 'osfamily') == 'RedHat'
+      if fact_on(host, 'os.family') == 'RedHat'
         # don't delete downloaded rpm for use with BEAKER_provision=no +
         # BEAKER_destroy=no
         on host, 'sed -i "s/keepcache=.*/keepcache=1/" /etc/yum.conf'
@@ -30,6 +30,25 @@ RSpec.configure do |c|
         on host, 'yum clean expire-cache'
         # We always need EPEL
         on host, puppet('resource', 'package', 'epel-release', 'ensure=installed')
+
+        major = fact_on(host, 'os.release.major')
+
+        if major == '8'
+          on host, 'dnf -y module enable pki-core'
+          on host, puppet('resource', 'package', 'glibc-langpack-en', 'ensure=installed')
+        end
+
+        baseurl = if ENV['CANDLEPIN_REPO_RELEASE']
+                    "https://fedorapeople.org/groups/katello/releases/yum/nightly/candlepin/el#{major}/x86_64/"
+                  else
+                    "http://koji.katello.org/releases/yum/katello-nightly/candlepin/el#{major}/x86_64/"
+                  end
+
+        on host, puppet_resource('yumrepo', 'candlepin', "baseurl=#{baseurl}", 'gpgcheck=0')
+
+        if fact_on(host, 'os.selinux.enabled')
+          on host, puppet('resource', 'package', 'candlepin-selinux', 'ensure=installed')
+        end
       end
     end
   end

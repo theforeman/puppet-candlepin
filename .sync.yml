@@ -6,6 +6,7 @@
   test_all_rvms: false
   beaker_sets:
     - centos7-64
+    - centos8-64
 Rakefile:
   param_docs_pattern:
     - manifests/init.pp

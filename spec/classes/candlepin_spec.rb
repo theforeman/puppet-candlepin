@@ -107,7 +107,7 @@ describe 'candlepin' do
         it do
           is_expected.to contain_yumrepo('candlepin')
             .with_descr('Candlepin: an open source entitlement management system.')
-            .with_baseurl("https://fedorapeople.org/groups/katello/releases/yum/nightly/candlepin/el7/\$basearch/")
+            .with_baseurl("https://fedorapeople.org/groups/katello/releases/yum/nightly/candlepin/el#{facts[:os]['release']['major']}/\$basearch/")
             .with_gpgkey(nil)
             .with_gpgcheck(false)
             .with_enabled(true)
