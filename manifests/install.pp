@@ -8,7 +8,7 @@ class candlepin::install {
     ensure => $candlepin::version,
   }
 
-  if $facts['selinux'] {
+  if $facts['os']['selinux']['enabled'] {
     package { ['candlepin-selinux']:
       ensure => $candlepin::version,
     }

@@ -88,7 +88,7 @@ class candlepin::params {
 
   $manage_repo = false
   $repo_version = 'nightly'
-  $repo_yumcode = "el${::operatingsystemmajrelease}"
+  $repo_yumcode = "el${facts['os']['release']['major']}"
   $repo_gpgcheck = false
   $repo_gpgkey = undef
 

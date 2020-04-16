@@ -17,7 +17,7 @@ exec { 'Create CA key':
   notify  => Service['tomcat'],
 } ->
 exec { 'Create CA certficate':
-  command => "/usr/bin/openssl req -new -x509 -key '${ca_key}' -out '${ca_cert}' -nodes -x509 -subj '/C=US/ST=North Carolina/L=Raleigh/O=CustomKatelloCA/CN=${facts['fqdn']}'",
+  command => "/usr/bin/openssl req -new -x509 -key '${ca_key}' -out '${ca_cert}' -nodes -x509 -subj '/C=US/ST=North Carolina/L=Raleigh/O=CustomKatelloCA/CN=${facts['networking']['fqdn']}'",
   creates => $ca_cert,
   notify  => Service['tomcat'],
 } ->
