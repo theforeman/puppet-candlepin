@@ -58,7 +58,6 @@ class candlepin::params {
   ]
 
   $tls_versions = [
-    '1.1',
     '1.2',
   ]
 
