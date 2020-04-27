@@ -1,5 +1,22 @@
 # Changelog
 
+## [9.0.0](https://github.com/theforeman/puppet-candlepin/tree/9.0.0) (2020-05-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/8.0.0...9.0.0)
+
+**Breaking changes:**
+
+- Make candlepin::repo a standalone class [\#155](https://github.com/theforeman/puppet-candlepin/pull/155) ([ekohl](https://github.com/ekohl))
+- Fixes [\#29625](https://projects.theforeman.org/issues/29625) - Stop accepting TLS 1.1 connections [\#152](https://github.com/theforeman/puppet-candlepin/pull/152) ([ekohl](https://github.com/ekohl))
+- Fixes [\#29220](https://projects.theforeman.org/issues/29220): Disable CRL generation by default [\#145](https://github.com/theforeman/puppet-candlepin/pull/145) ([ehelms](https://github.com/ehelms))
+- Fixes [\#28924](https://projects.theforeman.org/issues/28924): Drop qpid queue and add exposing of Artemis [\#143](https://github.com/theforeman/puppet-candlepin/pull/143) ([ehelms](https://github.com/ehelms))
+- Fixes [\#28922](https://projects.theforeman.org/issues/28922): Deploy Candlepin on localhost by default [\#142](https://github.com/theforeman/puppet-candlepin/pull/142) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Allow extlib 5.x [\#149](https://github.com/theforeman/puppet-candlepin/pull/149) ([mmoll](https://github.com/mmoll))
+- Fixes [\#29194](https://projects.theforeman.org/issues/29194) - Support EL8 [\#148](https://github.com/theforeman/puppet-candlepin/pull/148) ([wbclark](https://github.com/wbclark))
+
 ## [8.0.0](https://github.com/theforeman/puppet-candlepin/tree/8.0.0) (2020-02-12)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/7.0.1...8.0.0)
