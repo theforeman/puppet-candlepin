@@ -1,20 +1,32 @@
-# Manage the yum repository
+# @summary Manage the yum repository
 #
-# @api private
+# @param version
+#   Which yum repository to install. For example latest or 3.3. Note that the
+#   versions are Katello releases.
+#
+# @param dist
+#   The dist code to use in the URL
+#
+# @param gpgcheck
+#   Whether to check the GPG signatures
+#
+# @param gpgkey
+#   The GPG key to use
 class candlepin::repo (
-  $manage_repo  = $candlepin::manage_repo,
-  $repo_version = $candlepin::repo_version,
-  $dist         = $candlepin::repo_yumcode,
-  $gpgcheck     = $candlepin::repo_gpgcheck,
-  $gpgkey       = $candlepin::repo_gpgkey,
+  String $version,
+  String $dist = "el${facts['os']['release']['major']}",
+  Boolean $gpgcheck = false,
+  Optional[String] $gpgkey = undef,
 ) {
-  if $manage_repo {
-    yumrepo { 'candlepin':
-      descr    => 'Candlepin: an open source entitlement management system.',
-      baseurl  => "https://fedorapeople.org/groups/katello/releases/yum/${repo_version}/candlepin/${dist}/\$basearch/",
-      gpgkey   => $gpgkey,
-      gpgcheck => $gpgcheck,
-      enabled  => true,
-    }
+  yumrepo { 'candlepin':
+    descr    => 'Candlepin: an open source entitlement management system.',
+    baseurl  => "https://fedorapeople.org/groups/katello/releases/yum/${version}/candlepin/${dist}/\$basearch/",
+    gpgkey   => $gpgkey,
+    gpgcheck => $gpgcheck,
+    enabled  => true,
+    before   => Anchor['candlepin::repo'],
   }
+
+  # An anchor is used because it can be collected
+  anchor { 'candlepin::repo': } # lint:ignore:anchor_resource
 }

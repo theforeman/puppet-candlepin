@@ -12,10 +12,6 @@ describe 'candlepin' do
 
         it { is_expected.to compile.with_all_deps }
 
-        # repo
-        it { is_expected.to contain_class('candlepin::repo').with_manage_repo(false) }
-        it { is_expected.not_to contain_yumrepo('candlepin') }
-
         # install
         it { is_expected.to contain_class('candlepin::install') }
         it { is_expected.to contain_package('candlepin').with_ensure('present') }
@@ -108,23 +104,6 @@ describe 'candlepin' do
         it { is_expected.to contain_service('tomcat') }
         it { is_expected.not_to contain_exec('cpinit') }
         it { is_expected.to contain_service('tomcat').with_ensure('running') }
-      end
-
-      context 'with manage_repo => true' do
-        let(:params) do
-          {manage_repo: true}
-        end
-
-        it { is_expected.to compile.with_all_deps }
-
-        it do
-          is_expected.to contain_yumrepo('candlepin')
-            .with_descr('Candlepin: an open source entitlement management system.')
-            .with_baseurl("https://fedorapeople.org/groups/katello/releases/yum/nightly/candlepin/el#{facts[:os]['release']['major']}/\$basearch/")
-            .with_gpgkey(nil)
-            .with_gpgcheck(false)
-            .with_enabled(true)
-        end
       end
 
       describe 'with custom adapter module' do
