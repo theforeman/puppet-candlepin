@@ -114,19 +114,6 @@
 # @param candlepin_conf_file
 #   Configuration file location for candlepin
 #
-# @param manage_repo
-#   Whether to manage the yum repository
-#
-# @param repo_version
-#   Which yum repository to install. For example latest or 3.3. Note that the
-#   versions are Katello releases.
-#
-# @param repo_gpgcheck
-#   Whether to check the GPG signatures
-#
-# @param repo_gpgkey
-#   The GPG key to use
-#
 # @param tomcat_base
 #   In new-style instances, if CATALINA_BASE isn't specified, it will be
 #   constructed by joining TOMCATS_BASE and NAME.
@@ -204,10 +191,6 @@ class candlepin (
   Integer[0, 65535] $ssl_port = $candlepin::params::ssl_port,
   Stdlib::Host $host = $candlepin::params::host,
   Stdlib::Absolutepath $candlepin_conf_file = $candlepin::params::candlepin_conf_file,
-  Boolean $manage_repo = $candlepin::params::manage_repo,
-  String $repo_version = $candlepin::params::repo_version,
-  Boolean $repo_gpgcheck = $candlepin::params::repo_gpgcheck,
-  Optional[String] $repo_gpgkey = $candlepin::params::repo_gpgkey,
   Stdlib::Absolutepath $tomcat_base = $candlepin::params::tomcat_base,
   Stdlib::Absolutepath $java_home = $candlepin::params::java_home,
   Stdlib::Absolutepath $catalina_home = $candlepin::params::catalina_home,
@@ -224,7 +207,7 @@ class candlepin (
 
   contain candlepin::service
 
-  class { 'candlepin::repo': } ->
+  Anchor <| title == 'candlepin::repo' |> ->
   class { 'candlepin::install': } ~>
   class { 'candlepin::config':  } ~>
   class { 'candlepin::artemis':  } ~>

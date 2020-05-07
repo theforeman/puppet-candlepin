@@ -74,12 +74,6 @@ class candlepin::params {
 
   $candlepin_conf_file = '/etc/candlepin/candlepin.conf'
 
-  $manage_repo = false
-  $repo_version = 'nightly'
-  $repo_yumcode = "el${facts['os']['release']['major']}"
-  $repo_gpgcheck = false
-  $repo_gpgkey = undef
-
   # tomcat.conf paramaters
   $tomcat_base = '/var/lib/tomcats/'
   $java_home = '/usr/lib/jvm/jre'
