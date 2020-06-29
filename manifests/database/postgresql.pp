@@ -37,7 +37,7 @@ class candlepin::database::postgresql(
     include postgresql::client, postgresql::server
     postgresql::server::db { $db_name:
       user     => $db_user,
-      password => postgresql_password($db_user, $db_password),
+      password => postgresql::postgresql_password($db_user, $db_password),
       encoding => 'utf8',
       locale   => 'en_US.utf8',
     }
