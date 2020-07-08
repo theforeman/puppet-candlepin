@@ -60,10 +60,10 @@
 #   Keystore type
 #
 # @param truststore_file
-#   Tomcat truststore file to use
+#   Truststore file to use for Tomcat and Artemis
 #
 # @param truststore_password
-#   Password for truststore being used with Tomcat
+#   Password for truststore being used with Tomcat and Artemis
 #
 # @param ca_key
 #   CA key file to use
@@ -170,10 +170,10 @@ class candlepin (
   String $oauth_key = $candlepin::params::oauth_key,
   String $oauth_secret = $candlepin::params::oauth_secret,
   Boolean $env_filtering_enabled = $candlepin::params::env_filtering_enabled,
-  String $keystore_file = $candlepin::params::keystore_file,
+  Stdlib::Absolutepath $keystore_file = $candlepin::params::keystore_file,
   Optional[String] $keystore_password = $candlepin::params::keystore_password,
   String $keystore_type = $candlepin::params::keystore_type,
-  String $truststore_file = $candlepin::params::truststore_file,
+  Stdlib::Absolutepath $truststore_file = $candlepin::params::truststore_file,
   Optional[String] $truststore_password = $candlepin::params::truststore_password,
   Stdlib::Absolutepath $ca_key = $candlepin::params::ca_key,
   Stdlib::Absolutepath $ca_cert = $candlepin::params::ca_cert,

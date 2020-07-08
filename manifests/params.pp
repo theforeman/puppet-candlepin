@@ -21,7 +21,7 @@ class candlepin::params {
   $keystore_file = '/etc/candlepin/certs/keystore'
   $keystore_password = undef
   $keystore_type = 'PKCS12'
-  $truststore_file = '/etc/candlepin/certs/keystore'
+  $truststore_file = '/etc/candlepin/certs/truststore'
   $truststore_password = undef
 
   # where to store output from cpsetup execution

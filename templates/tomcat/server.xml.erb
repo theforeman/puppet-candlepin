@@ -81,11 +81,11 @@
                sslProtocols="<%= scope['::candlepin::tls_versions'].map { |version| "TLSv#{version}"}.join(",") %>"
                sslEnabledProtocols="<%= scope['::candlepin::tls_versions'].map { |version| "TLSv#{version}"}.join(",") %>"
                keystoreFile="<%= scope['::candlepin::keystore_file'] %>"
-               truststoreFile="<%= scope['::candlepin::truststore_file'] %>"
                keystorePass="<%= scope['::candlepin::keystore_password'] %>"
                keystoreType="<%= scope['::candlepin::keystore_type'] %>"
-               ciphers="<%= scope['::candlepin::ciphers'].join(",\n                    ") %>"
-               truststorePass="<%= scope['candlepin::truststore_password'] %>" />
+               truststoreFile="<%= scope['::candlepin::truststore_file'] %>"
+               truststorePass="<%= scope['::candlepin::truststore_password'] %>"
+               ciphers="<%= scope['::candlepin::ciphers'].join(",\n                    ") %>" />
 
     <!-- An Engine represents the entry point (within Catalina) that processes
          every request.  The Engine implementation for Tomcat stand alone
