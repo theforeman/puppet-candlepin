@@ -54,37 +54,26 @@ class candlepin::database::postgresql(
       default => ''
     }
 
-    exec { 'cpdb create':
-      path    => '/usr/share/candlepin:/bin',
-      command => "cpdb --create \
-                       --schema-only \
-                       --dbhost=${db_host} \
-                       --dbport=${db_port} \
-                       --database='${db_name}${ssl_options}' \
-                       --user='${db_user}'  \
-                       --password='${db_password}' \
-                       >> ${log_dir}/cpdb.log \
-                       2>&1 && touch /var/lib/candlepin/cpdb_done",
-      creates => '/var/lib/candlepin/cpdb_done',
-      require => Concat['/etc/candlepin/candlepin.conf'],
+    cpdb_create { $db_name:
+      ensure      => present,
+      db_host     => $db_host,
+      db_port     => $db_port,
+      db_user     => $db_user,
+      db_password => $db_password,
+      ssl_options => $ssl_options,
     } ->
-
-    exec { 'cpdb update':
-      path    => '/usr/share/candlepin:/bin',
-      command => "cpdb --update \
-                       --dbhost=${db_host} \
-                       --dbport=${db_port} \
-                       --database='${db_name}${ssl_options}' \
-                       --user='${db_user}'  \
-                       --password='${db_password}' \
-                       >> ${log_dir}/cpdb.log \
-                       2>&1 && touch /var/lib/candlepin/cpdb_update_done",
-      creates => '/var/lib/candlepin/cpdb_update_done',
+    cpdb_update { $db_name:
+      ensure      => present,
+      db_host     => $db_host,
+      db_port     => $db_port,
+      db_user     => $db_user,
+      db_password => $db_password,
+      ssl_options => $ssl_options,
     }
 
     # if both manage_db and init_db enforce order of resources
     if $manage_db {
-      Postgresql::Server::Db[$db_name] -> Exec['cpdb create']
+      Postgresql::Server::Db[$db_name] -> Cpdb_create[$db_name]
     }
   }
 }
