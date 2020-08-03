@@ -1,5 +1,13 @@
 # Changelog
 
+## [9.0.1](https://github.com/theforeman/puppet-candlepin/tree/9.0.1) (2020-08-03)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/9.0.0...9.0.1)
+
+**Fixed bugs:**
+
+- Fixes [\#30135](https://projects.theforeman.org/issues/30135) - Automatically clean up Candlepin event queues [\#157](https://github.com/theforeman/puppet-candlepin/pull/157) ([jturel](https://github.com/jturel))
+
 ## [9.0.0](https://github.com/theforeman/puppet-candlepin/tree/9.0.0) (2020-05-15)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/8.0.0...9.0.0)
