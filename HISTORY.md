@@ -1,3 +1,89 @@
+## [9.0.1](https://github.com/theforeman/puppet-candlepin/tree/9.0.1) (2020-08-03)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/9.0.0...9.0.1)
+
+**Fixed bugs:**
+
+- Fixes [\#30135](https://projects.theforeman.org/issues/30135) - Automatically clean up Candlepin event queues [\#157](https://github.com/theforeman/puppet-candlepin/pull/157) ([jturel](https://github.com/jturel))
+
+## [9.0.0](https://github.com/theforeman/puppet-candlepin/tree/9.0.0) (2020-05-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/8.0.0...9.0.0)
+
+**Breaking changes:**
+
+- Make candlepin::repo a standalone class [\#155](https://github.com/theforeman/puppet-candlepin/pull/155) ([ekohl](https://github.com/ekohl))
+- Fixes [\#29625](https://projects.theforeman.org/issues/29625) - Stop accepting TLS 1.1 connections [\#152](https://github.com/theforeman/puppet-candlepin/pull/152) ([ekohl](https://github.com/ekohl))
+- Fixes [\#29220](https://projects.theforeman.org/issues/29220): Disable CRL generation by default [\#145](https://github.com/theforeman/puppet-candlepin/pull/145) ([ehelms](https://github.com/ehelms))
+- Fixes [\#28924](https://projects.theforeman.org/issues/28924): Drop qpid queue and add exposing of Artemis [\#143](https://github.com/theforeman/puppet-candlepin/pull/143) ([ehelms](https://github.com/ehelms))
+- Fixes [\#28922](https://projects.theforeman.org/issues/28922): Deploy Candlepin on localhost by default [\#142](https://github.com/theforeman/puppet-candlepin/pull/142) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Allow extlib 5.x [\#149](https://github.com/theforeman/puppet-candlepin/pull/149) ([mmoll](https://github.com/mmoll))
+- Fixes [\#29194](https://projects.theforeman.org/issues/29194) - Support EL8 [\#148](https://github.com/theforeman/puppet-candlepin/pull/148) ([wbclark](https://github.com/wbclark))
+
+## [8.0.0](https://github.com/theforeman/puppet-candlepin/tree/8.0.0) (2020-02-12)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/7.0.1...8.0.0)
+
+**Breaking changes:**
+
+- Run cpdb --update [\#139](https://github.com/theforeman/puppet-candlepin/pull/139) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Fixes [\#28840](https://projects.theforeman.org/issues/28840) - move to every 24 hours instead of every hour [\#141](https://github.com/theforeman/puppet-candlepin/pull/141) ([mccun934](https://github.com/mccun934))
+
+**Merged pull requests:**
+
+- Use the nightly repository by default [\#140](https://github.com/theforeman/puppet-candlepin/pull/140) ([ekohl](https://github.com/ekohl))
+
+## [7.0.1](https://github.com/theforeman/puppet-candlepin/tree/7.0.1) (2019-06-13)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/7.0.0...7.0.1)
+
+**Merged pull requests:**
+
+- Allow latest stdlib, extlib, concat and qpid versions [\#137](https://github.com/theforeman/puppet-candlepin/pull/137) ([ekohl](https://github.com/ekohl))
+- Allow puppetlabs-postgresql 7.x [\#135](https://github.com/theforeman/puppet-candlepin/pull/135) ([ekohl](https://github.com/ekohl))
+
+## [7.0.0](https://github.com/theforeman/puppet-candlepin/tree/7.0.0) (2019-04-17)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/6.0.0...7.0.0)
+
+**Breaking changes:**
+
+- Drop Puppet 4 [\#132](https://github.com/theforeman/puppet-candlepin/pull/132) ([ekohl](https://github.com/ekohl))
+- Configure tomcat to use keystore from /etc/candlepin [\#131](https://github.com/theforeman/puppet-candlepin/pull/131) ([ehelms](https://github.com/ehelms))
+- Drop unused JasperListener [\#130](https://github.com/theforeman/puppet-candlepin/pull/130) ([ehelms](https://github.com/ehelms))
+
+**Merged pull requests:**
+
+- Allow katello/qpid 5.x [\#133](https://github.com/theforeman/puppet-candlepin/pull/133) ([ekohl](https://github.com/ekohl))
+
+## [6.0.0](https://github.com/theforeman/puppet-candlepin/tree/6.0.0) (2019-01-14)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/5.2.1...6.0.0)
+
+**Breaking changes:**
+
+- Remove unused parameters [\#118](https://github.com/theforeman/puppet-candlepin/pull/118) ([ekohl](https://github.com/ekohl))
+- Drop unused ports and switch run\_init to false [\#113](https://github.com/theforeman/puppet-candlepin/pull/113) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Use extlib namespaced functions [\#127](https://github.com/theforeman/puppet-candlepin/pull/127) ([ekohl](https://github.com/ekohl))
+- Add candlepin-selinux during install [\#124](https://github.com/theforeman/puppet-candlepin/pull/124) ([akofink](https://github.com/akofink))
+- Allow extlib 3.x [\#123](https://github.com/theforeman/puppet-candlepin/pull/123) ([ekohl](https://github.com/ekohl))
+- Add puppet 6 support [\#122](https://github.com/theforeman/puppet-candlepin/pull/122) ([ekohl](https://github.com/ekohl))
+- Convert docs to yardoc [\#117](https://github.com/theforeman/puppet-candlepin/pull/117) ([ekohl](https://github.com/ekohl))
+
+**Merged pull requests:**
+
+- Remove puppet-lint-absolute\_classname-check [\#119](https://github.com/theforeman/puppet-candlepin/pull/119) ([ekohl](https://github.com/ekohl))
+- Update README [\#115](https://github.com/theforeman/puppet-candlepin/pull/115) ([ekohl](https://github.com/ekohl))
+
 ## [5.2.1](https://github.com/theforeman/puppet-candlepin/tree/5.2.1) (2018-10-15)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/5.2.0...5.2.1)
