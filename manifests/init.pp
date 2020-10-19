@@ -200,6 +200,7 @@ class candlepin (
   Boolean $security_manager = $candlepin::params::security_manager,
   Optional[Integer[0]] $shutdown_wait = $candlepin::params::shutdown_wait,
   String $expired_pools_schedule = $candlepin::params::expired_pools_schedule,
+  String $certificate_revocation_list_task_schedule = $candlepin::params::certificate_revocation_list_task_schedule,
   Stdlib::Host $artemis_host = $candlepin::params::host,
   Stdlib::Port $artemis_port = $candlepin::params::artemis_port,
   String $artemis_client_dn = $candlepin::params::artemis_client_dn,
