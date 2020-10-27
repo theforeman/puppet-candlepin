@@ -1,5 +1,21 @@
 # Changelog
 
+## [11.0.0](https://github.com/theforeman/puppet-candlepin/tree/11.0.0) (2020-10-27)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/10.0.0...11.0.0)
+
+**Breaking changes:**
+
+- Fixes [\#30523](https://projects.theforeman.org/issues/30523): Create providers to make database migration idempotent [\#161](https://github.com/theforeman/puppet-candlepin/pull/161) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Fixes [\#30767](https://projects.theforeman.org/issues/30767) - Allow the owner\_content\_access\_mode.modified event type [\#164](https://github.com/theforeman/puppet-candlepin/pull/164) ([jturel](https://github.com/jturel))
+
+**Fixed bugs:**
+
+- Refs [\#29220](https://projects.theforeman.org/issues/29220) - Add missing parameter [\#166](https://github.com/theforeman/puppet-candlepin/pull/166) ([ekohl](https://github.com/ekohl))
+
 ## [10.0.0](https://github.com/theforeman/puppet-candlepin/tree/10.0.0) (2020-08-05)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/9.0.1...10.0.0)
