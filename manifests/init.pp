@@ -83,6 +83,9 @@
 # @param version
 #   Version of Candlepin to install
 #
+# @param java_package
+#   Use in conjunction with java_home to specify the JVM used by Tomcat
+#
 # @param wget_version
 #   Version of wget to install
 #
@@ -180,6 +183,7 @@ class candlepin (
   Optional[String] $ca_key_password = $candlepin::params::ca_key_password,
   Array[String] $ciphers = $candlepin::params::ciphers,
   Array[String] $tls_versions = $candlepin::params::tls_versions,
+  Optional[String[1]] $java_package = undef,
   String $version = $candlepin::params::version,
   String $wget_version = $candlepin::params::wget_version,
   Boolean $run_init = $candlepin::params::run_init,
