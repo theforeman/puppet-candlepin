@@ -1,5 +1,15 @@
 # Changelog
 
+## [11.1.0](https://github.com/theforeman/puppet-candlepin/tree/11.1.0) (2021-01-12)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/11.0.0...11.1.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#31607](https://projects.theforeman.org/issues/31607) - Increase Artemis disk usage limit [\#172](https://github.com/theforeman/puppet-candlepin/pull/172) ([jturel](https://github.com/jturel))
+- Fixes [\#31497](https://projects.theforeman.org/issues/31497) - set default-consumer-window-size for jobs queue [\#170](https://github.com/theforeman/puppet-candlepin/pull/170) ([jturel](https://github.com/jturel))
+- Refs [\#31346](https://projects.theforeman.org/issues/31346) - Expose java\_package parameter [\#169](https://github.com/theforeman/puppet-candlepin/pull/169) ([jturel](https://github.com/jturel))
+
 ## [11.0.0](https://github.com/theforeman/puppet-candlepin/tree/11.0.0) (2020-10-27)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/10.0.0...11.0.0)
