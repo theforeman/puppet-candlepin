@@ -6,6 +6,7 @@ class candlepin::install {
 
   if $candlepin::java_package {
     ensure_packages([$candlepin::java_package])
+    Package[$candlepin::java_package] -> Package['candlepin']
   }
 
   package { ['candlepin']:
