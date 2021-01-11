@@ -4,6 +4,11 @@
 class candlepin::install {
   assert_private()
 
+  if $candlepin::java_package {
+    ensure_packages([$candlepin::java_package])
+    Package[$candlepin::java_package] -> Package['candlepin']
+  }
+
   package { ['candlepin']:
     ensure => $candlepin::version,
   }
