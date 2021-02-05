@@ -45,6 +45,9 @@ class candlepin::artemis {
   }
 
   if $facts['os']['selinux']['enabled'] {
-    selinux::boolean { 'candlepin_can_bind_activemq_port': }
+    selboolean { 'candlepin_can_bind_activemq_port':
+      value      => 'on',
+      persistent => true,
+    }
   }
 }
