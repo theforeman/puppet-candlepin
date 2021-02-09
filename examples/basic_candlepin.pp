@@ -57,4 +57,6 @@ class { 'candlepin':
   keystore_password   => $keystore_password,
   truststore_file     => $truststore,
   truststore_password => $truststore_password,
+  java_package        => 'java-11-openjdk',
+  java_home           => '/usr/lib/jvm/jre-11',
 }
