@@ -17,6 +17,12 @@ describe 'candlepin' do
         it { is_expected.to contain_package('candlepin').with_ensure('present') }
         it { is_expected.not_to contain_package('wget') }
 
+        if facts[:os]['release']['major'] == '8'
+          it { is_expected.to contain_package('pki-core').that_comes_before('Package[candlepin]') }
+        else
+          it { is_expected.not_to contain_package('pki-core') }
+        end
+
         # config
         it { is_expected.to contain_class('candlepin::config') }
         it do
@@ -103,6 +109,28 @@ describe 'candlepin' do
         it { is_expected.to contain_service('tomcat') }
         it { is_expected.not_to contain_exec('cpinit') }
         it { is_expected.to contain_service('tomcat').with_ensure('running') }
+      end
+
+      describe 'selinux' do
+        describe 'on' do
+          let(:facts) { override_facts(super(), os: {selinux: {enabled: true}}) }
+
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_selboolean('candlepin_can_bind_activemq_port').that_requires('Package[candlepin-selinux]') }
+          if facts[:os]['release']['major'] == '8'
+            it { is_expected.to contain_package('candlepin-selinux').that_requires('Package[pki-core]') }
+          else
+            it { is_expected.to contain_package('candlepin-selinux') }
+          end
+        end
+
+        describe 'off' do
+          let(:facts) { override_facts(super(), os: {selinux: {enabled: false}}) }
+
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.not_to contain_selboolean('candlepin_can_bind_activemq_port') }
+          it { is_expected.not_to contain_package('candlepin-selinux') }
+        end
       end
 
       describe 'with custom adapter module' do
