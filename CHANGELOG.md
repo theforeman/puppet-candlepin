@@ -1,5 +1,18 @@
 # Changelog
 
+## [11.2.0](https://github.com/theforeman/puppet-candlepin/tree/11.2.0) (2021-02-17)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/11.1.0...11.2.0)
+
+**Implemented enhancements:**
+
+- Enable pki-core module on EL8 [\#175](https://github.com/theforeman/puppet-candlepin/pull/175) ([ekohl](https://github.com/ekohl))
+- Drop dependency on puppet-selinux [\#173](https://github.com/theforeman/puppet-candlepin/pull/173) ([ekohl](https://github.com/ekohl))
+
+**Merged pull requests:**
+
+- Use Java 11 in acceptance tests [\#174](https://github.com/theforeman/puppet-candlepin/pull/174) ([ehelms](https://github.com/ehelms))
+
 ## [11.1.0](https://github.com/theforeman/puppet-candlepin/tree/11.1.0) (2021-01-12)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/11.0.0...11.1.0)
