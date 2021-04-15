@@ -4,7 +4,7 @@
 class candlepin::config {
   assert_private()
 
-  user { 'tomcat':
+  user { $candlepin::user:
     ensure => present,
     groups => $candlepin::user_groups,
   }
@@ -16,8 +16,8 @@ class candlepin::config {
 
   concat{ $candlepin::candlepin_conf_file:
     mode  => '0600',
-    owner => 'tomcat',
-    group => 'tomcat',
+    owner => $candlepin::user,
+    group => $candlepin::group,
   }
 
   file { '/etc/tomcat/server.xml':
@@ -33,6 +33,6 @@ class candlepin::config {
     content => template('candlepin/tomcat/tomcat.conf.erb'),
     mode    => '0644',
     owner   => 'root',
-    group   => 'tomcat',
+    group   => $candlepin::group,
   }
 }

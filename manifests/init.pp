@@ -156,6 +156,13 @@
 #
 # @param artemis_client_dn
 #   Full DN for the client certificate used to talk to Artemis
+#
+# @param user
+#   User under which Candlepin will run
+#
+# @param group
+#   Primary group for the Candlepin user
+#
 class candlepin (
   Boolean $manage_db = $candlepin::params::manage_db,
   Boolean $init_db = $candlepin::params::init_db,
@@ -208,6 +215,8 @@ class candlepin (
   Stdlib::Host $artemis_host = $candlepin::params::host,
   Stdlib::Port $artemis_port = $candlepin::params::artemis_port,
   String $artemis_client_dn = $candlepin::params::artemis_client_dn,
+  String $user = $candlepin::params::user,
+  String $group = $candlepin::params::group,
 ) inherits candlepin::params {
 
   contain candlepin::service
