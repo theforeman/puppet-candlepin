@@ -88,4 +88,7 @@ class candlepin::params {
   $artemis_host = $host
   $artemis_client_dn = 'CN=ActiveMQ Artemis Client, OU=Artemis, O=ActiveMQ, L=AMQ, ST=AMQ, C=AMQ'
   $broker_config_file = '/etc/candlepin/broker.xml'
+
+  $user = 'tomcat'
+  $group = 'tomcat'
 }
