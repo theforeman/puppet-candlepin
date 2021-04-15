@@ -7,7 +7,7 @@ if $major == '8' {
 }
 
 # Defaults to staging, for release, use
-# $baseurl = "https://fedorapeople.org/groups/katello/releases/yum/nightly/candlepin/el${major}/x86_64/"
+# $baseurl = "https://yum.theforeman.org/katello/nightly/candlepin/el${major}/x86_64/"
 $baseurl = "http://koji.katello.org/releases/yum/katello-nightly/candlepin/el${major}/x86_64/"
 
 yumrepo { 'candlepin':
