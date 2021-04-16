@@ -169,7 +169,7 @@ describe 'candlepin' do
         it { is_expected.to compile.with_all_deps }
         it do
           is_expected.to contain_file("/etc/tomcat/server.xml").
-            with_content(/sslProtocols="TLSv1.2,TLSv1.3"/).
+            with_content(/sslProtocol="TLSv1.2,TLSv1.3"/).
             with_content(/sslEnabledProtocols="TLSv1.2,TLSv1.3"/)
         end
       end
