@@ -9,6 +9,9 @@ $truststore = "${keydir}/truststore"
 $truststore_password = 'secret'
 $ca_key = "${keydir}/candlepin-ca.key"
 $ca_cert = "${keydir}/candlepin-ca.crt"
+$client_cert_key = "${keydir}/client-cert.key"
+$client_csr = "${keydir}/client-cert.csr"
+$client_cert = "${keydir}/client-cert.pem"
 
 exec { "/bin/mkdir -p ${keydir}":
   creates => $keydir,
@@ -59,4 +62,16 @@ class { 'candlepin':
   truststore_password => $truststore_password,
   java_package        => 'java-11-openjdk',
   java_home           => '/usr/lib/jvm/jre-11',
+} ->
+exec { 'Create client cert key':
+  command => "/usr/bin/openssl genrsa -out '${client_cert_key}' 2048",
+  creates => $client_cert_key,
+} ->
+exec { 'Create client certificate signing request':
+  command => "/usr/bin/openssl req -new -key '${client_cert_key}' -out '${client_csr}' -subj '/C=US/ST=North Carolina/L=Raleigh/O=CustomKatelloCA/CN=${facts['networking']['fqdn']}'",
+  creates => $client_csr,
+} ->
+exec { 'Create client certificate':
+  command => "/usr/bin/openssl x509 -req -in '${client_csr}' -CA '${ca_cert}' -CAkey '${ca_key}' -CAcreateserial -out '${client_cert}' -days 1024 -sha256",
+  creates => $client_cert,
 }
