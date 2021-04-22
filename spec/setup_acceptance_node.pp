@@ -22,3 +22,8 @@ if $facts['os']['selinux']['enabled'] {
     require => Yumrepo['candlepin'],
   }
 }
+
+# Used to test which TLS versions are enabled
+package { 'nmap':
+  ensure => installed,
+}
