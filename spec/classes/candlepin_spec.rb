@@ -25,6 +25,8 @@ describe 'candlepin' do
 
         # config
         it { is_expected.to contain_class('candlepin::config') }
+        it { is_expected.to contain_user('tomcat').with_ensure('present').with_groups([]) }
+        it { is_expected.to contain_group('tomcat').with_ensure('present') }
         it do
           verify_concat_fragment_exact_contents(catalogue, 'General Config', [
             'candlepin.environment_content_filtering=true',
