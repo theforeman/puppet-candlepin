@@ -33,7 +33,6 @@ exec { 'Create truststore':
   command => "/usr/bin/keytool -import -v -keystore ${truststore} -alias candlepin-ca -file ${ca_cert} -noprompt -storepass ${truststore_password} -storetype pkcs12",
   creates => $truststore,
 } ->
-group { 'tomcat': } ->
 file { $ca_key:
   mode  => '0440',
   group => 'tomcat',

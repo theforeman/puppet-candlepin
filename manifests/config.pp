@@ -6,7 +6,12 @@ class candlepin::config {
 
   user { $candlepin::user:
     ensure => present,
+    gid    => $candlepin::group,
     groups => $candlepin::user_groups,
+  }
+
+  group { $candlepin::group:
+    ensure => present,
   }
 
   concat::fragment { 'General Config':
