@@ -4,6 +4,17 @@ if $major == '8' {
   package { 'glibc-langpack-en':
     ensure => installed,
   }
+
+  if $facts['os']['selinux']['enabled'] {
+    # Workaround for https://github.com/theforeman/puppet-candlepin/issues/188
+    package { 'pki-core':
+      # enable_only is required as workaround for https://tickets.puppetlabs.com/browse/PUP-11024
+      enable_only => true,
+      ensure      => present,
+      provider    => 'dnfmodule',
+      before      => Package['candlepin-selinux'],
+    }
+  }
 }
 
 # Defaults to staging, for release, use
