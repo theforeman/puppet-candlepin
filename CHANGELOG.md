@@ -1,5 +1,21 @@
 # Changelog
 
+## [11.3.0](https://github.com/theforeman/puppet-candlepin/tree/11.3.0) (2021-04-26)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/11.2.0...11.3.0)
+
+**Implemented enhancements:**
+
+- Manage the candlepin::group [\#186](https://github.com/theforeman/puppet-candlepin/pull/186) ([ehelms](https://github.com/ehelms))
+- Add static defaults for parameters [\#182](https://github.com/theforeman/puppet-candlepin/pull/182) ([ehelms](https://github.com/ehelms))
+- Add user and group parameters [\#181](https://github.com/theforeman/puppet-candlepin/pull/181) ([ehelms](https://github.com/ehelms))
+- Update yumrepo to use yum.theforeman.org [\#180](https://github.com/theforeman/puppet-candlepin/pull/180) ([ehelms](https://github.com/ehelms))
+- Drop unknown Tomcat properties [\#179](https://github.com/theforeman/puppet-candlepin/pull/179) ([ehelms](https://github.com/ehelms))
+
+**Fixed bugs:**
+
+- Tomcat parameter is named sslProtocol not sslProtocols [\#183](https://github.com/theforeman/puppet-candlepin/pull/183) ([ehelms](https://github.com/ehelms))
+
 ## [11.2.0](https://github.com/theforeman/puppet-candlepin/tree/11.2.0) (2021-02-17)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/11.1.0...11.2.0)
