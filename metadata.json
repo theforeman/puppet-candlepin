@@ -10,7 +10,7 @@
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.2.0 < 7.0.0"
+      "version_requirement": ">= 4.2.0 < 8.0.0"
     },
     {
       "name": "puppet/extlib",
@@ -18,11 +18,11 @@
     },
     {
       "name": "puppetlabs/postgresql",
-      "version_requirement": ">= 6.5.0 < 7.0.0"
+      "version_requirement": ">= 6.5.0 < 8.0.0"
     },
     {
       "name": "puppetlabs/concat",
-      "version_requirement": ">= 1.0.0 < 7.0.0"
+      "version_requirement": ">= 1.0.0 < 8.0.0"
     }
   ],
   "requirements": [
