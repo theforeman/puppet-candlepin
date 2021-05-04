@@ -1,5 +1,13 @@
 # Changelog
 
+## [11.4.0](https://github.com/theforeman/puppet-candlepin/tree/11.4.0) (2021-05-04)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/11.3.0...11.4.0)
+
+**Implemented enhancements:**
+
+- Allow Puppet 7 compatible versions of mods [\#193](https://github.com/theforeman/puppet-candlepin/pull/193) ([ekohl](https://github.com/ekohl))
+
 ## [11.3.0](https://github.com/theforeman/puppet-candlepin/tree/11.3.0) (2021-04-26)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/11.2.0...11.3.0)
