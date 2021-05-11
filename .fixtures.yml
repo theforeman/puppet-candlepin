@@ -4,7 +4,6 @@ fixtures:
     extlib:     'https://github.com/voxpupuli/puppet-extlib'
     concat:     'https://github.com/puppetlabs/puppetlabs-concat'
     postgresql: 'https://github.com/puppetlabs/puppetlabs-postgresql.git'
-    qpid:       'https://github.com/theforeman/puppet-qpid.git'
     selinux_core:
       repo:           'https://github.com/puppetlabs/puppetlabs-selinux_core'
       puppet_version: '>= 6.0.0'
