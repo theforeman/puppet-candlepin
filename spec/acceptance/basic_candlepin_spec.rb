@@ -28,4 +28,12 @@ describe 'candlepin works' do
     # Test that the least cipher strength is "strong" or "A"
     its(:stdout) { should match(/least strength: (A|strong)/) }
   end
+
+  describe file("/usr/share/tomcat/conf/cert-users.properties") do
+    it { should be_file }
+    it { should be_mode 640 }
+    it { should be_owned_by 'tomcat' }
+    it { should be_grouped_into 'tomcat' }
+    its(:content) { should eq("katelloUser=CN=ActiveMQ Artemis Deferred, OU=Artemis, O=ActiveMQ, L=AMQ, ST=AMQ, C=AMQ\n") }
+  end
 end
