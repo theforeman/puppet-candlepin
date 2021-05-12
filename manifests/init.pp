@@ -217,7 +217,7 @@ class candlepin (
   String $certificate_revocation_list_task_schedule = '0 0 0 1 1 ?',
   Stdlib::Host $artemis_host = 'localhost',
   Stdlib::Port $artemis_port = 61613,
-  String $artemis_client_dn = 'CN=ActiveMQ Artemis Client, OU=Artemis, O=ActiveMQ, L=AMQ, ST=AMQ, C=AMQ',
+  Variant[Deferred, String] $artemis_client_dn = 'CN=ActiveMQ Artemis Client, OU=Artemis, O=ActiveMQ, L=AMQ, ST=AMQ, C=AMQ',
   Stdlib::Absolutepath $broker_config_file = '/etc/candlepin/broker.xml',
   String $user = 'tomcat',
   String $group = 'tomcat',
