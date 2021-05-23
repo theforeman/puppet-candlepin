@@ -17,7 +17,7 @@ Puppet::Type.type(:cpdb_update).provide(:cpdb_update) do
   private
 
   def migrate_database
-    output = cpdb(
+    cpdb(
       '--update',
       "--dbhost=#{resource[:db_host]}",
       "--dbport=#{resource[:db_port]}",

@@ -66,7 +66,7 @@ describe 'candlepin' do
 
         it do
           is_expected.to contain_file('/etc/candlepin/broker.xml')
-            .with_content(/^            <acceptor name="stomp">tcp:\/\/localhost:61613\?protocols=STOMP;useEpoll=false;sslEnabled=true;trustStorePath=\/etc\/candlepin\/certs\/truststore;trustStorePassword=;keyStorePath=\/etc\/candlepin\/certs\/keystore;keyStorePassword=;needClientAuth=true<\/acceptor>/)
+            .with_content(%r{            <acceptor name="stomp">tcp://localhost:61613\?protocols=STOMP;useEpoll=false;sslEnabled=true;trustStorePath=/etc/candlepin/certs/truststore;trustStorePassword=;keyStorePath=/etc/candlepin/certs/keystore;keyStorePassword=;needClientAuth=true</acceptor>})
         end
 
         # database
@@ -158,7 +158,7 @@ describe 'candlepin' do
           is_expected.to contain_file('/etc/tomcat/server.xml')
             .with_content(%r{^    <Connector port="9070"})
             .with_content(%r{^               address="localhost"})
-            .with_content(/^               protocol="HTTP\/1.1"/)
+            .with_content(%r{^               protocol="HTTP/1\.1"})
             .with_content(%r{^               SSLEnabled="true"})
         end
       end
@@ -188,7 +188,7 @@ describe 'candlepin' do
 
         it do
           is_expected.to contain_file('/etc/tomcat/tomcat.conf')
-            .with_content(/JAVA_HOME="\/usr\/lib\/jvm\/jre-11"/)
+            .with_content(%r{JAVA_HOME="/usr/lib/jvm/jre-11"})
         end
       end
 
