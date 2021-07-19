@@ -1,5 +1,19 @@
 # Changelog
 
+## [12.0.0](https://github.com/theforeman/puppet-candlepin/tree/12.0.0) (2021-07-22)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/11.3.0...12.0.0)
+
+**Breaking changes:**
+
+- Drop Puppet 5 [\#200](https://github.com/theforeman/puppet-candlepin/pull/200) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Refs [\#32585](https://projects.theforeman.org/issues/32585): Support artemis\_client\_dn as a Deferred object [\#199](https://github.com/theforeman/puppet-candlepin/pull/199) ([ehelms](https://github.com/ehelms))
+- Allow Puppet 7 compatible versions of mods [\#193](https://github.com/theforeman/puppet-candlepin/pull/193) ([ekohl](https://github.com/ekohl))
+- Support Puppet 7 [\#178](https://github.com/theforeman/puppet-candlepin/pull/178) ([ekohl](https://github.com/ekohl))
+
 ## [11.3.0](https://github.com/theforeman/puppet-candlepin/tree/11.3.0) (2021-04-26)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/11.2.0...11.3.0)
