@@ -1,5 +1,13 @@
 # Changelog
 
+## [12.0.1](https://github.com/theforeman/puppet-candlepin/tree/12.0.1) (2021-08-23)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/12.0.0...12.0.1)
+
+**Fixed bugs:**
+
+- Fixes [\#33321](https://projects.theforeman.org/issues/33321) - Update job scheduling config options for correctness [\#205](https://github.com/theforeman/puppet-candlepin/pull/205) ([jturel](https://github.com/jturel))
+
 ## [12.0.0](https://github.com/theforeman/puppet-candlepin/tree/12.0.0) (2021-07-22)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/11.3.0...12.0.0)
