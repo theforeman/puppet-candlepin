@@ -27,7 +27,6 @@ candlepin.ca_key_password=<%= scope['candlepin::ca_key_password'] %>
 <%- end -%>
 
 candlepin.async.jobs.ExpiredPoolsCleanupJob.schedule=<%= scope['candlepin::expired_pools_schedule'] %>
-candlepin.async.jobs.CRLUpdateJob.schedule=<%= scope['candlepin::certificate_revocation_list_task_schedule'] %>
 
 # Required for https://hibernate.atlassian.net/browse/HHH-12927
 log4j.logger.org.hibernate.internal.SessionImpl=ERROR
