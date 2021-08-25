@@ -39,7 +39,6 @@ describe 'candlepin' do
             'candlepin.crl.file=/var/lib/candlepin/candlepin-crl.crl',
             'log4j.logger.org.hibernate.internal.SessionImpl=ERROR',
             'candlepin.async.jobs.ExpiredPoolsCleanupJob.schedule=0 0 0 * * ?',
-            'candlepin.async.jobs.CRLUpdateJob.schedule=0 0 0 1 1 ?',
             'candlepin.audit.hornetq.config_path=/etc/candlepin/broker.xml',
           ])
         end

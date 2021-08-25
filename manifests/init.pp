@@ -145,9 +145,6 @@
 # @param expired_pools_schedule
 #   Quartz schedule notation for how often to run the ExpiredPoolsJob
 #
-# @param certificate_revocation_list_task_schedule
-#   Quartz schedule notation for how often to run CRL generation
-#
 # @param artemis_port
 #   Port to expose Artemis on
 #
@@ -214,7 +211,6 @@ class candlepin (
   Boolean $security_manager = false,
   Optional[Integer[0]] $shutdown_wait = undef,
   String $expired_pools_schedule = '0 0 0 * * ?',
-  String $certificate_revocation_list_task_schedule = '0 0 0 1 1 ?',
   Stdlib::Host $artemis_host = 'localhost',
   Stdlib::Port $artemis_port = 61613,
   Variant[Deferred, String] $artemis_client_dn = 'CN=ActiveMQ Artemis Client, OU=Artemis, O=ActiveMQ, L=AMQ, ST=AMQ, C=AMQ',
