@@ -23,6 +23,9 @@ Currently we are not aware of use outside of [puppet-katello](https://github.com
 
 ## Usage
 
+## Compatibility
+
+* This module is currently developed and tested against Candlepin 4.1.6 and later.
 
 ## Limitations
 
