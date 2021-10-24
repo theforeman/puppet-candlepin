@@ -1,5 +1,14 @@
 # Changelog
 
+## [12.1.0](https://github.com/theforeman/puppet-candlepin/tree/12.1.0) (2021-11-01)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/12.0.1...12.1.0)
+
+**Implemented enhancements:**
+
+- Update broker.xml per Candlepin changes [\#208](https://github.com/theforeman/puppet-candlepin/pull/208) ([jturel](https://github.com/jturel))
+- Remove obsolete CRLUpdateJob options [\#207](https://github.com/theforeman/puppet-candlepin/pull/207) ([jturel](https://github.com/jturel))
+
 ## [12.0.1](https://github.com/theforeman/puppet-candlepin/tree/12.0.1) (2021-08-23)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/12.0.0...12.0.1)
