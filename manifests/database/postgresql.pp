@@ -16,7 +16,8 @@ class candlepin::database::postgresql(
   $db_ssl_verify           = $candlepin::db_ssl_verify,
   $db_name                 = $candlepin::db_name,
   $db_user                 = $candlepin::db_user,
-  $db_password             = $candlepin::db_password,
+  # TODO: use EPP instead of  ERB, as EPP handles Sensitive natively
+  $db_password             = $candlepin::db_password.unwrap,
   $enable_hbm2ddl_validate = $candlepin::enable_hbm2ddl_validate,
   $log_dir                 = $candlepin::log_dir,
 

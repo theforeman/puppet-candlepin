@@ -173,7 +173,7 @@ class candlepin (
   Boolean $db_ssl_verify = true,
   String $db_name = 'candlepin',
   String $db_user = 'candlepin',
-  String $db_password = $candlepin::params::db_password,
+  Variant[Sensitive[String], String] $db_password = $candlepin::params::db_password,
   Stdlib::Absolutepath $crl_file = '/var/lib/candlepin/candlepin-crl.crl',
   Variant[Array[String], String] $user_groups = [],
   Stdlib::Absolutepath $log_dir = '/var/log/candlepin',
@@ -181,13 +181,13 @@ class candlepin (
   String $oauth_secret = 'candlepin',
   Boolean $env_filtering_enabled = true,
   Stdlib::Absolutepath $keystore_file = '/etc/candlepin/certs/keystore',
-  Optional[String] $keystore_password = undef,
+  Optional[Variant[Sensitive[String], String]] $keystore_password = undef,
   String $keystore_type = 'PKCS12',
   Stdlib::Absolutepath $truststore_file = '/etc/candlepin/certs/truststore',
-  Optional[String] $truststore_password = undef,
+  Optional[Variant[Sensitive[String], String]] $truststore_password = undef,
   Stdlib::Absolutepath $ca_key = '/etc/candlepin/certs/candlepin-ca.key',
   Stdlib::Absolutepath $ca_cert = '/etc/candlepin/certs/candlepin-ca.crt',
-  Optional[String] $ca_key_password = undef,
+  Optional[Variant[Sensitive[String], String]] $ca_key_password = undef,
   Array[String] $ciphers = $candlepin::params::ciphers,
   Array[String] $tls_versions = ['1.2'],
   Optional[String[1]] $java_package = undef,
@@ -220,6 +220,11 @@ class candlepin (
 ) inherits candlepin::params {
 
   contain candlepin::service
+
+  # TODO: use EPP instead of  ERB, as EPP handles Sensitive natively
+  $keystore_password_unsensitive = $keystore_password.unwrap
+  $ca_key_password_unsensitive  = $ca_key_password.unwrap
+  $truststore_password_unsensitive = $truststore_password.unwrap
 
   Anchor <| title == 'candlepin::repo' |> ->
   class { 'candlepin::install': } ~>

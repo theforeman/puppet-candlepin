@@ -115,6 +115,39 @@ describe 'candlepin' do
         it { is_expected.to contain_service('tomcat').with_ensure('running') }
       end
 
+      describe 'sensitive parameters' do
+        let :params do
+          {
+            db_type: 'postgresql',
+            db_password: sensitive('MY_DB_PASSWORD'),
+            keystore_password: sensitive('MY_KEYSTORE_PASSWORD'),
+            truststore_password: sensitive('MY_TRUSTSTORE_PASSWORD'),
+            ca_key_password: sensitive('MY_CA_KEY_PASSWORD')
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_concat('/etc/candlepin/candlepin.conf') }
+        it do
+          is_expected.to contain_concat_fragment('PostgreSQL Database Configuration').
+            with_content(/^jpa.config.hibernate.connection.password=MY_DB_PASSWORD$/).
+            with_content(/^org.quartz.dataSource.myDS.password=MY_DB_PASSWORD$/)
+        end
+        it do
+          is_expected.to contain_concat_fragment('General Config').
+            with_content(/^candlepin.ca_key_password=MY_CA_KEY_PASSWORD$/)
+        end
+        it do
+          is_expected.to contain_file('/etc/candlepin/broker.xml').
+            with_content(/;keyStorePassword=MY_KEYSTORE_PASSWORD;/).
+            with_content(/;trustStorePassword=MY_TRUSTSTORE_PASSWORD;/)
+        end
+        it do
+          is_expected.to contain_file('/etc/tomcat/server.xml').
+            with_content(/^ *keystorePass="MY_KEYSTORE_PASSWORD"$/)
+        end
+      end
+
       describe 'selinux' do
         describe 'on' do
           let(:facts) { override_facts(super(), os: {selinux: {enabled: true}}) }
