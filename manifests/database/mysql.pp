@@ -11,7 +11,8 @@ class candlepin::database::mysql(
   $db_port = pick($candlepin::db_port, 3306),
   $db_name = $candlepin::db_name,
   $db_user = $candlepin::db_user,
-  $db_password = $candlepin::db_password,
+  # TODO: use EPP instead of  ERB, as EPP handles Sensitive natively
+  $db_password = $candlepin::db_password.unwrap,
   $enable_hbm2ddl_validate = $candlepin::enable_hbm2ddl_validate,
 ) {
   assert_private()

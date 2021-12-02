@@ -81,10 +81,10 @@
                sslProtocol="<%= scope['::candlepin::tls_versions'].map { |version| "TLSv#{version}"}.join(",") %>"
                sslEnabledProtocols="<%= scope['::candlepin::tls_versions'].map { |version| "TLSv#{version}"}.join(",") %>"
                keystoreFile="<%= scope['::candlepin::keystore_file'] %>"
-               keystorePass="<%= scope['::candlepin::keystore_password'] %>"
+               keystorePass="<%= scope['::candlepin::keystore_password_unsensitive'] %>"
                keystoreType="<%= scope['::candlepin::keystore_type'] %>"
                truststoreFile="<%= scope['::candlepin::truststore_file'] %>"
-               truststorePass="<%= scope['::candlepin::truststore_password'] %>"
+               truststorePass="<%= scope['::candlepin::truststore_password_unsensitive'] %>"
                ciphers="<%= scope['::candlepin::ciphers'].join(",\n                    ") %>" />
 
     <!-- An Engine represents the entry point (within Catalina) that processes
