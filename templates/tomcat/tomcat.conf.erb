@@ -30,7 +30,7 @@ CATALINA_HOME="<%= scope.lookupvar('::candlepin::catalina_home') %>"
 CATALINA_TMPDIR="<%= scope.lookupvar('::candlepin::catalina_tmpdir') %>"
 
 # You can pass some parameters to java here if you wish to
-JAVA_OPTS="<%= scope.lookupvar('::candlepin::java_opts') %>"
+JAVA_OPTS="<%= scope.lookupvar('::candlepin::java_opts') %><%= scope.lookupvar('::candlepin::disable_fips') ? ' -Dcom.redhat.fips=false' : '' %>"
 
 # You can change your tomcat locale here
 <% unless [nil, :undefined, :undef, ''].include?(scope.lookupvar('::candlepin::lang')) %>

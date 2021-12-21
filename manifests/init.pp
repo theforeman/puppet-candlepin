@@ -163,6 +163,10 @@
 # @param group
 #   Primary group for the Candlepin user
 #
+# @param disable_fips
+#   Disable FIPS within the Java environment for Tomcat explicitly.
+#   When set to false no flag is added and system configuration is used.
+#
 class candlepin (
   Boolean $manage_db = true,
   Boolean $init_db = true,
@@ -217,6 +221,7 @@ class candlepin (
   Stdlib::Absolutepath $broker_config_file = '/etc/candlepin/broker.xml',
   String $user = 'tomcat',
   String $group = 'tomcat',
+  Boolean $disable_fips = true,
 ) inherits candlepin::params {
 
   contain candlepin::service
