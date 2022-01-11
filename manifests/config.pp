@@ -20,8 +20,8 @@ class candlepin::config {
   }
 
   concat{ $candlepin::candlepin_conf_file:
-    mode  => '0600',
-    owner => $candlepin::user,
+    mode  => '0640',
+    owner => 'root',
     group => $candlepin::group,
   }
 
