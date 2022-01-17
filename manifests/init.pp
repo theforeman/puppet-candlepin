@@ -165,7 +165,7 @@
 #
 # @param disable_fips
 #   Disable FIPS within the Java environment for Tomcat explicitly.
-#   When set to false no flag is added and system configuration is used.
+#   When set to false, no flag is added. Then on FIPS enabled systems, a Candlepin build that supports FIPS is required.
 #
 class candlepin (
   Boolean $manage_db = true,
