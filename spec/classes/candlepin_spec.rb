@@ -51,7 +51,7 @@ describe 'candlepin' do
             'JAVA_HOME="/usr/lib/jvm/jre"',
             'CATALINA_HOME="/usr/share/tomcat"',
             'CATALINA_TMPDIR="/var/cache/tomcat/temp"',
-            'JAVA_OPTS="-Xms1024m -Xmx4096m"',
+            'JAVA_OPTS="-Xms1024m -Xmx4096m -Dcom.redhat.fips=false"',
             'SECURITY_MANAGER="0"',
           ])
         end
