@@ -1,5 +1,15 @@
 # Changelog
 
+## [12.2.0](https://github.com/theforeman/puppet-candlepin/tree/12.2.0) (2022-02-03)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/12.1.0...12.2.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#30366](https://projects.theforeman.org/issues/30366) - Candlepin config file owned by root [\#213](https://github.com/theforeman/puppet-candlepin/pull/213) ([ekohl](https://github.com/ekohl))
+- Disable FIPS support by default within Tomcat Java environment [\#211](https://github.com/theforeman/puppet-candlepin/pull/211) ([ehelms](https://github.com/ehelms))
+- Accept Sensitive for Secrets [\#210](https://github.com/theforeman/puppet-candlepin/pull/210) ([cocker-cc](https://github.com/cocker-cc))
+
 ## [12.1.0](https://github.com/theforeman/puppet-candlepin/tree/12.1.0) (2021-11-01)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/12.0.1...12.1.0)
