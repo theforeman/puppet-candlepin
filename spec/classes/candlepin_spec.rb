@@ -148,6 +148,88 @@ describe 'candlepin' do
         end
       end
 
+      describe 'remote database' do
+        let :params do
+          {
+            db_type: 'postgresql',
+            db_host: 'psql.example.com',
+          }
+        end
+
+        context 'without SSL' do
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_concat('/etc/candlepin/candlepin.conf') }
+          it do
+            is_expected.to contain_concat_fragment('PostgreSQL Database Configuration').
+              with_content(/^jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/psql\.example\.com:5432/).
+              with_content(/^org.quartz.dataSource.myDS.URL=jdbc:postgresql:\/\/psql\.example\.com:5432/)
+          end
+        end
+
+        context 'with SSL' do
+          let(:params) { super().merge(db_ssl: true) }
+
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_concat('/etc/candlepin/candlepin.conf') }
+          it do
+            is_expected.to contain_concat_fragment('PostgreSQL Database Configuration').
+              with_content(/^jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/).
+              with_content(/^org.quartz.dataSource.myDS.URL=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/).
+              without_content(/^jpa.config.hibernate.connection.url=.*sslfactory=org.postgresql.ssl.NonValidatingFactory/).
+              without_content(/^org.quartz.dataSource.myDS.URL=.*sslfactory=org.postgresql.ssl.NonValidatingFactory/)
+          end
+
+          it do
+            is_expected.to contain_cpdb_create('candlepin').
+              with_ssl_options("?ssl=true")
+            is_expected.to contain_cpdb_update('candlepin').
+              with_ssl_options("?ssl=true")
+          end
+        end
+
+        context 'with SSL verification disabled' do
+          let(:params) { super().merge(db_ssl: true, db_ssl_verify: false) }
+
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_concat('/etc/candlepin/candlepin.conf') }
+          it do
+            is_expected.to contain_concat_fragment('PostgreSQL Database Configuration').
+              with_content(/^jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/).
+              with_content(/^org.quartz.dataSource.myDS.URL=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/).
+              with_content(/^jpa.config.hibernate.connection.url=.*sslfactory=org.postgresql.ssl.NonValidatingFactory/).
+              with_content(/^org.quartz.dataSource.myDS.URL=.*sslfactory=org.postgresql.ssl.NonValidatingFactory/)
+          end
+
+          it do
+            is_expected.to contain_cpdb_create('candlepin').
+              with_ssl_options("?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory")
+            is_expected.to contain_cpdb_update('candlepin').
+              with_ssl_options("?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory")
+          end
+        end
+
+        context 'with SSL CA defined' do
+          let(:params) { super().merge(db_ssl: true, db_ssl_ca: '/etc/ssl/postgresql.pem') }
+
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_concat('/etc/candlepin/candlepin.conf') }
+          it do
+            is_expected.to contain_concat_fragment('PostgreSQL Database Configuration').
+              with_content(/^jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/).
+              with_content(/^org.quartz.dataSource.myDS.URL=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/).
+              with_content(/^jpa.config.hibernate.connection.url=.*sslrootcert=\/etc\/ssl\/postgresql.pem/).
+              with_content(/^org.quartz.dataSource.myDS.URL=.*sslrootcert=\/etc\/ssl\/postgresql.pem/)
+          end
+
+          it do
+            is_expected.to contain_cpdb_create('candlepin').
+              with_ssl_options("?ssl=true&sslrootcert=/etc/ssl/postgresql.pem")
+            is_expected.to contain_cpdb_update('candlepin').
+              with_ssl_options("?ssl=true&sslrootcert=/etc/ssl/postgresql.pem")
+          end
+        end
+      end
+
       describe 'selinux' do
         describe 'on' do
           let(:facts) { override_facts(super(), os: {selinux: {enabled: true}}) }

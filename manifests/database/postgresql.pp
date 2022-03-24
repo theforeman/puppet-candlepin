@@ -14,6 +14,7 @@ class candlepin::database::postgresql(
   $db_port                 = pick($candlepin::db_port, 5432),
   $db_ssl                  = $candlepin::db_ssl,
   $db_ssl_verify           = $candlepin::db_ssl_verify,
+  $db_ssl_ca               = $candlepin::db_ssl_ca,
   $db_name                 = $candlepin::db_name,
   $db_user                 = $candlepin::db_user,
   # TODO: use EPP instead of  ERB, as EPP handles Sensitive natively
@@ -50,8 +51,14 @@ class candlepin::database::postgresql(
       default => ''
     }
 
+    if $db_ssl_ca {
+      $ssl_ca_options = "&sslrootcert=${db_ssl_ca}"
+    } else {
+      $ssl_ca_options = '' # lint:ignore:empty_string_assignment
+    }
+
     $ssl_options = $db_ssl ? {
-      true  => "?ssl=true${ssl_verify_options}",
+      true  => "?ssl=true${ssl_verify_options}${ssl_ca_options}",
       default => ''
     }
 
