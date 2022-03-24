@@ -29,6 +29,9 @@
 # @param db_ssl_verify
 #   Boolean indicating if the SSL connection to the database should be verified
 #
+# @param db_ssl_ca
+#   The CA certificate to verify the SSL connection to the database with
+#
 # @param db_name
 #   The name of the Candlepin database
 #
@@ -175,6 +178,7 @@ class candlepin (
   Optional[Stdlib::Port] $db_port = undef,
   Boolean $db_ssl = false,
   Boolean $db_ssl_verify = true,
+  Optional[Stdlib::Absolutepath] $db_ssl_ca = undef,
   String $db_name = 'candlepin',
   String $db_user = 'candlepin',
   Variant[Sensitive[String], String] $db_password = $candlepin::params::db_password,
