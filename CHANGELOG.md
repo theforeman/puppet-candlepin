@@ -1,5 +1,14 @@
 # Changelog
 
+## [12.3.0](https://github.com/theforeman/puppet-candlepin/tree/12.3.0) (2022-04-04)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/12.2.0...12.3.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#34672](https://projects.theforeman.org/issues/34672) - allow specifying the SSL CA when connecting to DB [\#217](https://github.com/theforeman/puppet-candlepin/pull/217) ([evgeni](https://github.com/evgeni))
+- Allow stdlib 8.x, extlib 6., postgresql 8.x [\#215](https://github.com/theforeman/puppet-candlepin/pull/215) ([ekohl](https://github.com/ekohl))
+
 ## [12.2.0](https://github.com/theforeman/puppet-candlepin/tree/12.2.0) (2022-02-03)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/12.1.0...12.2.0)
