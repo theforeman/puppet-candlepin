@@ -41,9 +41,6 @@
 # @param db_password
 #   The Candlepin database password
 #
-# @param crl_file
-#   The Certificate Revocation File for Candlepin
-#
 # @param user_groups
 #   The user groups for the Candlepin tomcat user
 #
@@ -182,7 +179,6 @@ class candlepin (
   String $db_name = 'candlepin',
   String $db_user = 'candlepin',
   Variant[Sensitive[String], String] $db_password = $candlepin::params::db_password,
-  Stdlib::Absolutepath $crl_file = '/var/lib/candlepin/candlepin-crl.crl',
   Variant[Array[String], String] $user_groups = [],
   Stdlib::Absolutepath $log_dir = '/var/log/candlepin',
   String $oauth_key = 'candlepin',

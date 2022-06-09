@@ -21,7 +21,6 @@ module.config.adapter_module=<%= scope['candlepin::adapter_module'] %>
 
 candlepin.ca_key=<%= scope['candlepin::ca_key'] %>
 candlepin.ca_cert=<%= scope['candlepin::ca_cert'] %>
-candlepin.crl.file=<%= scope['candlepin::crl_file'] %>
 <% unless [nil, :undefined, :undef].include?(scope['candlepin::ca_key_password_unsensitive']) -%>
 candlepin.ca_key_password=<%= scope['candlepin::ca_key_password_unsensitive'] %>
 <%- end -%>
