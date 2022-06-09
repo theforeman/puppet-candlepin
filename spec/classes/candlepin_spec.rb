@@ -36,7 +36,6 @@ describe 'candlepin' do
             'candlepin.auth.oauth.consumer.candlepin.secret=candlepin',
             'candlepin.ca_key=/etc/candlepin/certs/candlepin-ca.key',
             'candlepin.ca_cert=/etc/candlepin/certs/candlepin-ca.crt',
-            'candlepin.crl.file=/var/lib/candlepin/candlepin-crl.crl',
             'log4j.logger.org.hibernate.internal.SessionImpl=ERROR',
             'candlepin.async.jobs.ExpiredPoolsCleanupJob.schedule=0 0 0 * * ?',
             'candlepin.audit.hornetq.config_path=/etc/candlepin/broker.xml',
