@@ -2,7 +2,7 @@
 #
 # @api private
 class candlepin::database::postgresql (
-
+  # lint:ignore:parameter_types
   $candlepin_conf_file     = $candlepin::candlepin_conf_file,
   $db_dialect              = 'org.hibernate.dialect.PostgreSQLDialect',
   $db_quartz_dialect       = 'org.quartz.impl.jdbcjobstore.PostgreSQLDelegate',
@@ -21,7 +21,7 @@ class candlepin::database::postgresql (
   $db_password             = $candlepin::db_password.unwrap,
   $enable_hbm2ddl_validate = $candlepin::enable_hbm2ddl_validate,
   $log_dir                 = $candlepin::log_dir,
-
+  # lint:endignore
 ) {
   assert_private()
 

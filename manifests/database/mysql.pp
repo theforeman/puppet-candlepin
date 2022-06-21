@@ -2,6 +2,7 @@
 #
 # @api private
 class candlepin::database::mysql (
+  # lint:ignore:parameter_types
   $candlepin_conf_file = $candlepin::candlepin_conf_file,
   $db_dialect = 'org.hibernate.dialect.MySQLDialect',
   $db_quartz_dialect = 'org.quartz.impl.jdbcjobstore.StdJDBCDelegate',
@@ -14,6 +15,7 @@ class candlepin::database::mysql (
   # TODO: use EPP instead of  ERB, as EPP handles Sensitive natively
   $db_password = $candlepin::db_password.unwrap,
   $enable_hbm2ddl_validate = $candlepin::enable_hbm2ddl_validate,
+  # lint:endignore
 ) {
   assert_private()
 
