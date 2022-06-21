@@ -22,7 +22,7 @@ class candlepin::artemis {
 
   file { "${candlepin::catalina_home}/conf/cert-users.properties":
     ensure  => file,
-    content => Deferred('inline_epp', ["katelloUser=<%= \$artemis_client_dn %>\n", {'artemis_client_dn' => $candlepin::artemis_client_dn}]),
+    content => Deferred('inline_epp', ["katelloUser=<%= \$artemis_client_dn %>\n", { 'artemis_client_dn' => $candlepin::artemis_client_dn }]),
     mode    => '0640',
     owner   => $candlepin::user,
     group   => $candlepin::group,

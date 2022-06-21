@@ -19,7 +19,7 @@ class candlepin::config {
     content => template('candlepin/candlepin.conf.erb'),
   }
 
-  concat{ $candlepin::candlepin_conf_file:
+  concat { $candlepin::candlepin_conf_file:
     mode  => '0640',
     owner => 'root',
     group => $candlepin::group,

@@ -227,7 +227,6 @@ class candlepin (
   String $group = 'tomcat',
   Boolean $disable_fips = true,
 ) inherits candlepin::params {
-
   contain candlepin::service
 
   # TODO: use EPP instead of  ERB, as EPP handles Sensitive natively
@@ -237,9 +236,8 @@ class candlepin (
 
   Anchor <| title == 'candlepin::repo' |> ->
   class { 'candlepin::install': } ~>
-  class { 'candlepin::config':  } ~>
-  class { 'candlepin::artemis':  } ~>
+  class { 'candlepin::config': } ~>
+  class { 'candlepin::artemis': } ~>
   class { "candlepin::database::${candlepin::db_type}": } ~>
   Class['candlepin::service']
-
 }
