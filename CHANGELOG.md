@@ -1,5 +1,18 @@
 # Changelog
 
+## [13.0.0](https://github.com/theforeman/puppet-candlepin/tree/13.0.0) (2022-08-02)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/12.3.0...13.0.0)
+
+**Breaking changes:**
+
+- Remove obsolete crl option [\#220](https://github.com/theforeman/puppet-candlepin/pull/220) ([nikosmoum](https://github.com/nikosmoum))
+- Drop EL7 support [\#219](https://github.com/theforeman/puppet-candlepin/pull/219) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Update to voxpupuli-test 5 [\#221](https://github.com/theforeman/puppet-candlepin/pull/221) ([ekohl](https://github.com/ekohl))
+
 ## [12.3.0](https://github.com/theforeman/puppet-candlepin/tree/12.3.0) (2022-04-04)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/12.2.0...12.3.0)
