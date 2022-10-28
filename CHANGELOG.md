@@ -1,5 +1,13 @@
 # Changelog
 
+## [13.1.0](https://github.com/theforeman/puppet-candlepin/tree/13.1.0) (2022-10-28)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/13.0.0...13.1.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#35638](https://projects.theforeman.org/issues/35638) - Update ciphers to be SHA256 or SHA384 [\#224](https://github.com/theforeman/puppet-candlepin/pull/224) ([ekohl](https://github.com/ekohl))
+
 ## [13.0.0](https://github.com/theforeman/puppet-candlepin/tree/13.0.0) (2022-08-02)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/12.3.0...13.0.0)
