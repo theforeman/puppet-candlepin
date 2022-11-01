@@ -47,6 +47,9 @@
 # @param log_dir
 #   Directory for Candlepin logs
 #
+# @param loggers
+#   Set the log levels for loggers
+#
 # @param env_filtering_enabled
 #   If subscription filtering is done on a per environment basis
 #
@@ -167,6 +170,13 @@
 #   Disable FIPS within the Java environment for Tomcat explicitly.
 #   When set to false, no flag is added. Then on FIPS enabled systems, a Candlepin build that supports FIPS is required.
 #
+# @example Set debug logging
+#   class { 'candlepin':
+#     loggers => {
+#       'org.candlepin' => 'DEBUG',
+#     },
+#   }
+#
 class candlepin (
   Boolean $manage_db = true,
   Boolean $init_db = true,
@@ -181,6 +191,7 @@ class candlepin (
   Variant[Sensitive[String], String] $db_password = $candlepin::params::db_password,
   Variant[Array[String], String] $user_groups = [],
   Stdlib::Absolutepath $log_dir = '/var/log/candlepin',
+  Hash[String[1], Candlepin::LogLevel] $loggers = {},
   String $oauth_key = 'candlepin',
   String $oauth_secret = 'candlepin',
   Boolean $env_filtering_enabled = true,
