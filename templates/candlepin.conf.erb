@@ -26,9 +26,9 @@ candlepin.ca_key_password=<%= scope['candlepin::ca_key_password_unsensitive'] %>
 <%- end -%>
 
 candlepin.async.jobs.ExpiredPoolsCleanupJob.schedule=<%= scope['candlepin::expired_pools_schedule'] %>
+<% if scope['candlepin::loggers'].any? -%>
 
-# Required for https://hibernate.atlassian.net/browse/HHH-12927
-log4j.logger.org.hibernate.internal.SessionImpl=ERROR
-
-# uncomment to enable debug logging in candlepin.log:
-#log4j.logger.org.candlepin=DEBUG
+<% scope['candlepin::loggers'].each do |logger, log_level| -%>
+log4j.logger.<%= logger %>=<%= log_level %>
+<% end -%>
+<% end -%>

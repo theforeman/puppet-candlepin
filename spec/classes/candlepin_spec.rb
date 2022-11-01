@@ -31,7 +31,6 @@ describe 'candlepin' do
             'candlepin.auth.oauth.consumer.candlepin.secret=candlepin',
             'candlepin.ca_key=/etc/candlepin/certs/candlepin-ca.key',
             'candlepin.ca_cert=/etc/candlepin/certs/candlepin-ca.crt',
-            'log4j.logger.org.hibernate.internal.SessionImpl=ERROR',
             'candlepin.async.jobs.ExpiredPoolsCleanupJob.schedule=0 0 0 * * ?',
             'candlepin.audit.hornetq.config_path=/etc/candlepin/broker.xml',
           ])
@@ -239,6 +238,43 @@ describe 'candlepin' do
           it { is_expected.to compile.with_all_deps }
           it { is_expected.not_to contain_selboolean('candlepin_can_bind_activemq_port') }
           it { is_expected.not_to contain_package('candlepin-selinux') }
+        end
+      end
+
+      describe 'with additional logging' do
+        describe 'with org.candlepin set to DEBUG' do
+          let(:params) do
+            {
+              loggers: {
+                'org.candlepin' => 'DEBUG',
+              },
+            }
+          end
+
+          it do
+            is_expected.to contain_concat__fragment('General Config')
+              .with_content(%r{^log4j\.logger\.org\.candlepin=DEBUG$})
+          end
+        end
+
+        describe 'with various loggers set' do
+          let(:params) do
+            {
+              loggers: {
+                'org.candlepin'                             => 'DEBUG',
+                'org.candlepin.resource.ConsumerResource'   => 'WARN',
+                'org.candlepin.resource.HypervisorResource' => 'WARN',
+                'org.hibernate.internal.SessionImpl'        => 'FATAL',
+              },
+            }
+          end
+
+          it do
+            is_expected.to contain_concat__fragment('General Config')
+              .with_content(%r{^log4j\.logger\.org\.candlepin=DEBUG$})
+              .with_content(%r{^log4j\.logger\.org\.candlepin\.resource\.ConsumerResource=WARN$})
+              .with_content(%r{^log4j\.logger\.org\.candlepin\.resource\.HypervisorResource=WARN$})
+          end
         end
       end
 
