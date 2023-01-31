@@ -1,5 +1,13 @@
 # Changelog
 
+## [13.2.0](https://github.com/theforeman/puppet-candlepin/tree/13.2.0) (2023-01-31)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/13.1.0...13.2.0)
+
+**Implemented enhancements:**
+
+- Fixes [\#35699](https://projects.theforeman.org/issues/35699) - Introduce a parameter to configure logging [\#226](https://github.com/theforeman/puppet-candlepin/pull/226) ([ekohl](https://github.com/ekohl))
+
 ## [13.1.0](https://github.com/theforeman/puppet-candlepin/tree/13.1.0) (2022-10-28)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/13.0.0...13.1.0)
