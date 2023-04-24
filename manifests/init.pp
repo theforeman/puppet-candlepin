@@ -203,7 +203,7 @@ class candlepin (
   Stdlib::Absolutepath $ca_key = '/etc/candlepin/certs/candlepin-ca.key',
   Stdlib::Absolutepath $ca_cert = '/etc/candlepin/certs/candlepin-ca.crt',
   Optional[Variant[Sensitive[String], String]] $ca_key_password = undef,
-  Array[String] $ciphers = $candlepin::params::ciphers,
+  Array[String] $ciphers = ['PROFILE=SYSTEM'],
   Array[String] $tls_versions = ['1.2'],
   Optional[String[1]] $java_package = undef,
   String $version = 'present',
