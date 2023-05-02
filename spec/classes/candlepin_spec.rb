@@ -322,16 +322,16 @@ describe 'candlepin' do
       describe 'with java params' do
         let :params do
           {
-            java_package: 'java-11-openjdk',
-            java_home: '/usr/lib/jvm/jre-11'
+            java_package: 'java-17-openjdk',
+            java_home: '/usr/lib/jvm/jre-17'
           }
         end
 
-        it { is_expected.to contain_package('java-11-openjdk').that_comes_before('Service[tomcat]') }
+        it { is_expected.to contain_package('java-17-openjdk').that_comes_before('Service[tomcat]') }
 
         it do
           is_expected.to contain_file("/etc/tomcat/tomcat.conf").
-            with_content(/JAVA_HOME="\/usr\/lib\/jvm\/jre-11"/)
+            with_content(/JAVA_HOME="\/usr\/lib\/jvm\/jre-17"/)
         end
       end
 
