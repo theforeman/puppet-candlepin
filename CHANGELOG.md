@@ -1,6 +1,23 @@
 # Changelog
 
-## [13.2.0](https://github.com/theforeman/puppet-candlepin/tree/13.2.0) (2023-01-31)
+## [14.0.0](https://github.com/theforeman/puppet-candlepin/tree/14.0.0) (2023-05-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/13.2.0...14.0.0)
+
+**Breaking changes:**
+
+- Refs [\#36345](https://projects.theforeman.org/issues/36345) - Raise minimum Puppet version to 7.0.0 [\#232](https://github.com/theforeman/puppet-candlepin/pull/232) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Mark compatible with puppetlabs/postgresql 9.x & puppetlabs/concat 8.x [\#230](https://github.com/theforeman/puppet-candlepin/pull/230) ([ekohl](https://github.com/ekohl))
+
+**Merged pull requests:**
+
+- Update test suite to Java 17 [\#231](https://github.com/theforeman/puppet-candlepin/pull/231) ([ekohl](https://github.com/ekohl))
+- Clean up .fixtures.yml style [\#229](https://github.com/theforeman/puppet-candlepin/pull/229) ([ekohl](https://github.com/ekohl))
+
+## [13.2.0](https://github.com/theforeman/puppet-candlepin/tree/13.2.0) (2023-02-02)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/13.1.0...13.2.0)
 
