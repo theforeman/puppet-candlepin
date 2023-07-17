@@ -17,6 +17,12 @@ describe 'candlepin' do
         it { is_expected.to contain_package('candlepin').with_ensure('present') }
         it { is_expected.not_to contain_package('wget') }
         it { is_expected.to contain_package('pki-core').that_comes_before('Package[candlepin]') }
+        it do
+          is_expected.to contain_package('maven dnf module').
+            with_ensure('3.8').
+            with_name('maven').
+            that_comes_before('Package[pki-core]')
+        end
 
         # config
         it { is_expected.to contain_class('candlepin::config') }
