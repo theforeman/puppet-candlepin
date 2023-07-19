@@ -1,5 +1,13 @@
 # Changelog
 
+## [14.1.0](https://github.com/theforeman/puppet-candlepin/tree/14.1.0) (2023-07-19)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/14.0.0...14.1.0)
+
+**Implemented enhancements:**
+
+- Ensure maven:3.8 is enabled on EL8 [\#234](https://github.com/theforeman/puppet-candlepin/pull/234) ([ehelms](https://github.com/ehelms))
+
 ## [14.0.0](https://github.com/theforeman/puppet-candlepin/tree/14.0.0) (2023-05-15)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/13.2.0...14.0.0)
