@@ -1,13 +1,84 @@
 require 'spec_helper_acceptance'
 
 describe 'dnf module support' do
- context 'when swapping to maven 3.8' do
-    before(:context) do
+  context 'when swapping to maven 3.8' do
+    before do
+      on default, 'dnf remove candlepin -y'
       on default, 'dnf module reset maven -y'
-      on default, 'dnf module enable maven:3.5 -y'
-    end
 
-    include_examples 'the example', 'basic_candlepin.pp'
+      pp = <<-MANIFEST
+        $keydir = '/etc/candlepin/certs'
+        $keystore = "${keydir}/keystore"
+        $keystore_password = 'secret'
+        $truststore = "${keydir}/truststore"
+        $truststore_password = 'secret'
+        $ca_key = "${keydir}/candlepin-ca.key"
+        $ca_cert = "${keydir}/candlepin-ca.crt"
+
+        exec { "/bin/mkdir -p ${keydir}":
+          creates => $keydir,
+        } ->
+        exec { 'Create CA key':
+          command => "/usr/bin/openssl genrsa -out '${ca_key}' 2048",
+          creates => $ca_key,
+          notify  => Service['tomcat'],
+        } ->
+        exec { 'Create CA certficate':
+          command => "/usr/bin/openssl req -new -x509 -key '${ca_key}' -out '${ca_cert}' -nodes -x509 -subj '/C=US/ST=North Carolina/L=Raleigh/O=CustomKatelloCA/CN=${facts['networking']['fqdn']}'",
+          creates => $ca_cert,
+          notify  => Service['tomcat'],
+        } ->
+        exec { 'Create keystore':
+          command => "/usr/bin/openssl pkcs12 -export -in '${ca_cert}' -inkey '${ca_key}' -out '${keystore}' -name tomcat -CAfile '${ca_cert}' -caname root -password 'pass:${keystore_password}'",
+          creates => $keystore,
+          notify  => Service['tomcat'],
+        } ->
+        package { ['java']: } ->
+        exec { 'Create truststore':
+          command => "/usr/bin/keytool -import -v -keystore ${truststore} -alias candlepin-ca -file ${ca_cert} -noprompt -storepass ${truststore_password} -storetype pkcs12",
+          creates => $truststore,
+        } ->
+        file { $ca_key:
+          mode  => '0440',
+          group => 'tomcat',
+        } ->
+        file { $ca_cert:
+          mode  => '0440',
+          group => 'tomcat',
+        } ->
+        file { $keystore:
+          mode  => '0440',
+          group => 'tomcat',
+        } ->
+        file { $truststore:
+          mode  => '0440',
+          group => 'tomcat',
+        } ->
+        class { 'candlepin':
+          ca_key               => $ca_key,
+          ca_cert              => $ca_cert,
+          keystore_file        => $keystore,
+          keystore_password    => $keystore_password,
+          truststore_file      => $truststore,
+          truststore_password  => $truststore_password,
+          java_package         => 'java-17-openjdk',
+          java_home            => '/usr/lib/jvm/jre-17',
+          artemis_client_dn    => Deferred('pick', ['', 'CN=ActiveMQ Artemis Deferred, OU=Artemis, O=ActiveMQ, L=AMQ, ST=AMQ, C=AMQ']),
+          maven_module_version => '3.5',
+        }
+      MANIFEST
+
+      apply_manifest(pp, catch_failures: true)
+
+      pp = <<-MANIFEST
+        class { 'candlepin':
+          maven_module_version => '3.8',
+        }
+      MANIFEST
+
+      apply_manifest(pp, catch_failures: true)
+      on default, 'dnf update -y'
+    end
 
     describe command('dnf module list --enabled --quiet') do
       its(:stdout) { is_expected.to include('pki-core').and match(/^maven\s+3\.8/) }
