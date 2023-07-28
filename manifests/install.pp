@@ -12,14 +12,6 @@ class candlepin::install {
   }
 
   if $enable_pki_core {
-    package { 'maven dnf module':
-      ensure      => $candlepin::maven_module_version,
-      name        => 'maven',
-      enable_only => true,
-      provider    => 'dnfmodule',
-      before      => Package['pki-core'],
-    }
-
     package { 'pki-core':
       ensure      => installed,
       enable_only => true,
