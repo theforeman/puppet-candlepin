@@ -170,9 +170,6 @@
 #   Disable FIPS within the Java environment for Tomcat explicitly.
 #   When set to false, no flag is added. Then on FIPS enabled systems, a Candlepin build that supports FIPS is required.
 #
-# @param maven_module_version
-#   Version of the maven module to use
-#
 # @example Set debug logging
 #   class { 'candlepin':
 #     loggers => {
@@ -236,7 +233,6 @@ class candlepin (
   String $user = 'tomcat',
   String $group = 'tomcat',
   Boolean $disable_fips = true,
-  String $maven_module_version = '3.8',
 ) inherits candlepin::params {
   contain candlepin::service
 
