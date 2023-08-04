@@ -7,7 +7,7 @@ class candlepin::install {
   $enable_pki_core = $facts['os']['release']['major'] == '8'
 
   if $candlepin::java_package {
-    ensure_packages([$candlepin::java_package])
+    stdlib::ensure_packages([$candlepin::java_package])
     Package[$candlepin::java_package] -> Package['candlepin']
   }
 
@@ -35,6 +35,6 @@ class candlepin::install {
   }
 
   if $candlepin::run_init {
-    ensure_packages(['wget'], { ensure => $candlepin::wget_version, })
+    stdlib::ensure_packages(['wget'], { ensure => $candlepin::wget_version, })
   }
 }
