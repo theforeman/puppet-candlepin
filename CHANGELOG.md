@@ -1,6 +1,14 @@
 # Changelog
 
-## [14.1.1](https://github.com/theforeman/puppet-candlepin/tree/14.1.1) (2023-07-31)
+## [14.1.2](https://github.com/theforeman/puppet-candlepin/tree/14.1.2) (2023-10-05)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/14.1.1...14.1.2)
+
+**Fixed bugs:**
+
+- Fixes [\#36760](https://projects.theforeman.org/issues/36760) - Limit access to server.xml [\#242](https://github.com/theforeman/puppet-candlepin/pull/242) ([ekohl](https://github.com/ekohl))
+
+## [14.1.1](https://github.com/theforeman/puppet-candlepin/tree/14.1.1) (2023-08-02)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/14.1.0...14.1.1)
 
