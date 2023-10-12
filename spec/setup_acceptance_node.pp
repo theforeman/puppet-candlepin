@@ -4,6 +4,10 @@ package { 'glibc-langpack-en':
   ensure => installed,
 }
 
+class { 'candlepin::repo':
+  version => pick(fact('candlepin_version'), 'nightly'),
+}
+
 if $facts['os']['selinux']['enabled'] {
   # Workaround for https://github.com/theforeman/puppet-candlepin/issues/188
   package { 'pki-core':
@@ -13,15 +17,6 @@ if $facts['os']['selinux']['enabled'] {
     provider    => 'dnfmodule',
     before      => Package['candlepin-selinux'],
   }
-}
-
-# Defaults to staging, for release, use
-# $baseurl = "https://yum.theforeman.org/katello/nightly/candlepin/el${major}/x86_64/"
-$baseurl = "http://koji.katello.org/releases/yum/katello-nightly/candlepin/el${major}/x86_64/"
-
-yumrepo { 'candlepin':
-  baseurl  => $baseurl,
-  gpgcheck => 0,
 }
 
 # Needed as a workaround for idempotency
