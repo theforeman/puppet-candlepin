@@ -1,5 +1,19 @@
 # Changelog
 
+## [15.0.0](https://github.com/theforeman/puppet-candlepin/tree/15.0.0) (2023-11-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/14.1.2...15.0.0)
+
+**Breaking changes:**
+
+- puppetlabs/stdlib: Require 9.x & puppetlabs/concat: Allow 9.x [\#239](https://github.com/theforeman/puppet-candlepin/pull/239) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Mark compatible with puppetlabs/postgresql 10.x [\#248](https://github.com/theforeman/puppet-candlepin/pull/248) ([ekohl](https://github.com/ekohl))
+- Mark compatible with puppet-extlib 7.x [\#246](https://github.com/theforeman/puppet-candlepin/pull/246) ([ekohl](https://github.com/ekohl))
+- Add Puppet 8 support [\#240](https://github.com/theforeman/puppet-candlepin/pull/240) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [14.1.2](https://github.com/theforeman/puppet-candlepin/tree/14.1.2) (2023-10-05)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/14.1.1...14.1.2)
