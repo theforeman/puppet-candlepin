@@ -10,6 +10,9 @@
     <core xmlns="urn:activemq:core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="urn:activemq:core ">
 
+	<!-- Disable 'hot reloading' this broker.xml file; we are not making changes at runtime -->
+        <configuration-file-refresh-period>-1</configuration-file-refresh-period>
+
         <acceptors>
             <acceptor name="in-vm">vm://0</acceptor>
             <acceptor name="stomp">tcp://<%= scope['candlepin::artemis_host'] %>:<%= scope['candlepin::artemis_port'] %>?protocols=STOMP;useEpoll=false;sslEnabled=true;trustStorePath=<%= scope['candlepin::truststore_file'] %>;trustStorePassword=<%= scope['candlepin::truststore_password_unsensitive'] %>;keyStorePath=<%= scope['candlepin::keystore_file'] %>;keyStorePassword=<%= scope['candlepin::keystore_password_unsensitive'] %>;needClientAuth=true</acceptor>
