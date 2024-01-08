@@ -20,7 +20,7 @@ class candlepin::repo (
 ) {
   yumrepo { 'candlepin':
     descr    => 'Candlepin: an open source entitlement management system.',
-    baseurl  => "https://yum.theforeman.org/katello/${version}/candlepin/${dist}/\$basearch/",
+    baseurl  => "https://yum.theforeman.org/candlepin/${version}/${dist}/\$basearch/",
     gpgkey   => $gpgkey,
     gpgcheck => $gpgcheck,
     enabled  => true,
