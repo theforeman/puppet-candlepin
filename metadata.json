@@ -35,13 +35,15 @@
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "8"
+        "8",
+        "9"
       ]
     },
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "8"
+        "8",
+        "9"
       ]
     }
   ]
