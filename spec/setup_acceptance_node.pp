@@ -6,6 +6,7 @@ package { 'glibc-langpack-en':
 
 class { 'candlepin::repo':
   version => pick(fact('candlepin_version'), 'nightly'),
+  baseurl => fact('candlepin_baseurl'),
 }
 
 if $facts['os']['selinux']['enabled'] {
