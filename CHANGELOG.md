@@ -1,5 +1,22 @@
 # Changelog
 
+## [15.1.0](https://github.com/theforeman/puppet-candlepin/tree/15.1.0) (2024-02-19)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/15.0.0...15.1.0)
+
+**Implemented enhancements:**
+
+- Add EL9 support [\#251](https://github.com/theforeman/puppet-candlepin/pull/251) ([ehelms](https://github.com/ehelms))
+- Add baseurl parameter to repo class [\#249](https://github.com/theforeman/puppet-candlepin/pull/249) ([ehelms](https://github.com/ehelms))
+
+**Fixed bugs:**
+
+- Disable refreshing broker.xml at runtime [\#250](https://github.com/theforeman/puppet-candlepin/pull/250) ([nikosmoum](https://github.com/nikosmoum))
+
+**Merged pull requests:**
+
+- Allow setting baseurl during acceptance tests [\#252](https://github.com/theforeman/puppet-candlepin/pull/252) ([ehelms](https://github.com/ehelms))
+
 ## [15.0.0](https://github.com/theforeman/puppet-candlepin/tree/15.0.0) (2023-11-15)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/14.1.2...15.0.0)
