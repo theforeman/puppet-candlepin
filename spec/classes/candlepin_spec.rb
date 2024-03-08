@@ -60,8 +60,6 @@ describe 'candlepin' do
             with_content("katelloUser=CN=ActiveMQ Artemis Client, OU=Artemis, O=ActiveMQ, L=AMQ, ST=AMQ, C=AMQ\n")
         end
 
-        it { is_expected.to contain_file('/etc/candlepin/broker.xml') }
-
         it do
           is_expected.to contain_file('/etc/candlepin/broker.xml').
             with_content(/^            <acceptor name="stomp">tcp:\/\/localhost:61613\?protocols=STOMP;useEpoll=false;sslEnabled=true;trustStorePath=\/etc\/candlepin\/certs\/truststore;trustStorePassword=;keyStorePath=\/etc\/candlepin\/certs\/keystore;keyStorePassword=;needClientAuth=true<\/acceptor>/)
