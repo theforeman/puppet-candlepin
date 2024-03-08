@@ -192,8 +192,8 @@ class candlepin (
   Variant[Array[String], String] $user_groups = [],
   Stdlib::Absolutepath $log_dir = '/var/log/candlepin',
   Hash[String[1], Candlepin::LogLevel] $loggers = {},
-  String $oauth_key = 'candlepin',
-  String $oauth_secret = 'candlepin',
+  Variant[Sensitive[String], String] $oauth_key = 'candlepin',
+  Variant[Sensitive[String], String] $oauth_secret = 'candlepin',
   Boolean $env_filtering_enabled = true,
   Stdlib::Absolutepath $keystore_file = '/etc/candlepin/certs/keystore',
   Optional[Variant[Sensitive[String], String]] $keystore_password = undef,
@@ -236,9 +236,9 @@ class candlepin (
 ) inherits candlepin::params {
   contain candlepin::service
 
-  # TODO: use EPP instead of  ERB, as EPP handles Sensitive natively
-  $ca_key_password_unsensitive  = $ca_key_password.unwrap
-
+  $_ca_key_password = if $ca_key_password =~ String { Sensitive($ca_key_password) } else { $ca_key_password }
+  $_oauth_key = if $oauth_key =~ String { Sensitive($oauth_key) } else { $oauth_key }
+  $_oauth_secret = if $oauth_secret =~ String { Sensitive($oauth_secret) } else { $oauth_secret }
   $_db_password = if $db_password =~ String { Sensitive($db_password) } else { $db_password }
   $_keystore_password = if $keystore_password =~ String { Sensitive($keystore_password) } else { $keystore_password }
   $_truststore_password = if $truststore_password =~ String { Sensitive($truststore_password) } else { $truststore_password }

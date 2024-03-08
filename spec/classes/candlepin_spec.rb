@@ -129,7 +129,7 @@ describe 'candlepin' do
         end
         it do
           is_expected.to contain_concat_fragment('General Config').
-            with_content(/^candlepin.ca_key_password=MY_CA_KEY_PASSWORD$/)
+            with_content(sensitive(/^candlepin.ca_key_password=MY_CA_KEY_PASSWORD$/))
         end
         it do
           is_expected.to contain_file('/etc/candlepin/broker.xml').
@@ -255,7 +255,7 @@ describe 'candlepin' do
 
           it do
             is_expected.to contain_concat__fragment('General Config')
-              .with_content(%r{^log4j\.logger\.org\.candlepin=DEBUG$})
+              .with_content(sensitive(%r{^log4j\.logger\.org\.candlepin=DEBUG$}))
           end
         end
 
@@ -273,9 +273,9 @@ describe 'candlepin' do
 
           it do
             is_expected.to contain_concat__fragment('General Config')
-              .with_content(%r{^log4j\.logger\.org\.candlepin=DEBUG$})
-              .with_content(%r{^log4j\.logger\.org\.candlepin\.resource\.ConsumerResource=WARN$})
-              .with_content(%r{^log4j\.logger\.org\.candlepin\.resource\.HypervisorResource=WARN$})
+              .with_content(sensitive(%r{^log4j\.logger\.org\.candlepin=DEBUG$}))
+              .with_content(sensitive(%r{^log4j\.logger\.org\.candlepin\.resource\.ConsumerResource=WARN$}))
+              .with_content(sensitive(%r{^log4j\.logger\.org\.candlepin\.resource\.HypervisorResource=WARN$}))
           end
         end
       end
@@ -289,7 +289,7 @@ describe 'candlepin' do
 
         it do
           is_expected.to contain_concat__fragment('General Config').
-            with_content(/^module.config.adapter_module=my.custom.adapter_module$/)
+            with_content(sensitive(/^module.config.adapter_module=my.custom.adapter_module$/))
         end
       end
 
