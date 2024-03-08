@@ -1,7 +1,16 @@
+<%- |
+  String[1] $module_name,
+  Stdlib::Host $artemis_host,
+  Stdlib::Port $artemis_port,
+  Stdlib::Absolutepath $keystore_file,
+  Optional[Sensitive[String]] $keystore_password,
+  Stdlib::Absolutepath $truststore_file,
+  Optional[Sensitive[String]] $truststore_password,
+| -%>
 <?xml version='1.0' encoding="UTF-8"?>
 <!--
   File managed with puppet ###
-  Module: '<%= scope['module_name'] %>'
+  Module: '<%= $module_name %>'
 -->
 <configuration xmlns="urn:activemq"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -15,7 +24,7 @@
 
         <acceptors>
             <acceptor name="in-vm">vm://0</acceptor>
-            <acceptor name="stomp">tcp://<%= scope['candlepin::artemis_host'] %>:<%= scope['candlepin::artemis_port'] %>?protocols=STOMP;useEpoll=false;sslEnabled=true;trustStorePath=<%= scope['candlepin::truststore_file'] %>;trustStorePassword=<%= scope['candlepin::truststore_password_unsensitive'] %>;keyStorePath=<%= scope['candlepin::keystore_file'] %>;keyStorePassword=<%= scope['candlepin::keystore_password_unsensitive'] %>;needClientAuth=true</acceptor>
+            <acceptor name="stomp">tcp://<%= $artemis_host %>:<%= $artemis_port %>?protocols=STOMP;useEpoll=false;sslEnabled=true;trustStorePath=<%= $truststore_file %>;trustStorePassword=<%= $truststore_password %>;keyStorePath=<%= $keystore_file %>;keyStorePassword=<%= $keystore_password %>;needClientAuth=true</acceptor>
         </acceptors>
 
         <security-enabled>true</security-enabled>

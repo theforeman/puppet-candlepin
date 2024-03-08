@@ -133,8 +133,8 @@ describe 'candlepin' do
         end
         it do
           is_expected.to contain_file('/etc/candlepin/broker.xml').
-            with_content(/;keyStorePassword=MY_KEYSTORE_PASSWORD;/).
-            with_content(/;trustStorePassword=MY_TRUSTSTORE_PASSWORD;/)
+            with_content(sensitive(/;keyStorePassword=MY_KEYSTORE_PASSWORD;/)).
+            with_content(sensitive(/;trustStorePassword=MY_TRUSTSTORE_PASSWORD;/))
         end
         it do
           is_expected.to contain_file('/etc/tomcat/server.xml').
