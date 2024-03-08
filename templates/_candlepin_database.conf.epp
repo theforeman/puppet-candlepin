@@ -1,0 +1,36 @@
+<%- |
+  Stdlib::Host $db_host,
+  Stdlib::Port $db_port,
+  String $db_name,
+  String $db_user,
+  Sensitive[String] $db_password,
+  Boolean $db_ssl = false,
+  Optional[Stdlib::Absolutepath] $db_ssl_ca = undef,
+  Boolean $db_ssl_verify = true,
+  Enum['postgresql','mysql'] $db_type,
+  String[1] $db_driver,
+  String[1] $db_dialect,
+  String[1] $db_quartz_dialect,
+  Boolean $enable_hbm2ddl_validate,
+| -%>
+jpa.config.hibernate.dialect=<%= $db_dialect %>
+jpa.config.hibernate.connection.driver_class=<%= $db_driver %>
+jpa.config.hibernate.connection.url=jdbc:<%= $db_type %>://<%= $db_host %>:<%= $db_port %>/<%= $db_name %><% if $db_ssl { %>?ssl=true<% unless $db_ssl_verify { %>&sslfactory=org.postgresql.ssl.NonValidatingFactory<% } %><% if $db_ssl_ca { %>&sslrootcert=<%= $db_ssl_ca %><% } %><% } %>
+<% if $enable_hbm2ddl_validate  {%>
+jpa.config.hibernate.hbm2ddl.auto=validate
+<% } %>
+jpa.config.hibernate.connection.username=<%= $db_user %>
+jpa.config.hibernate.connection.password=<%= $db_password %>
+
+org.quartz.jobStore.misfireThreshold=60000
+org.quartz.jobStore.useProperties=false
+org.quartz.jobStore.dataSource=myDS
+org.quartz.jobStore.tablePrefix=QRTZ_
+org.quartz.jobStore.class=org.quartz.impl.jdbcjobstore.JobStoreTX
+org.quartz.jobStore.driverDelegateClass=<%= $db_quartz_dialect %>
+
+org.quartz.dataSource.myDS.driver=<%= $db_driver %>
+org.quartz.dataSource.myDS.URL=jdbc:<%= $db_type %>://<%= $db_host %>:<%= $db_port %>/<%= $db_name %><% if $db_ssl { %>?ssl=true<% unless $db_ssl_verify { %>&sslfactory=org.postgresql.ssl.NonValidatingFactory<% } %><% if $db_ssl_ca { %>&sslrootcert=<%= $db_ssl_ca %><% } %><% } %>
+org.quartz.dataSource.myDS.user=<%= $db_user %>
+org.quartz.dataSource.myDS.password=<%= $db_password %>
+org.quartz.dataSource.myDS.maxConnections=5

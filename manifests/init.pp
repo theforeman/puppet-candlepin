@@ -239,6 +239,7 @@ class candlepin (
   # TODO: use EPP instead of  ERB, as EPP handles Sensitive natively
   $ca_key_password_unsensitive  = $ca_key_password.unwrap
 
+  $_db_password = if $db_password =~ String { Sensitive($db_password) } else { $db_password }
   $_keystore_password = if $keystore_password =~ String { Sensitive($keystore_password) } else { $keystore_password }
   $_truststore_password = if $truststore_password =~ String { Sensitive($truststore_password) } else { $truststore_password }
 

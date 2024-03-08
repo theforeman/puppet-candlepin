@@ -124,8 +124,8 @@ describe 'candlepin' do
         it { is_expected.to contain_concat('/etc/candlepin/candlepin.conf') }
         it do
           is_expected.to contain_concat_fragment('PostgreSQL Database Configuration').
-            with_content(/^jpa.config.hibernate.connection.password=MY_DB_PASSWORD$/).
-            with_content(/^org.quartz.dataSource.myDS.password=MY_DB_PASSWORD$/)
+            with_content(sensitive(/^jpa.config.hibernate.connection.password=MY_DB_PASSWORD$/)).
+            with_content(sensitive(/^org.quartz.dataSource.myDS.password=MY_DB_PASSWORD$/))
         end
         it do
           is_expected.to contain_concat_fragment('General Config').
@@ -155,8 +155,8 @@ describe 'candlepin' do
           it { is_expected.to contain_concat('/etc/candlepin/candlepin.conf') }
           it do
             is_expected.to contain_concat_fragment('PostgreSQL Database Configuration').
-              with_content(/^jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/psql\.example\.com:5432/).
-              with_content(/^org.quartz.dataSource.myDS.URL=jdbc:postgresql:\/\/psql\.example\.com:5432/)
+              with_content(sensitive(/^jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/psql\.example\.com:5432/)).
+              with_content(sensitive(/^org.quartz.dataSource.myDS.URL=jdbc:postgresql:\/\/psql\.example\.com:5432/))
           end
         end
 
@@ -167,10 +167,8 @@ describe 'candlepin' do
           it { is_expected.to contain_concat('/etc/candlepin/candlepin.conf') }
           it do
             is_expected.to contain_concat_fragment('PostgreSQL Database Configuration').
-              with_content(/^jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/).
-              with_content(/^org.quartz.dataSource.myDS.URL=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/).
-              without_content(/^jpa.config.hibernate.connection.url=.*sslfactory=org.postgresql.ssl.NonValidatingFactory/).
-              without_content(/^org.quartz.dataSource.myDS.URL=.*sslfactory=org.postgresql.ssl.NonValidatingFactory/)
+              with_content(sensitive(/^jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true$/)).
+              with_content(sensitive(/^org.quartz.dataSource.myDS.URL=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true$/))
           end
 
           it do
@@ -188,10 +186,10 @@ describe 'candlepin' do
           it { is_expected.to contain_concat('/etc/candlepin/candlepin.conf') }
           it do
             is_expected.to contain_concat_fragment('PostgreSQL Database Configuration').
-              with_content(/^jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/).
-              with_content(/^org.quartz.dataSource.myDS.URL=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/).
-              with_content(/^jpa.config.hibernate.connection.url=.*sslfactory=org.postgresql.ssl.NonValidatingFactory/).
-              with_content(/^org.quartz.dataSource.myDS.URL=.*sslfactory=org.postgresql.ssl.NonValidatingFactory/)
+              with_content(sensitive(/^jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/)).
+              with_content(sensitive(/^org.quartz.dataSource.myDS.URL=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/)).
+              with_content(sensitive(/^jpa.config.hibernate.connection.url=.*sslfactory=org.postgresql.ssl.NonValidatingFactory/)).
+              with_content(sensitive(/^org.quartz.dataSource.myDS.URL=.*sslfactory=org.postgresql.ssl.NonValidatingFactory/))
           end
 
           it do
@@ -209,10 +207,10 @@ describe 'candlepin' do
           it { is_expected.to contain_concat('/etc/candlepin/candlepin.conf') }
           it do
             is_expected.to contain_concat_fragment('PostgreSQL Database Configuration').
-              with_content(/^jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/).
-              with_content(/^org.quartz.dataSource.myDS.URL=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/).
-              with_content(/^jpa.config.hibernate.connection.url=.*sslrootcert=\/etc\/ssl\/postgresql.pem/).
-              with_content(/^org.quartz.dataSource.myDS.URL=.*sslrootcert=\/etc\/ssl\/postgresql.pem/)
+              with_content(sensitive(/^jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/)).
+              with_content(sensitive(/^org.quartz.dataSource.myDS.URL=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/)).
+              with_content(sensitive(/^jpa.config.hibernate.connection.url=.*sslrootcert=\/etc\/ssl\/postgresql.pem/)).
+              with_content(sensitive(/^org.quartz.dataSource.myDS.URL=.*sslrootcert=\/etc\/ssl\/postgresql.pem/))
           end
 
           it do

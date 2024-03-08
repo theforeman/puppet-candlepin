@@ -17,16 +17,31 @@ class candlepin::database::postgresql (
   $db_ssl_ca               = $candlepin::db_ssl_ca,
   $db_name                 = $candlepin::db_name,
   $db_user                 = $candlepin::db_user,
-  # TODO: use EPP instead of  ERB, as EPP handles Sensitive natively
-  $db_password             = $candlepin::db_password.unwrap,
+  $db_password             = $candlepin::_db_password,
   $enable_hbm2ddl_validate = $candlepin::enable_hbm2ddl_validate,
   # lint:endignore
 ) {
   assert_private()
 
+  $context = {
+    'db_dialect'              => $db_dialect,
+    'db_quartz_dialect'       => $db_quartz_dialect,
+    'db_driver'               => $db_driver,
+    'db_type'                 => $db_type,
+    'db_host'                 => $db_host,
+    'db_port'                 => $db_port,
+    'db_ssl'                  => $db_ssl,
+    'db_ssl_verify'           => $db_ssl_verify,
+    'db_ssl_ca'               => $db_ssl_ca,
+    'db_name'                 => $db_name,
+    'db_user'                 => $db_user,
+    'db_password'             => $db_password,
+    'enable_hbm2ddl_validate' => $enable_hbm2ddl_validate,
+  }
+
   concat::fragment { 'PostgreSQL Database Configuration':
     target  => $candlepin_conf_file,
-    content => template('candlepin/_candlepin_database.conf.erb'),
+    content => epp('candlepin/_candlepin_database.conf.epp', $context),
   }
 
   if $manage_db {
