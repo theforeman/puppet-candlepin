@@ -1,7 +1,19 @@
+<%- |
+  String[1] $module_name,
+  Stdlib::Host $host,
+  Stdlib::Port $ssl_port,
+  Array[String] $ciphers,
+  Array[String] $tls_versions,
+  Stdlib::Absolutepath $keystore_file,
+  Optional[Sensitive[String]] $keystore_password,
+  String $keystore_type,
+  Stdlib::Absolutepath $truststore_file,
+  Optional[Sensitive[String]] $truststore_password,
+| -%>
 <?xml version='1.0' encoding='utf-8'?>
 <!--
   File managed with puppet ###
-  Module: '<%= scope.to_hash['module_name'] %>'
+  Module: '<%= $module_name %>'
 -->
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -67,25 +79,25 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL HTTP/1.1 Connector on port 8080
     -->
-    <!-- Define a SSL HTTP/1.1 Connector on port <%= scope['::candlepin::ssl_port'] %>
+    <!-- Define a SSL HTTP/1.1 Connector on port <%= $ssl_port %>
          This connector uses the JSSE configuration, when using APR, the
          connector should be using the OpenSSL style configuration
          described in the APR documentation -->
 
-    <Connector port="<%= scope['::candlepin::ssl_port'] %>"
-               address="<%= scope['::candlepin::host'] %>"
+    <Connector port="<%= $ssl_port %>"
+               address="<%= $host %>"
                protocol="HTTP/1.1"
                SSLEnabled="true"
                maxThreads="150" scheme="https" secure="true"
                clientAuth="want"
-               sslProtocol="<%= scope['::candlepin::tls_versions'].map { |version| "TLSv#{version}"}.join(",") %>"
-               sslEnabledProtocols="<%= scope['::candlepin::tls_versions'].map { |version| "TLSv#{version}"}.join(",") %>"
-               keystoreFile="<%= scope['::candlepin::keystore_file'] %>"
-               keystorePass="<%= scope['::candlepin::keystore_password_unsensitive'] %>"
-               keystoreType="<%= scope['::candlepin::keystore_type'] %>"
-               truststoreFile="<%= scope['::candlepin::truststore_file'] %>"
-               truststorePass="<%= scope['::candlepin::truststore_password_unsensitive'] %>"
-               ciphers="<%= scope['::candlepin::ciphers'].join(",\n                    ") %>" />
+               sslProtocol="<%= $tls_versions.map |$version| { "TLSv${version}" }.join(",") %>"
+               sslEnabledProtocols="<%= $tls_versions.map |$version| { "TLSv${version}" }.join(",") %>"
+               keystoreFile="<%= $keystore_file %>"
+               keystorePass="<%= $keystore_password %>"
+               keystoreType="<%= $keystore_type %>"
+               truststoreFile="<%= $truststore_file %>"
+               truststorePass="<%= $truststore_password %>"
+               ciphers="<%= $ciphers.join(",\n                    ") %>" />
 
     <!-- An Engine represents the entry point (within Catalina) that processes
          every request.  The Engine implementation for Tomcat stand alone
