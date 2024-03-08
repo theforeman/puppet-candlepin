@@ -20,7 +20,6 @@ class candlepin::database::postgresql (
   # TODO: use EPP instead of  ERB, as EPP handles Sensitive natively
   $db_password             = $candlepin::db_password.unwrap,
   $enable_hbm2ddl_validate = $candlepin::enable_hbm2ddl_validate,
-  $log_dir                 = $candlepin::log_dir,
   # lint:endignore
 ) {
   assert_private()
