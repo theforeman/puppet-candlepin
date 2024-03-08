@@ -241,6 +241,9 @@ class candlepin (
   $ca_key_password_unsensitive  = $ca_key_password.unwrap
   $truststore_password_unsensitive = $truststore_password.unwrap
 
+  $_keystore_password = if $keystore_password =~ String { Sensitive($keystore_password) } else { $keystore_password }
+  $_truststore_password = if $truststore_password =~ String { Sensitive($truststore_password) } else { $truststore_password }
+
   Anchor <| title == 'candlepin::repo' |> ->
   class { 'candlepin::install': } ~>
   class { 'candlepin::config': } ~>

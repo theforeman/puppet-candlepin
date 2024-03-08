@@ -4,9 +4,19 @@
 class candlepin::artemis {
   assert_private()
 
+  $broker_context = {
+    'module_name'         => $module_name,
+    'artemis_host'        => $candlepin::artemis_host,
+    'artemis_port'        => $candlepin::artemis_port,
+    'keystore_file'       => $candlepin::keystore_file,
+    'keystore_password'   => $candlepin::_keystore_password,
+    'truststore_file'     => $candlepin::truststore_file,
+    'truststore_password' => $candlepin::_truststore_password,
+  }
+
   file { $candlepin::broker_config_file:
     ensure  => file,
-    content => template('candlepin/broker.xml.erb'),
+    content => epp('candlepin/broker.xml.epp', $broker_context),
     mode    => '0640',
     owner   => $candlepin::user,
     group   => $candlepin::group,
