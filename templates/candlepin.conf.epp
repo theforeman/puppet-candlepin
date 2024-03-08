@@ -1,0 +1,50 @@
+<%- |
+  String[1] $module_name,
+  Optional[String] $adapter_module,
+  Stdlib::Absolutepath $broker_config_file,
+  Stdlib::Absolutepath $ca_cert,
+  Stdlib::Absolutepath $ca_key,
+  Optional[Sensitive[String]] $ca_key_password,
+  Optional[String] $consumer_system_name_pattern,
+  Boolean $enable_basic_auth,
+  Boolean $enable_trusted_auth,
+  Boolean $env_filtering_enabled,
+  String $expired_pools_schedule,
+  Hash[String[1], Candlepin::LogLevel] $loggers,
+  Sensitive[String] $oauth_key,
+  Sensitive[String] $oauth_secret,
+| -%>
+### File managed with puppet ###
+## Module: '<%= $module_name %>'
+
+<% if $consumer_system_name_pattern  {%>
+candlepin.consumer_system_name_pattern=<%= $consumer_system_name_pattern %>
+<%- } %>
+candlepin.environment_content_filtering=<%= $env_filtering_enabled %>
+candlepin.auth.basic.enable=<%= $enable_basic_auth %>
+candlepin.auth.trusted.enable=<%= $enable_trusted_auth %>
+
+candlepin.audit.hornetq.config_path=<%= $broker_config_file %>
+<% if $oauth_key != "" { %>
+
+candlepin.auth.oauth.enable=true
+candlepin.auth.oauth.consumer.<%= $oauth_key %>.secret=<%= $oauth_secret %>
+<%- } %>
+
+<% if $adapter_module { %>
+module.config.adapter_module=<%= $adapter_module %>
+<%- } %>
+
+candlepin.ca_key=<%= $ca_key %>
+candlepin.ca_cert=<%= $ca_cert %>
+<% if $ca_key_password { %>
+candlepin.ca_key_password=<%= $ca_key_password %>
+<%- } %>
+
+candlepin.async.jobs.ExpiredPoolsCleanupJob.schedule=<%= $expired_pools_schedule %>
+<% unless $loggers.empty { %>
+
+<% $loggers.each |$logger, $log_level| { %>
+log4j.logger.<%= $logger %>=<%= $log_level %>
+<% } %>
+<% } %>

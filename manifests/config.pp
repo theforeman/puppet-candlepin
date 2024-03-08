@@ -14,9 +14,26 @@ class candlepin::config {
     ensure => present,
   }
 
+  $candlepin_context = {
+    'module_name'                  => $module_name,
+    'adapter_module'               => $candlepin::adapter_module,
+    'broker_config_file'           => $candlepin::broker_config_file,
+    'ca_cert'                      => $candlepin::ca_cert,
+    'ca_key'                       => $candlepin::ca_key,
+    'ca_key_password'              => $candlepin::_ca_key_password,
+    'consumer_system_name_pattern' => $candlepin::consumer_system_name_pattern,
+    'enable_basic_auth'            => $candlepin::enable_basic_auth,
+    'enable_trusted_auth'          => $candlepin::enable_trusted_auth,
+    'env_filtering_enabled'        => $candlepin::env_filtering_enabled,
+    'expired_pools_schedule'       => $candlepin::expired_pools_schedule,
+    'loggers'                      => $candlepin::loggers,
+    'oauth_key'                    => $candlepin::_oauth_key,
+    'oauth_secret'                 => $candlepin::_oauth_secret,
+  }
+
   concat::fragment { 'General Config':
     target  => $candlepin::candlepin_conf_file,
-    content => template('candlepin/candlepin.conf.erb'),
+    content => epp('candlepin/candlepin.conf.epp', $candlepin_context),
   }
 
   concat { $candlepin::candlepin_conf_file:
