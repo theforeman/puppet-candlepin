@@ -2,19 +2,30 @@ require 'spec_helper_acceptance'
 
 #TODO: Add Artemis listening test https://projects.theforeman.org/issues/29561
 
-describe 'candlepin works' do
+describe 'candlepin works as a container' do
   before(:all) do
     cleanup_installation
   end
 
   it_behaves_like 'an idempotent resource' do
     let(:manifest) do
-      basic_manifest(false)
+      basic_manifest(true)
     end
   end
 
   describe port(8443) do
     it { is_expected.to be_listening }
+  end
+
+  describe package('candlepin') do
+    it { is_expected.not_to be_installed }
+  end
+
+  describe file("/etc/containers/systemd/tomcat.container") do
+    it { should be_file }
+    it { should be_mode 440 }
+    it { should be_owned_by 'root' }
+    it { should be_grouped_into 'root' }
   end
 
   describe command('curl -k -s -o /dev/null -w \'%{http_code}\' https://localhost:8443/candlepin/status') do
