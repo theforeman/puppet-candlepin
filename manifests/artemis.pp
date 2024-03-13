@@ -22,6 +22,13 @@ class candlepin::artemis {
     group   => $candlepin::group,
   }
 
+  file { "${candlepin::tomcat_conf}/conf.d":
+    ensure => directory,
+    mode   => '0755',
+    owner  => $candlepin::user,
+    group  => $candlepin::group,
+  }
+
   file { "${candlepin::tomcat_conf}/login.config":
     ensure  => file,
     content => file('candlepin/tomcat/login.config'),
