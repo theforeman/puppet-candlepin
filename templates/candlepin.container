@@ -1,0 +1,25 @@
+[Unit]
+Description=Candlepin
+After=local-fs.target
+
+[Container]
+Image=quay.io/ehelms/candlepin:4.3.12
+PodmanArgs=--cgroups=enabled
+LogDriver=journald
+Network=host
+
+Volume=/etc/tomcat/logging.properties:/etc/tomcat/logging.properties
+Volume=/etc/tomcat/server.xml:/etc/tomcat/server.xml
+Volume=/etc/tomcat/login.config:/etc/tomcat/login.config
+Volume=/etc/tomcat/cert-roles.properties:/etc/tomcat/cert-roles.properties
+Volume=/etc/tomcat/cert-users.properties:/etc/tomcat/cert-users.properties
+Volume=/etc/tomcat/conf.d/jaas.conf:/etc/tomcat/conf.d/jaas.conf
+Volume=/etc/tomcat/tomcat.conf:/etc/tomcat/tomcat.conf
+Volume=/etc/candlepin:/etc/candlepin
+
+PublishPort=8443:8443
+PublishPort=61613:61613
+
+[Install]
+# Start by default on boot
+WantedBy=multi-user.target default.target

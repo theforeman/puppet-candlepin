@@ -76,6 +76,11 @@ class candlepin::database::postgresql (
       default => ''
     }
 
+    $cpdb_provider = $candlepin::use_container ? {
+      true  => 'podman',
+      false => 'cpdb',
+    }
+
     cpdb_create { $db_name:
       ensure      => present,
       db_host     => $db_host,
@@ -83,6 +88,7 @@ class candlepin::database::postgresql (
       db_user     => $db_user,
       db_password => $db_password,
       ssl_options => $ssl_options,
+      provider    => $cpdb_provider,
     } ->
     cpdb_update { $db_name:
       ensure      => present,
@@ -91,6 +97,7 @@ class candlepin::database::postgresql (
       db_user     => $db_user,
       db_password => $db_password,
       ssl_options => $ssl_options,
+      provider    => $cpdb_provider,
     }
 
     # if both manage_db and init_db enforce order of resources

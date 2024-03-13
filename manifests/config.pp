@@ -55,6 +55,20 @@ class candlepin::config {
     'truststore_password' => $candlepin::_truststore_password,
   }
 
+  file { $candlepin::tomcat_conf:
+    ensure => directory,
+    mode   => '0755',
+    owner  => 'root',
+    group  => $candlepin::group,
+  }
+
+  file { '/var/lib/candlepin':
+    ensure => directory,
+    mode   => '0755',
+    owner  => 'root',
+    group  => $candlepin::group,
+  }
+
   file { "${candlepin::tomcat_conf}/server.xml":
     ensure  => file,
     content => epp('candlepin/tomcat/server.xml.epp', $server_context),
@@ -66,6 +80,14 @@ class candlepin::config {
   file { "${candlepin::tomcat_conf}/tomcat.conf":
     ensure  => file,
     content => template('candlepin/tomcat/tomcat.conf.erb'),
+    mode    => '0644',
+    owner   => 'root',
+    group   => $candlepin::group,
+  }
+
+  file { '/etc/tomcat/logging.properties':
+    ensure  => file,
+    content => template('candlepin/tomcat/logging.properties'),
     mode    => '0644',
     owner   => 'root',
     group   => $candlepin::group,
