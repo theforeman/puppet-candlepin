@@ -29,10 +29,10 @@ if $facts['os']['selinux']['enabled'] {
 
   # Workaround for https://github.com/theforeman/puppet-candlepin/issues/185#issuecomment-822284497
   $tomcat_conf_files = [
-    '/usr/share/tomcat/conf/login.config',
-    '/usr/share/tomcat/conf/cert-users.properties',
-    '/usr/share/tomcat/conf/cert-roles.properties',
-    '/usr/share/tomcat/conf/conf.d/jaas.conf'
+    '/etc/tomcat/login.config',
+    '/etc/tomcat/cert-users.properties',
+    '/etc/tomcat/cert-roles.properties',
+    '/etc/tomcat/conf.d/jaas.conf'
   ]
   file { $tomcat_conf_files:
     ensure   => file,

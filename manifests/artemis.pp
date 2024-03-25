@@ -22,7 +22,7 @@ class candlepin::artemis {
     group   => $candlepin::group,
   }
 
-  file { "${candlepin::catalina_home}/conf/login.config":
+  file { "${candlepin::tomcat_conf}/login.config":
     ensure  => file,
     content => file('candlepin/tomcat/login.config'),
     mode    => '0640',
@@ -30,7 +30,7 @@ class candlepin::artemis {
     group   => $candlepin::group,
   }
 
-  file { "${candlepin::catalina_home}/conf/cert-users.properties":
+  file { "${candlepin::tomcat_conf}/cert-users.properties":
     ensure  => file,
     content => Deferred('inline_epp', ["katelloUser=<%= \$artemis_client_dn %>\n", { 'artemis_client_dn' => $candlepin::artemis_client_dn }]),
     mode    => '0640',
@@ -38,7 +38,7 @@ class candlepin::artemis {
     group   => $candlepin::group,
   }
 
-  file { "${candlepin::catalina_home}/conf/cert-roles.properties":
+  file { "${candlepin::tomcat_conf}/cert-roles.properties":
     ensure  => file,
     content => file('candlepin/tomcat/cert-roles.properties'),
     mode    => '0640',
@@ -46,7 +46,7 @@ class candlepin::artemis {
     group   => $candlepin::group,
   }
 
-  file { "${candlepin::catalina_home}/conf/conf.d/jaas.conf":
+  file { "${candlepin::tomcat_conf}/conf.d/jaas.conf":
     ensure  => file,
     content => file('candlepin/tomcat/jaas.conf'),
     mode    => '0640',

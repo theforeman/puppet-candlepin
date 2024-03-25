@@ -55,7 +55,7 @@ class candlepin::config {
     'truststore_password' => $candlepin::_truststore_password,
   }
 
-  file { '/etc/tomcat/server.xml':
+  file { "${candlepin::tomcat_conf}/server.xml":
     ensure  => file,
     content => epp('candlepin/tomcat/server.xml.epp', $server_context),
     mode    => '0640',
@@ -63,7 +63,7 @@ class candlepin::config {
     group   => $candlepin::group,
   }
 
-  file { '/etc/tomcat/tomcat.conf':
+  file { "${candlepin::tomcat_conf}/tomcat.conf":
     ensure  => file,
     content => template('candlepin/tomcat/tomcat.conf.erb'),
     mode    => '0644',
