@@ -29,7 +29,7 @@ describe 'candlepin works' do
     its(:stdout) { should match(/least strength: (A|strong)/) }
   end
 
-  describe file("/usr/share/tomcat/conf/cert-users.properties") do
+  describe file("/etc/tomcat/cert-users.properties") do
     it { should be_file }
     it { should be_mode 640 }
     it { should be_owned_by 'tomcat' }

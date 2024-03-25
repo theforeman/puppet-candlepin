@@ -52,11 +52,11 @@ describe 'candlepin' do
           ])
         end
 
-        it { is_expected.to contain_file('/usr/share/tomcat/conf/login.config') }
-        it { is_expected.to contain_file('/usr/share/tomcat/conf/cert-roles.properties') }
-        it { is_expected.to contain_file('/usr/share/tomcat/conf/conf.d/jaas.conf') }
+        it { is_expected.to contain_file('/etc/tomcat/login.config') }
+        it { is_expected.to contain_file('/etc/tomcat/cert-roles.properties') }
+        it { is_expected.to contain_file('/etc/tomcat/conf.d/jaas.conf') }
         it do
-          is_expected.to contain_file('/usr/share/tomcat/conf/cert-users.properties').
+          is_expected.to contain_file('/etc/tomcat/cert-users.properties').
             with_content("katelloUser=CN=ActiveMQ Artemis Client, OU=Artemis, O=ActiveMQ, L=AMQ, ST=AMQ, C=AMQ\n")
         end
 

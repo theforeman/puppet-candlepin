@@ -124,6 +124,9 @@
 #   In new-style instances, if CATALINA_BASE isn't specified, it will be
 #   constructed by joining TOMCATS_BASE and NAME.
 #
+# @param tomcat_conf
+#   Where your the tomcat configuration lives
+#
 # @param java_home
 #   Where your java installation lives
 #
@@ -218,6 +221,7 @@ class candlepin (
   Stdlib::Host $host = 'localhost',
   Stdlib::Absolutepath $candlepin_conf_file = '/etc/candlepin/candlepin.conf',
   Stdlib::Absolutepath $tomcat_base = '/var/lib/tomcats/',
+  Stdlib::Absolutepath $tomcat_conf = '/etc/tomcat',
   Stdlib::Absolutepath $java_home = '/usr/lib/jvm/jre',
   Stdlib::Absolutepath $catalina_home = '/usr/share/tomcat',
   Stdlib::Absolutepath $catalina_tmpdir = '/var/cache/tomcat/temp',
