@@ -33,8 +33,4 @@ class candlepin::install {
       Package['pki-core'] -> Package['candlepin-selinux']
     }
   }
-
-  if $candlepin::run_init {
-    stdlib::ensure_packages(['wget'], { ensure => $candlepin::wget_version, })
-  }
 }

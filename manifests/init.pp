@@ -89,12 +89,6 @@
 # @param java_package
 #   Use in conjunction with java_home to specify the JVM used by Tomcat
 #
-# @param wget_version
-#   Version of wget to install
-#
-# @param run_init
-#   If the init api should be called on Candlepin
-#
 # @param adapter_module
 #   Candlepin adapter implementations to inject into the java runtime
 #
@@ -210,8 +204,6 @@ class candlepin (
   Array[String] $tls_versions = ['1.2'],
   Optional[String[1]] $java_package = undef,
   String $version = 'present',
-  String $wget_version = 'present',
-  Boolean $run_init = false,
   Optional[String] $adapter_module = undef,
   Boolean $enable_hbm2ddl_validate = true,
   Boolean $enable_basic_auth = true,

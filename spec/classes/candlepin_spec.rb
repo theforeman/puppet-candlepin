@@ -15,7 +15,6 @@ describe 'candlepin' do
         # install
         it { is_expected.to contain_class('candlepin::install') }
         it { is_expected.to contain_package('candlepin').with_ensure('present') }
-        it { is_expected.not_to contain_package('wget') }
 
         if facts[:os]['release']['major'] == '8'
           it { is_expected.to contain_package('pki-core').that_comes_before('Package[candlepin]') }
@@ -105,7 +104,6 @@ describe 'candlepin' do
         # service
         it { is_expected.to contain_class('candlepin::service') }
         it { is_expected.to contain_service('tomcat') }
-        it { is_expected.not_to contain_exec('cpinit') }
         it { is_expected.to contain_service('tomcat').with_ensure('running') }
       end
 
@@ -391,20 +389,6 @@ describe 'candlepin' do
             is_expected.to contain_concat__fragment('Mysql Database Configuration').
               without_content(/jpa.config.hibernate.hbm2ddl.auto=validate/)
           end
-        end
-      end
-
-      context 'with run_init false' do
-        let :params do
-          {run_init: true}
-        end
-
-        it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_service('tomcat') }
-        it do
-          is_expected.to contain_exec('cpinit')
-            .that_requires(['Package[wget]', 'Service[tomcat]'])
-            .that_subscribes_to(['Concat[/etc/candlepin/candlepin.conf]', 'File[/etc/tomcat/server.xml]'])
         end
       end
 
