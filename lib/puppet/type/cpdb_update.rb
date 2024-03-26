@@ -29,6 +29,10 @@ Puppet::Type.newtype(:cpdb_update) do
     ['/etc/candlepin/candlepin.conf']
   end
 
+  newparam(:container_based) do
+    desc "To use a container"
+  end
+
   autorequire(:cpdb_create) do
     [self[:db_name]]
   end

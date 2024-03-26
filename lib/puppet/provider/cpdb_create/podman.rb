@@ -1,6 +1,6 @@
-Puppet::Type.type(:cpdb_create).provide(:cpdb_create) do
+Puppet::Type.type(:cpdb_create).provide(:podman) do
 
-  commands :cpdb => '/usr/share/candlepin/cpdb'
+  commands :podman => '/bin/podman'
 
   def create
     create_database
@@ -14,7 +14,11 @@ Puppet::Type.type(:cpdb_create).provide(:cpdb_create) do
   private
 
   def create_database
-    cpdb(
+    podman(
+      "run",
+      "--network=host",
+      "quay.io/ehelms/candlepin:4.3.12",
+      "/usr/share/candlepin/cpdb",
       "--create",
       "--schema-only",
       "--dbhost=#{resource[:db_host]}",

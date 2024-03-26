@@ -25,6 +25,10 @@ Puppet::Type.newtype(:cpdb_create) do
     desc "Password of the database user"
   end
 
+  newparam(:container_based) do
+    desc "To use a container"
+  end
+
   autorequire(:concat) do
     ['/etc/candlepin/candlepin.conf']
   end

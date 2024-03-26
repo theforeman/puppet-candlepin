@@ -1,7 +1,6 @@
-Puppet::Type.type(:cpdb_update).provide(:cpdb_update) do
+Puppet::Type.type(:cpdb_update).provide(:podman) do
 
-  commands :cpdb => '/usr/share/candlepin/cpdb'
-  commands :rpm => 'rpm'
+  commands :podman => 'podman'
 
   def create
     migrate_database
@@ -18,7 +17,11 @@ Puppet::Type.type(:cpdb_update).provide(:cpdb_update) do
   private
 
   def migrate_database
-    output = cpdb(
+    podman(
+      "run",
+      "--network=host",
+      "quay.io/ehelms/candlepin:4.3.12",
+      "/usr/share/candlepin/cpdb",
       "--update",
       "--dbhost=#{resource[:db_host]}",
       "--dbport=#{resource[:db_port]}",
@@ -39,11 +42,18 @@ Puppet::Type.type(:cpdb_update).provide(:cpdb_update) do
   end
 
   def candlepin_rpm_version
-    rpm('-q', 'candlepin', '--queryformat=%{version}')
+    podman(
+      'run',
+      "--network=host",
+      "quay.io/ehelms/candlepin:4.3.12",
+      'rpm',
+      '-q',
+      'candlepin',
+      '--queryformat=%{version}'
+    )
   end
 
   def previous_candlepin_version
     File.read(version_file) if File.exist?(version_file)
   end
-
 end
