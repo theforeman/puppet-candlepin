@@ -107,5 +107,13 @@ class candlepin::config {
       owner  => 'root',
       group  => $candlepin::group,
     }
+
+    file { '/etc/tomcat/logging.properties':
+      ensure  => file,
+      content => template('candlepin/tomcat/logging.properties'),
+      mode    => '0644',
+      owner   => 'root',
+      group   => $candlepin::group,
+    }
   }
 }

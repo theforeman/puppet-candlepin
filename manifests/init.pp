@@ -246,6 +246,7 @@ class candlepin (
   Enum['None', 'Report', 'Halt', 'Manage'] $db_manage_on_startup = 'Manage',
   Boolean $use_container = false,
   String[1] $container_image = 'quay.io/ehelms/candlepin:4.4.5-1',
+  Boolean $use_container = true,
 ) inherits candlepin::params {
   contain candlepin::service
 

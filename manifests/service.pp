@@ -9,9 +9,18 @@ class candlepin::service {
       'image' => $candlepin::container_image,
     }
 
-    file { '/etc/containers/systemd/tomcat.container':
+    file { '/etc/containers/systemd/candlepin.yaml':
       ensure  => file,
-      content => epp('candlepin/candlepin.container.epp', $container_context),
+      content => template('candlepin/candlepin.yaml.epp', $container_context),
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0444',
+      before  => Service['tomcat'],
+    }
+
+    file { '/etc/containers/systemd/tomcat.kube':
+      ensure  => file,
+      content => template('candlepin/tomcat.kube'),
       owner   => 'root',
       group   => 'root',
       mode    => '0440',

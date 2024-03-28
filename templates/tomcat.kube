@@ -1,0 +1,8 @@
+[Install]
+WantedBy=multi-user.target default.target
+
+[Kube]
+Yaml=candlepin.yaml
+LogDriver=journald
+Network=host
+PodmanArgs=--cgroup-manager=cgroupfs
