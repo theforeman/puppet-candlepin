@@ -167,6 +167,9 @@
 #   Disable FIPS within the Java environment for Tomcat explicitly.
 #   When set to false, no flag is added. Then on FIPS enabled systems, a Candlepin build that supports FIPS is required.
 #
+# @param db_manage_on_startup
+#   How to manage database migrations on startup.
+#
 # @example Set debug logging
 #   class { 'candlepin':
 #     loggers => {
@@ -229,6 +232,7 @@ class candlepin (
   String $user = 'tomcat',
   String $group = 'tomcat',
   Boolean $disable_fips = true,
+  Enum['None', 'Report', 'Halt', 'Manage'] $db_manage_on_startup = 'Manage',
 ) inherits candlepin::params {
   contain candlepin::service
 

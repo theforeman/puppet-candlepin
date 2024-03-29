@@ -29,6 +29,7 @@ class candlepin::config {
     'loggers'                      => $candlepin::loggers,
     'oauth_key'                    => $candlepin::_oauth_key,
     'oauth_secret'                 => $candlepin::_oauth_secret,
+    'db_manage_on_startup'         => $candlepin::db_manage_on_startup,
   }
 
   concat::fragment { 'General Config':
@@ -69,5 +70,11 @@ class candlepin::config {
     mode    => '0644',
     owner   => 'root',
     group   => $candlepin::group,
+  }
+
+  # Cleans up an artifact leftover from the removal of cpdb_create
+  # This can be removed in Foreman 3.13
+  file { '/var/lib/candlepin/.puppet-candlepin-rpm-version':
+    ensure => absent,
   }
 }
