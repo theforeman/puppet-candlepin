@@ -13,6 +13,7 @@
   Hash[String[1], Candlepin::LogLevel] $loggers,
   Sensitive[String] $oauth_key,
   Sensitive[String] $oauth_secret,
+  Enum['None', 'Report', 'Halt', 'Manage'] $db_manage_on_startup,
 | -%>
 ### File managed with puppet ###
 ## Module: '<%= $module_name %>'
@@ -26,6 +27,8 @@ candlepin.auth.trusted.enable=<%= $enable_trusted_auth %>
 
 candlepin.audit.hornetq.config_path=<%= $broker_config_file %>
 <% if $oauth_key != "" { %>
+
+candlepin.db.database_manage_on_startup=<%= $db_manage_on_startup %>
 
 candlepin.auth.oauth.enable=true
 candlepin.auth.oauth.consumer.<%= $oauth_key %>.secret=<%= $oauth_secret %>

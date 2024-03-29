@@ -76,26 +76,20 @@ class candlepin::database::postgresql (
       default => ''
     }
 
-    cpdb_create { $db_name:
-      ensure      => present,
-      db_host     => $db_host,
-      db_port     => $db_port,
-      db_user     => $db_user,
-      db_password => $db_password,
-      ssl_options => $ssl_options,
-    } ->
-    cpdb_update { $db_name:
-      ensure      => present,
-      db_host     => $db_host,
-      db_port     => $db_port,
-      db_user     => $db_user,
-      db_password => $db_password,
-      ssl_options => $ssl_options,
-    }
+    if $candlepin::db_manage_on_startup != 'Manage' {
+      cpdb_update { $db_name:
+        ensure      => present,
+        db_host     => $db_host,
+        db_port     => $db_port,
+        db_user     => $db_user,
+        db_password => $db_password,
+        ssl_options => $ssl_options,
+      }
 
-    # if both manage_db and init_db enforce order of resources
-    if $manage_db {
-      Postgresql::Server::Db[$db_name] -> Cpdb_create[$db_name]
+      # if both manage_db and init_db enforce order of resources
+      if $manage_db {
+        Postgresql::Server::Db[$db_name] -> Cpdb_update[$db_name]
+      }
     }
   }
 }

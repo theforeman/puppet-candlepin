@@ -35,6 +35,7 @@ describe 'candlepin' do
             'candlepin.ca_cert=/etc/candlepin/certs/candlepin-ca.crt',
             'candlepin.async.jobs.ExpiredPoolsCleanupJob.schedule=0 0 0 * * ?',
             'candlepin.audit.hornetq.config_path=/etc/candlepin/broker.xml',
+            'candlepin.db.database_manage_on_startup=Manage',
           ])
         end
         it { is_expected.to contain_file('/etc/tomcat/tomcat.conf') }
@@ -67,15 +68,7 @@ describe 'candlepin' do
         # database
         it { is_expected.not_to contain_class('candlepin::database::mysql') }
         it { is_expected.to contain_class('candlepin::database::postgresql') }
-        it 'migrates the database' do
-          is_expected.to contain_cpdb_create('candlepin')
-            .that_subscribes_to(['Package[candlepin]', 'Concat[/etc/candlepin/candlepin.conf]'])
-            .that_requires('Postgresql::Server::Db[candlepin]')
-            .that_notifies('Service[tomcat]')
-          is_expected.to contain_cpdb_update('candlepin')
-            .that_subscribes_to(['Package[candlepin]', 'Concat[/etc/candlepin/candlepin.conf]'])
-            .that_notifies('Service[tomcat]')
-        end
+        it { is_expected.not_to contain_cpdb_update('candlepin') }
         it { is_expected.to contain_postgresql__server__db('candlepin') }
         it { is_expected.to contain_postgresql__server__role('candlepin').that_comes_before('Postgresql::Server::Database[candlepin]') }
 
@@ -163,17 +156,11 @@ describe 'candlepin' do
 
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_concat('/etc/candlepin/candlepin.conf') }
+          it { is_expected.not_to contain_cpdb_update('candlepin') }
           it do
             is_expected.to contain_concat_fragment('PostgreSQL Database Configuration').
               with_content(sensitive(/^jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true$/)).
               with_content(sensitive(/^org.quartz.dataSource.myDS.URL=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true$/))
-          end
-
-          it do
-            is_expected.to contain_cpdb_create('candlepin').
-              with_ssl_options("?ssl=true")
-            is_expected.to contain_cpdb_update('candlepin').
-              with_ssl_options("?ssl=true")
           end
         end
 
@@ -182,19 +169,13 @@ describe 'candlepin' do
 
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_concat('/etc/candlepin/candlepin.conf') }
+          it { is_expected.not_to contain_cpdb_update('candlepin') }
           it do
             is_expected.to contain_concat_fragment('PostgreSQL Database Configuration').
               with_content(sensitive(/^jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/)).
               with_content(sensitive(/^org.quartz.dataSource.myDS.URL=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/)).
               with_content(sensitive(/^jpa.config.hibernate.connection.url=.*sslfactory=org.postgresql.ssl.NonValidatingFactory/)).
               with_content(sensitive(/^org.quartz.dataSource.myDS.URL=.*sslfactory=org.postgresql.ssl.NonValidatingFactory/))
-          end
-
-          it do
-            is_expected.to contain_cpdb_create('candlepin').
-              with_ssl_options("?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory")
-            is_expected.to contain_cpdb_update('candlepin').
-              with_ssl_options("?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory")
           end
         end
 
@@ -203,6 +184,7 @@ describe 'candlepin' do
 
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_concat('/etc/candlepin/candlepin.conf') }
+          it { is_expected.not_to contain_cpdb_update('candlepin') }
           it do
             is_expected.to contain_concat_fragment('PostgreSQL Database Configuration').
               with_content(sensitive(/^jpa.config.hibernate.connection.url=jdbc:postgresql:\/\/psql\.example\.com:5432.*ssl=true/)).
@@ -210,12 +192,35 @@ describe 'candlepin' do
               with_content(sensitive(/^jpa.config.hibernate.connection.url=.*sslrootcert=\/etc\/ssl\/postgresql.pem/)).
               with_content(sensitive(/^org.quartz.dataSource.myDS.URL=.*sslrootcert=\/etc\/ssl\/postgresql.pem/))
           end
+        end
 
-          it do
-            is_expected.to contain_cpdb_create('candlepin').
-              with_ssl_options("?ssl=true&sslrootcert=/etc/ssl/postgresql.pem")
-            is_expected.to contain_cpdb_update('candlepin').
-              with_ssl_options("?ssl=true&sslrootcert=/etc/ssl/postgresql.pem")
+        context 'with db_manage_on_startup Halt' do
+          let(:params) { super().merge(db_manage_on_startup: 'Halt') }
+
+          it 'migrates the database' do
+            is_expected.to contain_cpdb_update('candlepin')
+              .that_subscribes_to(['Package[candlepin]', 'Concat[/etc/candlepin/candlepin.conf]'])
+              .that_notifies('Service[tomcat]')
+          end
+        end
+
+        context 'with db_manage_on_startup Report' do
+          let(:params) { super().merge(db_manage_on_startup: 'Report') }
+
+          it 'migrates the database' do
+            is_expected.to contain_cpdb_update('candlepin')
+              .that_subscribes_to(['Package[candlepin]', 'Concat[/etc/candlepin/candlepin.conf]'])
+              .that_notifies('Service[tomcat]')
+          end
+        end
+
+        context 'with db_manage_on_startup None' do
+          let(:params) { super().merge(db_manage_on_startup: 'None') }
+
+          it 'migrates the database' do
+            is_expected.to contain_cpdb_update('candlepin')
+              .that_subscribes_to(['Package[candlepin]', 'Concat[/etc/candlepin/candlepin.conf]'])
+              .that_notifies('Service[tomcat]')
           end
         end
       end

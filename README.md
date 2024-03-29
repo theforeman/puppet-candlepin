@@ -6,7 +6,7 @@ Currently we are not aware of use outside of [puppet-katello](https://github.com
 
 ## Compatibility
 
-* This module is currently developed and tested against Candlepin 4.3.1 and later.
+* This module is currently developed and tested against Candlepin 4.4 and later.
 
 ## Development
 

@@ -17,3 +17,4 @@ jobs:
       pidfile_workaround: 'false'
       rubocop: false
       cache-version: '1'
+      beaker_facter: 'candlepin_baseurl:Candlepin:https://stagingyum.theforeman.org/candlepin/4.4/el9/x86_64/,https://stagingyum.theforeman.org/candlepin/4.4/el8/x86_64/'
