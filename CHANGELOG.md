@@ -1,5 +1,19 @@
 # Changelog
 
+## [16.0.0](https://github.com/theforeman/puppet-candlepin/tree/16.0.0) (2024-05-15)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/15.1.0...16.0.0)
+
+**Breaking changes:**
+
+- Support Candlepin 4.4 [\#259](https://github.com/theforeman/puppet-candlepin/pull/259) ([ehelms](https://github.com/ehelms))
+- Drop cpinit [\#257](https://github.com/theforeman/puppet-candlepin/pull/257) ([ehelms](https://github.com/ehelms))
+
+**Implemented enhancements:**
+
+- Use /etc/tomcat as configuration directory [\#256](https://github.com/theforeman/puppet-candlepin/pull/256) ([ekohl](https://github.com/ekohl))
+- Change templates with Sensitive values from ERB to EPP [\#254](https://github.com/theforeman/puppet-candlepin/pull/254) ([ekohl](https://github.com/ekohl))
+
 ## [15.1.0](https://github.com/theforeman/puppet-candlepin/tree/15.1.0) (2024-02-19)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/15.0.0...15.1.0)
