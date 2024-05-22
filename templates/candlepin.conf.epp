@@ -6,6 +6,7 @@
   Stdlib::Absolutepath $ca_key,
   Optional[Sensitive[String]] $ca_key_password,
   Optional[String] $consumer_system_name_pattern,
+  Optional[String[1]] $facts_match_regex,
   Boolean $enable_basic_auth,
   Boolean $enable_trusted_auth,
   Boolean $env_filtering_enabled,
@@ -50,4 +51,8 @@ candlepin.async.jobs.ExpiredPoolsCleanupJob.schedule=<%= $expired_pools_schedule
 <% $loggers.each |$logger, $log_level| { %>
 log4j.logger.<%= $logger %>=<%= $log_level %>
 <% } %>
+<% } %>
+
+<% if $facts_match_regex { %>
+candlepin.consumer.facts.match_regex=<%= $facts_match_regex %>
 <% } %>

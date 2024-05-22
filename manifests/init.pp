@@ -21,6 +21,10 @@
 # @param db_port
 #   Port the database listens on. Only needs to be provided if different from
 #   standard port of the :db_type.
+
+# @param facts_match_regex
+#   Optional regex to filter consumer facts; if provided, will be added to the
+#   Candlepin configuration file.
 #
 # @param db_ssl
 #   Boolean indicating if the connection to the database should be over an SSL
@@ -183,6 +187,7 @@ class candlepin (
   Enum['postgresql','mysql'] $db_type = 'postgresql',
   Stdlib::Host $db_host = 'localhost',
   Optional[Stdlib::Port] $db_port = undef,
+  Optional[String[1]] $facts_match_regex = undef,
   Boolean $db_ssl = false,
   Boolean $db_ssl_verify = true,
   Optional[Stdlib::Absolutepath] $db_ssl_ca = undef,
