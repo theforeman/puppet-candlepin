@@ -30,6 +30,7 @@ class candlepin::config {
     'oauth_key'                    => $candlepin::_oauth_key,
     'oauth_secret'                 => $candlepin::_oauth_secret,
     'db_manage_on_startup'         => $candlepin::db_manage_on_startup,
+    'facts_match_regex'            => $candlepin::facts_match_regex,
   }
 
   concat::fragment { 'General Config':

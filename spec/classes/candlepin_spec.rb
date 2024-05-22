@@ -416,6 +416,17 @@ describe 'candlepin' do
         it { is_expected.to contain_exec('notification').that_notifies('Service[tomcat]') }
         it { is_expected.to contain_exec('dependency').that_requires('Service[tomcat]') }
       end
+
+      describe 'with facts match regex' do
+        let(:params) { { facts_match_regex: 'test_match_regex' } }
+
+        it { is_expected.to compile.with_all_deps }
+
+        it do
+          is_expected.to contain_concat__fragment('General Config').
+            with_content(sensitive(/^candlepin.consumer.facts.match_regex=test_match_regex$/))
+        end
+      end
     end
   end
 end
