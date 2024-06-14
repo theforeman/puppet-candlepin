@@ -313,14 +313,14 @@ describe 'candlepin' do
 
       describe 'with tls_versions' do
         let :params do
-          {tls_versions: ['1.2', '1.3']}
+          {tls_versions: ['1.3']}
         end
 
         it { is_expected.to compile.with_all_deps }
         it do
           is_expected.to contain_file("/etc/tomcat/server.xml").
-            with_content(/sslProtocol="TLSv1.2,TLSv1.3"/).
-            with_content(/sslEnabledProtocols="TLSv1.2,TLSv1.3"/)
+            with_content(/sslProtocol="TLSv1.3"/).
+            with_content(/sslEnabledProtocols="TLSv1.3"/)
         end
       end
 

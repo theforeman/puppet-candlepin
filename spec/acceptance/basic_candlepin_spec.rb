@@ -14,12 +14,11 @@ describe 'candlepin works' do
   end
 
   describe command('nmap --script +ssl-enum-ciphers localhost -p 8443') do
-    # We don't enable TLSv1.3 by default yet. TLSv1.3 support was added in tomcat 7.0.92
-    # But tomcat 7.0.76 is the latest version available on EL7
-    its(:stdout) { should_not match(/TLSv1\.3/) }
-
     # Test that TLSv1.2 is enabled
     its(:stdout) { should match(/TLSv1\.2/) }
+
+    # Test that TLSv1.3 is enabled
+    its(:stdout) { should match(/TLSv1\.3/) }
 
     # Test that older TLS versions are disabled
     its(:stdout) { should_not match(/TLSv1\.1/) }
