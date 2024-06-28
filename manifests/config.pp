@@ -78,4 +78,34 @@ class candlepin::config {
   file { '/var/lib/candlepin/.puppet-candlepin-rpm-version':
     ensure => absent,
   }
+
+  if $candlepin::use_container {
+    file { $candlepin::tomcat_conf:
+      ensure => directory,
+      mode   => '0755',
+      owner  => 'root',
+      group  => $candlepin::group,
+    }
+
+    file { '/var/lib/candlepin':
+      ensure => directory,
+      mode   => '0755',
+      owner  => 'root',
+      group  => $candlepin::group,
+    }
+
+    file { '/var/log/candlepin':
+      ensure => directory,
+      mode   => '0755',
+      owner  => 'root',
+      group  => $candlepin::group,
+    }
+
+    file { '/var/log/tomcat':
+      ensure => directory,
+      mode   => '0755',
+      owner  => 'root',
+      group  => $candlepin::group,
+    }
+  }
 }
