@@ -174,6 +174,12 @@
 # @param db_manage_on_startup
 #   How to manage database migrations on startup.
 #
+# @param use_container
+#   If true, deploys systemd service using a container.
+#
+# @param container_image
+#   Specifies the container image to use when deploying via container.
+#
 # @example Set debug logging
 #   class { 'candlepin':
 #     loggers => {
@@ -238,6 +244,8 @@ class candlepin (
   String $group = 'tomcat',
   Boolean $disable_fips = true,
   Enum['None', 'Report', 'Halt', 'Manage'] $db_manage_on_startup = 'Manage',
+  Boolean $use_container = false,
+  String[1] $container_image = 'quay.io/ehelms/candlepin:4.4.5-1',
 ) inherits candlepin::params {
   contain candlepin::service
 
