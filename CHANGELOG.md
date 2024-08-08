@@ -1,5 +1,14 @@
 # Changelog
 
+## [16.1.0](https://github.com/theforeman/puppet-candlepin/tree/16.1.0) (2024-08-08)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/16.0.0...16.1.0)
+
+**Implemented enhancements:**
+
+- Add AlmaLinux 8 & 9 support [\#263](https://github.com/theforeman/puppet-candlepin/pull/263) ([archanaserver](https://github.com/archanaserver))
+- Add candlepin.consumer.facts.match\_regex parameter to candlepin class [\#262](https://github.com/theforeman/puppet-candlepin/pull/262) ([archanaserver](https://github.com/archanaserver))
+
 ## [16.0.0](https://github.com/theforeman/puppet-candlepin/tree/16.0.0) (2024-05-15)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/15.1.0...16.0.0)
