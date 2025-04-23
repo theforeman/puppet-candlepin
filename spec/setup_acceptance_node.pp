@@ -1,9 +1,5 @@
 $major = $facts['os']['release']['major']
 
-package { 'glibc-langpack-en':
-  ensure => installed,
-}
-
 class { 'candlepin::repo':
   version => pick(fact('candlepin_version'), 'nightly'),
   baseurl => fact('candlepin_baseurl'),
