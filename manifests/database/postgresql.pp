@@ -51,11 +51,15 @@ class candlepin::database::postgresql (
     }
 
     include postgresql::client, postgresql::server
+
+    stdlib::ensure_packages(['glibc-langpack-en'])
+
     postgresql::server::db { $db_name:
       user     => $db_user,
       password => postgresql::postgresql_password($db_user, $db_password),
       encoding => 'utf8',
       locale   => 'en_US.utf8',
+      require  => Package['glibc-langpack-en'],
     }
   }
 
