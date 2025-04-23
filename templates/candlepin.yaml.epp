@@ -1,0 +1,54 @@
+<%- |
+  String[1] $image,
+| -%>
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: candlepin
+spec:
+  containers:
+  - name: candlepin
+    image: "{{ image }}"
+    volumeMounts:
+    - name: server.xml
+      mountPath: /etc/tomcat/server.xml
+    - name: tomcat.conf
+      mountPath: /etc/tomcat/tomcat.conf
+    - name: logging.properties
+      mountPath: /etc/tomcat/logging.properties
+    - name: login.config
+      mountPath: /etc/tomcat/login.config
+    - name: cert-roles.properties
+      mountPath: /etc/tomcat/cert-roles.properties
+    - name: cert-users.properties
+      mountPath: /etc/tomcat/cert-users.properties
+    - name: jaas.conf
+      mountPath: /etc/tomcat/conf.d/jaas.conf
+    - name: etc-candlepin
+      mountPath: /etc/candlepin
+  volumes:
+  - name: server.xml
+    hostPath:
+     path: /etc/tomcat/server.xml
+  - name: tomcat.conf
+    hostPath:
+     path: /etc/tomcat/tomcat.conf
+  - name: logging.properties
+    hostPath:
+     path: /etc/tomcat/logging.properties
+  - name: login.config
+    hostPath:
+     path: /etc/tomcat/login.config
+  - name: cert-roles.properties
+    hostPath:
+     path: /etc/tomcat/cert-roles.properties
+  - name: cert-users.properties
+    hostPath:
+     path: /etc/tomcat/cert-users.properties
+  - name: jaas.conf
+    hostPath:
+     path: /etc/tomcat/conf.d/jaas.conf
+  - name: etc-candlepin
+    hostPath:
+     path: /etc/candlepin
