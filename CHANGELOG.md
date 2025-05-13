@@ -1,5 +1,17 @@
 # Changelog
 
+## [16.2.0](https://github.com/theforeman/puppet-candlepin/tree/16.2.0) (2025-05-13)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/16.1.0...16.2.0)
+
+**Implemented enhancements:**
+
+- Ensure glibc-langpack-en is always installed [\#268](https://github.com/theforeman/puppet-candlepin/pull/268) ([evgeni](https://github.com/evgeni))
+
+**Fixed bugs:**
+
+- Avoid dependency cycles with glibc-langpack-en [\#269](https://github.com/theforeman/puppet-candlepin/pull/269) ([ekohl](https://github.com/ekohl))
+
 ## [16.1.0](https://github.com/theforeman/puppet-candlepin/tree/16.1.0) (2024-08-08)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/16.0.0...16.1.0)
