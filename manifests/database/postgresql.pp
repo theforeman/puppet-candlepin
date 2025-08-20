@@ -50,7 +50,7 @@ class candlepin::database::postgresql (
       cwd => '/',
     }
 
-    include postgresql::client, postgresql::server
+    include postgresql::client, postgresql::server, postgresql::server::contrib
     include candlepin::database::postgresql::encoding
 
     postgresql::server::db { $db_name:
@@ -59,6 +59,12 @@ class candlepin::database::postgresql (
       encoding => 'utf8',
       locale   => 'en_US.utf8',
       require  => Class['candlepin::database::postgresql::encoding'],
+    }
+
+    postgresql::server::extension { "amcheck for ${db_name}":
+      database  => $db_name,
+      extension => 'amcheck',
+      require   => Class['postgresql::server::contrib'],
     }
   }
 
