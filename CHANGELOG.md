@@ -1,5 +1,13 @@
 # Changelog
 
+## [16.3.0](https://github.com/theforeman/puppet-candlepin/tree/16.3.0) (2025-09-09)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/16.2.0...16.3.0)
+
+**Implemented enhancements:**
+
+- install amcheck extension for PostgreSQL [\#271](https://github.com/theforeman/puppet-candlepin/pull/271) ([evgeni](https://github.com/evgeni))
+
 ## [16.2.0](https://github.com/theforeman/puppet-candlepin/tree/16.2.0) (2025-05-13)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/16.1.0...16.2.0)
