@@ -1,5 +1,19 @@
 # Changelog
 
+## [17.0.0](https://github.com/theforeman/puppet-candlepin/tree/17.0.0) (2025-11-06)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/16.3.0...17.0.0)
+
+**Breaking changes:**
+
+- Drop support for Puppet 7 [\#276](https://github.com/theforeman/puppet-candlepin/pull/276) ([evgeni](https://github.com/evgeni))
+- Refs [\#38813](https://projects.theforeman.org/issues/38813) - Remove owner\_content\_access\_mode.modified event from broker filter [\#274](https://github.com/theforeman/puppet-candlepin/pull/274) ([jeremylenz](https://github.com/jeremylenz))
+- Fixes [\#38813](https://projects.theforeman.org/issues/38813) - Remove SCA-irrelevant event handling from broker filter [\#273](https://github.com/theforeman/puppet-candlepin/pull/273) ([jeremylenz](https://github.com/jeremylenz))
+
+**Implemented enhancements:**
+
+- Add support for OpenVox [\#277](https://github.com/theforeman/puppet-candlepin/pull/277) ([evgeni](https://github.com/evgeni))
+
 ## [16.3.0](https://github.com/theforeman/puppet-candlepin/tree/16.3.0) (2025-09-09)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/16.2.0...16.3.0)
