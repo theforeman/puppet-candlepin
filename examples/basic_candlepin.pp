@@ -58,5 +58,4 @@ class { 'candlepin':
   truststore_password => $truststore_password,
   java_package        => 'java-17-openjdk',
   java_home           => '/usr/lib/jvm/jre-17',
-  artemis_client_dn   => Deferred('pick', ['', 'CN=ActiveMQ Artemis Deferred, OU=Artemis, O=ActiveMQ, L=AMQ, ST=AMQ, C=AMQ']),
 }
