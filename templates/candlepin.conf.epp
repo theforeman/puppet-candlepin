@@ -1,7 +1,6 @@
 <%- |
   String[1] $module_name,
   Optional[String] $adapter_module,
-  Stdlib::Absolutepath $broker_config_file,
   Stdlib::Absolutepath $ca_cert,
   Stdlib::Absolutepath $ca_key,
   Optional[Sensitive[String]] $ca_key_password,
@@ -26,7 +25,6 @@ candlepin.environment_content_filtering=<%= $env_filtering_enabled %>
 candlepin.auth.basic.enable=<%= $enable_basic_auth %>
 candlepin.auth.trusted.enable=<%= $enable_trusted_auth %>
 
-candlepin.audit.hornetq.config_path=<%= $broker_config_file %>
 <% if $oauth_key != "" { %>
 
 candlepin.db.database_manage_on_startup=<%= $db_manage_on_startup %>

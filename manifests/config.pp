@@ -17,7 +17,6 @@ class candlepin::config {
   $candlepin_context = {
     'module_name'                  => $module_name,
     'adapter_module'               => $candlepin::adapter_module,
-    'broker_config_file'           => $candlepin::broker_config_file,
     'ca_cert'                      => $candlepin::ca_cert,
     'ca_key'                       => $candlepin::ca_key,
     'ca_key_password'              => $candlepin::_ca_key_password,

@@ -67,10 +67,10 @@
 #   Keystore type
 #
 # @param truststore_file
-#   Truststore file to use for Tomcat and Artemis
+#   Truststore file to use for Tomcat
 #
 # @param truststore_password
-#   Password for truststore being used with Tomcat and Artemis
+#   Password for truststore being used with Tomcat
 #
 # @param ca_key
 #   CA key file to use
@@ -149,18 +149,6 @@
 # @param expired_pools_schedule
 #   Quartz schedule notation for how often to run the ExpiredPoolsJob
 #
-# @param artemis_port
-#   Port to expose Artemis on
-#
-# @param artemis_host
-#   Host address to have Artemis listen on; defaults to localhost
-#
-# @param artemis_client_dn
-#   Full DN for the client certificate used to talk to Artemis
-#
-# @param broker_config_file
-#   Config file for Artemis
-#
 # @param user
 #   User under which Candlepin will run
 #
@@ -230,10 +218,6 @@ class candlepin (
   Boolean $security_manager = false,
   Optional[Integer[0]] $shutdown_wait = undef,
   String $expired_pools_schedule = '0 0 0 * * ?',
-  Stdlib::Host $artemis_host = 'localhost',
-  Stdlib::Port $artemis_port = 61613,
-  Variant[Deferred, String] $artemis_client_dn = 'CN=ActiveMQ Artemis Client, OU=Artemis, O=ActiveMQ, L=AMQ, ST=AMQ, C=AMQ',
-  Stdlib::Absolutepath $broker_config_file = '/etc/candlepin/broker.xml',
   String $user = 'tomcat',
   String $group = 'tomcat',
   Boolean $disable_fips = true,

@@ -34,7 +34,6 @@ describe 'candlepin' do
             'candlepin.ca_key=/etc/candlepin/certs/candlepin-ca.key',
             'candlepin.ca_cert=/etc/candlepin/certs/candlepin-ca.crt',
             'candlepin.async.jobs.ExpiredPoolsCleanupJob.schedule=0 0 0 * * ?',
-            'candlepin.audit.hornetq.config_path=/etc/candlepin/broker.xml',
             'candlepin.db.database_manage_on_startup=Manage',
           ])
         end
@@ -50,19 +49,6 @@ describe 'candlepin' do
             'JAVA_OPTS="-Xms1024m -Xmx4096m -Dcom.redhat.fips=false"',
             'SECURITY_MANAGER="0"',
           ])
-        end
-
-        it { is_expected.to contain_file('/etc/tomcat/login.config') }
-        it { is_expected.to contain_file('/etc/tomcat/cert-roles.properties') }
-        it { is_expected.to contain_file('/etc/tomcat/conf.d/jaas.conf') }
-        it do
-          is_expected.to contain_file('/etc/tomcat/cert-users.properties').
-            with_content("katelloUser=CN=ActiveMQ Artemis Client, OU=Artemis, O=ActiveMQ, L=AMQ, ST=AMQ, C=AMQ\n")
-        end
-
-        it do
-          is_expected.to contain_file('/etc/candlepin/broker.xml').
-            with_content(/^            <acceptor name="stomp">tcp:\/\/localhost:61613\?protocols=STOMP;useEpoll=false;sslEnabled=true;trustStorePath=\/etc\/candlepin\/certs\/truststore;trustStorePassword=;keyStorePath=\/etc\/candlepin\/certs\/keystore;keyStorePassword=;needClientAuth=true<\/acceptor>/)
         end
 
         # database
@@ -121,11 +107,6 @@ describe 'candlepin' do
         it do
           is_expected.to contain_concat_fragment('General Config').
             with_content(sensitive(/^candlepin.ca_key_password=MY_CA_KEY_PASSWORD$/))
-        end
-        it do
-          is_expected.to contain_file('/etc/candlepin/broker.xml').
-            with_content(sensitive(/;keyStorePassword=MY_KEYSTORE_PASSWORD;/)).
-            with_content(sensitive(/;trustStorePassword=MY_TRUSTSTORE_PASSWORD;/))
         end
         it do
           is_expected.to contain_file('/etc/tomcat/server.xml').
@@ -230,7 +211,6 @@ describe 'candlepin' do
           let(:facts) { override_facts(super(), os: {selinux: {enabled: true}}) }
 
           it { is_expected.to compile.with_all_deps }
-          it { is_expected.to contain_selboolean('candlepin_can_bind_activemq_port').that_requires('Package[candlepin-selinux]') }
 
           if facts[:os]['release']['major'] == '8'
             it { is_expected.to contain_package('candlepin-selinux').that_requires('Package[pki-core]') }
@@ -241,7 +221,6 @@ describe 'candlepin' do
           let(:facts) { override_facts(super(), os: {selinux: {enabled: false}}) }
 
           it { is_expected.to compile.with_all_deps }
-          it { is_expected.not_to contain_selboolean('candlepin_can_bind_activemq_port') }
           it { is_expected.not_to contain_package('candlepin-selinux') }
         end
       end
