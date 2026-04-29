@@ -1,5 +1,13 @@
 # Changelog
 
+## [18.0.0](https://github.com/theforeman/puppet-candlepin/tree/18.0.0) (2026-04-29)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/17.0.0...18.0.0)
+
+**Breaking changes:**
+
+- Remove configs related to katello -\> artemis connection [\#278](https://github.com/theforeman/puppet-candlepin/pull/278) ([jturel](https://github.com/jturel))
+
 ## [17.0.0](https://github.com/theforeman/puppet-candlepin/tree/17.0.0) (2025-11-06)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/16.3.0...17.0.0)
