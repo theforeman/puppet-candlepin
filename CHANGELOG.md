@@ -1,5 +1,13 @@
 # Changelog
 
+## [18.1.0](https://github.com/theforeman/puppet-candlepin/tree/18.1.0) (2026-05-11)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/18.0.0...18.1.0)
+
+**Implemented enhancements:**
+
+- puppet/extlib: Allow 8.x [\#280](https://github.com/theforeman/puppet-candlepin/pull/280) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [18.0.0](https://github.com/theforeman/puppet-candlepin/tree/18.0.0) (2026-04-29)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/17.0.0...18.0.0)
