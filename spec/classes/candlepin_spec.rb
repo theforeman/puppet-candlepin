@@ -16,10 +16,6 @@ describe 'candlepin' do
         it { is_expected.to contain_class('candlepin::install') }
         it { is_expected.to contain_package('candlepin').with_ensure('present') }
 
-        if facts[:os]['release']['major'] == '8'
-          it { is_expected.to contain_package('pki-core').that_comes_before('Package[candlepin]') }
-        end
-
         # config
         it { is_expected.to contain_class('candlepin::config') }
         it { is_expected.to contain_user('tomcat').with_ensure('present').with_groups([]) }
@@ -212,9 +208,6 @@ describe 'candlepin' do
 
           it { is_expected.to compile.with_all_deps }
 
-          if facts[:os]['release']['major'] == '8'
-            it { is_expected.to contain_package('candlepin-selinux').that_requires('Package[pki-core]') }
-          end
         end
 
         describe 'off' do
@@ -306,16 +299,16 @@ describe 'candlepin' do
       describe 'with java params' do
         let :params do
           {
-            java_package: 'java-17-openjdk',
-            java_home: '/usr/lib/jvm/jre-17'
+            java_package: 'java-25-openjdk',
+            java_home: '/usr/lib/jvm/jre-25'
           }
         end
 
-        it { is_expected.to contain_package('java-17-openjdk').that_comes_before('Service[tomcat]') }
+        it { is_expected.to contain_package('java-25-openjdk').that_comes_before('Service[tomcat]') }
 
         it do
           is_expected.to contain_file("/etc/tomcat/tomcat.conf").
-            with_content(/JAVA_HOME="\/usr\/lib\/jvm\/jre-17"/)
+            with_content(/JAVA_HOME="\/usr\/lib\/jvm\/jre-25"/)
         end
       end
 
