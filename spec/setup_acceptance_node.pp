@@ -1,19 +1,6 @@
-$major = $facts['os']['release']['major']
-
 class { 'candlepin::repo':
   version => pick(fact('candlepin_version'), 'nightly'),
   baseurl => fact('candlepin_baseurl'),
-}
-
-if $facts['os']['selinux']['enabled'] {
-  # Workaround for https://github.com/theforeman/puppet-candlepin/issues/188
-  package { 'pki-core':
-    # enable_only is required as workaround for https://tickets.puppetlabs.com/browse/PUP-11024
-    enable_only => true,
-    ensure      => present,
-    provider    => 'dnfmodule',
-    before      => Package['candlepin-selinux'],
-  }
 }
 
 # Needed as a workaround for idempotency
