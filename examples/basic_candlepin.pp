@@ -56,6 +56,6 @@ class { 'candlepin':
   keystore_password   => $keystore_password,
   truststore_file     => $truststore,
   truststore_password => $truststore_password,
-  java_package        => 'java-17-openjdk',
-  java_home           => '/usr/lib/jvm/jre-17',
+  java_package        => 'java-25-openjdk',
+  java_home           => '/usr/lib/jvm/jre-25',
 }
