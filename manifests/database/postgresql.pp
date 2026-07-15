@@ -58,6 +58,7 @@ class candlepin::database::postgresql (
       password => postgresql::postgresql_password($db_user, $db_password),
       encoding => 'utf8',
       locale   => 'en_US.utf8',
+      owner    => $db_user,
       require  => Class['candlepin::database::postgresql::encoding'],
     }
 
