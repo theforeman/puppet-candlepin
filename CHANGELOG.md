@@ -1,5 +1,21 @@
 # Changelog
 
+## [19.0.0](https://github.com/theforeman/puppet-candlepin/tree/19.0.0) (2026-07-28)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/18.1.0...19.0.0)
+
+**Breaking changes:**
+
+- Drop EL8 support and update to Java 25 [\#283](https://github.com/theforeman/puppet-candlepin/pull/283) ([zjhuntin](https://github.com/zjhuntin))
+
+**Implemented enhancements:**
+
+- puppetlabs/concat: Allow 10.x [\#282](https://github.com/theforeman/puppet-candlepin/pull/282) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- Set database owner to fix PG 15+ schema permissions [\#284](https://github.com/theforeman/puppet-candlepin/pull/284) ([zjhuntin](https://github.com/zjhuntin))
+
 ## [18.1.0](https://github.com/theforeman/puppet-candlepin/tree/18.1.0) (2026-05-11)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/18.0.0...18.1.0)
@@ -8,7 +24,7 @@
 
 - puppet/extlib: Allow 8.x [\#280](https://github.com/theforeman/puppet-candlepin/pull/280) ([bastelfreak](https://github.com/bastelfreak))
 
-## [18.0.0](https://github.com/theforeman/puppet-candlepin/tree/18.0.0) (2026-04-29)
+## [18.0.0](https://github.com/theforeman/puppet-candlepin/tree/18.0.0) (2026-04-30)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/17.0.0...18.0.0)
 
