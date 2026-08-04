@@ -42,7 +42,7 @@ describe 'candlepin' do
             'JAVA_HOME="/usr/lib/jvm/jre"',
             'CATALINA_HOME="/usr/share/tomcat"',
             'CATALINA_TMPDIR="/var/cache/tomcat/temp"',
-            'JAVA_OPTS="-Xms1024m -Xmx4096m -Dcom.redhat.fips=false"',
+            'JAVA_OPTS="-Xms1024m -Xmx4096m -Dcom.redhat.fips=false --enable-native-access=ALL-UNNAMED"',
             'SECURITY_MANAGER="0"',
           ])
         end
@@ -87,8 +87,6 @@ describe 'candlepin' do
           {
             db_type: 'postgresql',
             db_password: sensitive('MY_DB_PASSWORD'),
-            keystore_password: sensitive('MY_KEYSTORE_PASSWORD'),
-            truststore_password: sensitive('MY_TRUSTSTORE_PASSWORD'),
             ca_key_password: sensitive('MY_CA_KEY_PASSWORD')
           }
         end
@@ -103,10 +101,6 @@ describe 'candlepin' do
         it do
           is_expected.to contain_concat_fragment('General Config').
             with_content(sensitive(/^candlepin.ca_key_password=MY_CA_KEY_PASSWORD$/))
-        end
-        it do
-          is_expected.to contain_file('/etc/tomcat/server.xml').
-            with_content(sensitive(/^ *keystorePass="MY_KEYSTORE_PASSWORD"$/))
         end
       end
 
@@ -278,7 +272,7 @@ describe 'candlepin' do
           is_expected.to contain_file("/etc/tomcat/server.xml").
             with_content(/^    <Connector port="9070"/).
             with_content(/^               address="localhost"/).
-            with_content(/^               protocol="HTTP\/1.1"/).
+            with_content(/^               protocol="org.apache.coyote.http11.Http11NioProtocol"/).
             with_content(/^               SSLEnabled="true"/)
         end
       end
@@ -291,8 +285,7 @@ describe 'candlepin' do
         it { is_expected.to compile.with_all_deps }
         it do
           is_expected.to contain_file("/etc/tomcat/server.xml").
-            with_content(/sslProtocol="TLSv1.2,TLSv1.3"/).
-            with_content(/sslEnabledProtocols="TLSv1.2,TLSv1.3"/)
+            with_content(/protocols="TLSv1.2,TLSv1.3"/)
         end
       end
 

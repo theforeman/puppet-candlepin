@@ -44,16 +44,14 @@ class candlepin::config {
   }
 
   $server_context = {
-    'module_name'         => $module_name,
-    'host'                => $candlepin::host,
-    'ssl_port'            => $candlepin::ssl_port,
-    'ciphers'             => $candlepin::ciphers,
-    'tls_versions'        => $candlepin::tls_versions,
-    'keystore_file'       => $candlepin::keystore_file,
-    'keystore_password'   => $candlepin::_keystore_password,
-    'keystore_type'       => $candlepin::keystore_type,
-    'truststore_file'     => $candlepin::truststore_file,
-    'truststore_password' => $candlepin::_truststore_password,
+    'module_name'          => $module_name,
+    'host'                 => $candlepin::host,
+    'ssl_port'             => $candlepin::ssl_port,
+    'ciphers'              => $candlepin::ciphers,
+    'tls_versions'         => $candlepin::tls_versions,
+    'certificate_file'     => $candlepin::certificate_file,
+    'certificate_key_file' => $candlepin::certificate_key_file,
+    'ca_cert'              => $candlepin::ca_cert,
   }
 
   file { "${candlepin::tomcat_conf}/server.xml":

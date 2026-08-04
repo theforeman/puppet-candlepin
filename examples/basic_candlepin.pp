@@ -3,12 +3,10 @@
 #
 
 $keydir = '/etc/candlepin/certs'
-$keystore = "${keydir}/keystore"
-$keystore_password = 'secret'
-$truststore = "${keydir}/truststore"
-$truststore_password = 'secret'
 $ca_key = "${keydir}/candlepin-ca.key"
 $ca_cert = "${keydir}/candlepin-ca.crt"
+$certificate_file = "${keydir}/tomcat.crt"
+$certificate_key_file = "${keydir}/tomcat.key"
 
 exec { "/bin/mkdir -p ${keydir}":
   creates => $keydir,
@@ -23,15 +21,15 @@ exec { 'Create CA certficate':
   creates => $ca_cert,
   notify  => Service['tomcat'],
 } ->
-exec { 'Create keystore':
-  command => "/usr/bin/openssl pkcs12 -export -in '${ca_cert}' -inkey '${ca_key}' -out '${keystore}' -name tomcat -CAfile '${ca_cert}' -caname root -password 'pass:${keystore_password}'",
-  creates => $keystore,
+exec { 'Create server key':
+  command => "/usr/bin/openssl genrsa -out '${certificate_key_file}' 2048",
+  creates => $certificate_key_file,
   notify  => Service['tomcat'],
 } ->
-package { ['java']: } ->
-exec { 'Create truststore':
-  command => "/usr/bin/keytool -import -v -keystore ${truststore} -alias candlepin-ca -file ${ca_cert} -noprompt -storepass ${truststore_password} -storetype pkcs12",
-  creates => $truststore,
+exec { 'Create server certificate':
+  command => "/usr/bin/openssl req -new -key '${certificate_key_file}' -out '${keydir}/tomcat.csr' -subj '/C=US/ST=North Carolina/L=Raleigh/O=Candlepin/CN=${facts['networking']['fqdn']}' && /usr/bin/openssl x509 -req -in '${keydir}/tomcat.csr' -CA '${ca_cert}' -CAkey '${ca_key}' -CAcreateserial -out '${certificate_file}' -days 3650",
+  creates => $certificate_file,
+  notify  => Service['tomcat'],
 } ->
 file { $ca_key:
   mode  => '0440',
@@ -41,21 +39,19 @@ file { $ca_cert:
   mode  => '0440',
   group => 'tomcat',
 } ->
-file { $keystore:
+file { $certificate_file:
   mode  => '0440',
   group => 'tomcat',
 } ->
-file { $truststore:
+file { $certificate_key_file:
   mode  => '0440',
   group => 'tomcat',
 } ->
 class { 'candlepin':
-  ca_key              => $ca_key,
-  ca_cert             => $ca_cert,
-  keystore_file       => $keystore,
-  keystore_password   => $keystore_password,
-  truststore_file     => $truststore,
-  truststore_password => $truststore_password,
-  java_package        => 'java-25-openjdk',
-  java_home           => '/usr/lib/jvm/jre-25',
+  ca_key               => $ca_key,
+  ca_cert              => $ca_cert,
+  certificate_file     => $certificate_file,
+  certificate_key_file => $certificate_key_file,
+  java_package         => 'java-25-openjdk',
+  java_home            => '/usr/lib/jvm/jre-25',
 }
