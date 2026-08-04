@@ -88,16 +88,18 @@
                address="<%= $host %>"
                protocol="HTTP/1.1"
                SSLEnabled="true"
-               maxThreads="150" scheme="https" secure="true"
-               clientAuth="want"
-               sslProtocol="<%= $tls_versions.map |$version| { "TLSv${version}" }.join(",") %>"
-               sslEnabledProtocols="<%= $tls_versions.map |$version| { "TLSv${version}" }.join(",") %>"
-               keystoreFile="<%= $keystore_file %>"
-               keystorePass="<%= $keystore_password %>"
-               keystoreType="<%= $keystore_type %>"
-               truststoreFile="<%= $truststore_file %>"
-               truststorePass="<%= $truststore_password %>"
-               ciphers="<%= $ciphers.join(",\n                    ") %>" />
+               maxThreads="150" scheme="https" secure="true">
+      <SSLHostConfig certificateVerification="optional"
+                     protocols="<%= $tls_versions.map |$version| { "TLSv${version}" }.join(",") %>"
+                     truststoreFile="<%= $truststore_file %>"
+                     truststorePassword="<%= $truststore_password %>"
+                     truststoreType="<%= $keystore_type %>"
+                     ciphers="<%= $ciphers.join(",\n                    ") %>">
+        <Certificate certificateKeystoreFile="<%= $keystore_file %>"
+                     certificateKeystorePassword="<%= $keystore_password %>"
+                     certificateKeystoreType="<%= $keystore_type %>" />
+      </SSLHostConfig>
+    </Connector>
 
     <!-- An Engine represents the entry point (within Catalina) that processes
          every request.  The Engine implementation for Tomcat stand alone
