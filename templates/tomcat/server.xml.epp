@@ -4,11 +4,9 @@
   Stdlib::Port $ssl_port,
   Array[String] $ciphers,
   Array[String] $tls_versions,
-  Stdlib::Absolutepath $keystore_file,
-  Optional[Sensitive[String]] $keystore_password,
-  String $keystore_type,
-  Stdlib::Absolutepath $truststore_file,
-  Optional[Sensitive[String]] $truststore_password,
+  Stdlib::Absolutepath $certificate_file,
+  Stdlib::Absolutepath $certificate_key_file,
+  Stdlib::Absolutepath $ca_cert,
 | -%>
 <?xml version='1.0' encoding='utf-8'?>
 <!--
@@ -37,8 +35,8 @@
  -->
 <Server port="8005" shutdown="SHUTDOWN">
 
-  <!--APR library loader. Documentation at /docs/apr.html -->
-  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+  <!-- OpenSSL FFM library loader. Documentation at /docs/openssl-support.html -->
+  <Listener className="org.apache.catalina.core.OpenSSLLifecycleListener" />
   <!-- Prevent memory leaks due to use of particular java/javax APIs-->
   <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
   <!-- JMX Support for the Tomcat server. Documentation at /docs/non-existent.html -->
@@ -76,28 +74,24 @@
          and responses are returned. Documentation at :
          Java HTTP Connector: /docs/config/http.html (blocking & non-blocking)
          Java AJP  Connector: /docs/config/ajp.html
-         APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL HTTP/1.1 Connector on port 8080
     -->
     <!-- Define a SSL HTTP/1.1 Connector on port <%= $ssl_port %>
-         This connector uses the JSSE configuration, when using APR, the
-         connector should be using the OpenSSL style configuration
-         described in the APR documentation -->
+         This connector uses the OpenSSL FFM implementation -->
 
     <Connector port="<%= $ssl_port %>"
                address="<%= $host %>"
-               protocol="HTTP/1.1"
+               protocol="org.apache.coyote.http11.Http11NioProtocol"
                SSLEnabled="true"
-               maxThreads="150" scheme="https" secure="true"
-               clientAuth="want"
-               sslProtocol="<%= $tls_versions.map |$version| { "TLSv${version}" }.join(",") %>"
-               sslEnabledProtocols="<%= $tls_versions.map |$version| { "TLSv${version}" }.join(",") %>"
-               keystoreFile="<%= $keystore_file %>"
-               keystorePass="<%= $keystore_password %>"
-               keystoreType="<%= $keystore_type %>"
-               truststoreFile="<%= $truststore_file %>"
-               truststorePass="<%= $truststore_password %>"
-               ciphers="<%= $ciphers.join(",\n                    ") %>" />
+               maxThreads="150" scheme="https" secure="true">
+        <SSLHostConfig certificateVerification="optional"
+                       protocols="<%= $tls_versions.map |$version| { "TLSv${version}" }.join(",") %>"
+                       caCertificateFile="<%= $ca_cert %>"
+                       ciphers="<%= $ciphers.join(":") %>">
+            <Certificate certificateFile="<%= $certificate_file %>"
+                         certificateKeyFile="<%= $certificate_key_file %>" />
+        </SSLHostConfig>
+    </Connector>
 
     <!-- An Engine represents the entry point (within Catalina) that processes
          every request.  The Engine implementation for Tomcat stand alone

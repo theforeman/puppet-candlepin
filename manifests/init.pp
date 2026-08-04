@@ -57,20 +57,11 @@
 # @param env_filtering_enabled
 #   If subscription filtering is done on a per environment basis
 #
-# @param keystore_file
-#   Tomcat keystore file to use
+# @param certificate_file
+#   PEM certificate file for Tomcat HTTPS connector
 #
-# @param keystore_password
-#   Password for keystore being used with Tomcat
-#
-# @param keystore_type
-#   Keystore type
-#
-# @param truststore_file
-#   Truststore file to use for Tomcat
-#
-# @param truststore_password
-#   Password for truststore being used with Tomcat
+# @param certificate_key_file
+#   PEM private key file for Tomcat HTTPS connector
 #
 # @param ca_key
 #   CA key file to use
@@ -188,11 +179,8 @@ class candlepin (
   Variant[Sensitive[String], String] $oauth_key = 'candlepin',
   Variant[Sensitive[String], String] $oauth_secret = 'candlepin',
   Boolean $env_filtering_enabled = true,
-  Stdlib::Absolutepath $keystore_file = '/etc/candlepin/certs/keystore',
-  Optional[Variant[Sensitive[String], String]] $keystore_password = undef,
-  String $keystore_type = 'PKCS12',
-  Stdlib::Absolutepath $truststore_file = '/etc/candlepin/certs/truststore',
-  Optional[Variant[Sensitive[String], String]] $truststore_password = undef,
+  Stdlib::Absolutepath $certificate_file = '/etc/candlepin/certs/tomcat.crt',
+  Stdlib::Absolutepath $certificate_key_file = '/etc/candlepin/certs/tomcat.key',
   Stdlib::Absolutepath $ca_key = '/etc/candlepin/certs/candlepin-ca.key',
   Stdlib::Absolutepath $ca_cert = '/etc/candlepin/certs/candlepin-ca.crt',
   Optional[Variant[Sensitive[String], String]] $ca_key_password = undef,
@@ -229,8 +217,6 @@ class candlepin (
   $_oauth_key = if $oauth_key =~ String { Sensitive($oauth_key) } else { $oauth_key }
   $_oauth_secret = if $oauth_secret =~ String { Sensitive($oauth_secret) } else { $oauth_secret }
   $_db_password = if $db_password =~ String { Sensitive($db_password) } else { $db_password }
-  $_keystore_password = if $keystore_password =~ String { Sensitive($keystore_password) } else { $keystore_password }
-  $_truststore_password = if $truststore_password =~ String { Sensitive($truststore_password) } else { $truststore_password }
 
   Anchor <| title == 'candlepin::repo' |> ->
   class { 'candlepin::install': } ~>
