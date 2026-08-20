@@ -16,7 +16,7 @@
 # @param baseurl
 #   An optional base URL to be used for yumrepo, instead of the default
 class candlepin::repo (
-  Variant[Undef, Enum['nightly'], Pattern['^\d+\.\d+$']] $version = undef,
+  Optional[Variant[Enum['nightly'], Pattern['^\d+\.\d+$']]] $version = undef,
   String $dist = "el${facts['os']['release']['major']}",
   Boolean $gpgcheck = false,
   Optional[String] $gpgkey = undef,
