@@ -1,5 +1,5 @@
 class { 'candlepin::repo':
-  version => pick(fact('candlepin_version'), 'nightly'),
+  version => pick(fact('candlepin_version'), if $facts['os']['release']['major'] == '10' { '5.0' } else { '4.8' }),
   baseurl => fact('candlepin_baseurl'),
 }
 
