@@ -1,6 +1,43 @@
 require 'spec_helper_acceptance'
 
-describe 'candlepin works' do
+def supported_combination
+  if fact('os.release.major').to_i == 10
+    if fact('candlepin_version') == '5.0'
+      true
+    else
+      false
+    end
+  else
+    if fact('candlepin_version') != '5.0'
+      false
+    else
+      true
+    end
+  end
+end
+
+describe 'creates candlepin repo', if: supported_combination do
+    it_behaves_like 'an idempotent resource' do
+    let(:manifest) do
+      <<-PUPPET
+        class { 'candlepin::repo':
+          version => pick(fact('candlepin_version'), 'nightly'),
+          baseurl => fact('candlepin_baseurl'),
+        }
+
+        # Needed as a workaround for idempotency
+        if $facts['os']['selinux']['enabled'] {
+          package { 'candlepin-selinux':
+            ensure  => installed,
+            require => Yumrepo['candlepin'],
+          }
+        }
+      PUPPET
+    end
+  end
+end
+
+describe 'candlepin works', if: supported_combination do
   include_examples 'the example', 'basic_candlepin.pp'
 
   describe port(8443) do
