@@ -1,5 +1,17 @@
 # Changelog
 
+## [20.0.0](https://github.com/theforeman/puppet-candlepin/tree/20.0.0) (2026-11-09)
+
+[Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/19.0.0...20.0.0)
+
+**Breaking changes:**
+
+- Use OpenSSL FFM [\#286](https://github.com/theforeman/puppet-candlepin/pull/286) ([evgeni](https://github.com/evgeni))
+
+**Implemented enhancements:**
+
+- Add EL 10 support [\#288](https://github.com/theforeman/puppet-candlepin/pull/288) ([ekohl](https://github.com/ekohl))
+
 ## [19.0.0](https://github.com/theforeman/puppet-candlepin/tree/19.0.0) (2026-07-28)
 
 [Full Changelog](https://github.com/theforeman/puppet-candlepin/compare/18.1.0...19.0.0)
